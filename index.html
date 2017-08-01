@@ -5,9 +5,9 @@
 
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta class='deco-none' name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+	<meta class='deco-none' name="description" content="">
+	<meta class='deco-none' name="author" content="">
 
 	<title>Primer3 Web UI</title>
 
@@ -44,7 +44,7 @@
 						<div class="col-lg-12">
 							 <h1>Primer3 Web UI</h1>
 							 <!-- Toggle Menu<br> -->
-							 <a name='SI'><h3>Sequence Information</h3></a>
+							 <h3><a class='deco-none' name='SI'>Sequence Information</a></h3>
 							 <p>
 									Task for primer selection
 									<select class="selectpicker" name="PRIMER_TASK">
@@ -79,42 +79,42 @@
 										 <tr>
 												<td>Sequence Id</td>
 												<td><input name="SEQUENCE_ID" type="text" value="" /></td>
-												<td style="padding-left: 10px;">A string to identify your output.</td>
+												<td>A string to identify your output.</td>
 										 </tr>
 										 <tr>
 												<td>Targets</td>
 												<td><input name="SEQUENCE_TARGET" type="text" value="" /></td>
-												<td style="padding-left: 10px;">E.g. 50,2 requires primers to surround the 2 bases at positions 50 and 51. Or mark the source sequence with [ and ]: e.g. ...ATCT[CCCC]TCAT.. means that primers must flank the central CCCC.</td>
+												<td>E.g. 50,2 requires primers to surround the 2 bases at positions 50 and 51. Or mark the source sequence with [ and ]: e.g. ...ATCT[CCCC]TCAT.. means that primers must flank the central CCCC.</td>
 										 </tr>
 										 <tr>
 												<td>Overlap Junction List</td>
 												<td><input name="SEQUENCE_OVERLAP_JUNCTION_LIST" type="text" value="" /></td>
-												<td style="padding-left: 10px;">E.g. 27 requires one primer to overlap the junction between positions 27 and 28. Or mark the source sequence with -: e.g. ...ATCTAC-TGTCAT.. means that primers must overlap the junction between the C and T.</td>
+												<td>E.g. 27 requires one primer to overlap the junction between positions 27 and 28. Or mark the source sequence with -: e.g. ...ATCTAC-TGTCAT.. means that primers must overlap the junction between the C and T.</td>
 										 </tr>
 										 <tr>
 												<td>Excluded Regions</td>
 												<td><input name="SEQUENCE_EXCLUDED_REGION" type="text" value="" /></td>
-												<td style="padding-left: 10px;">E.g. 401,7 68,3 forbids selection of primers in the 7 bases starting at 401 and the 3 bases at 68. Or mark the source sequence with &lt; and &gt;: e.g. ...ATCT&lt;CCCC&gt;TCAT.. forbids primers in the central CCCC.</td>
+												<td>E.g. 401,7 68,3 forbids selection of primers in the 7 bases starting at 401 and the 3 bases at 68. Or mark the source sequence with &lt; and &gt;: e.g. ...ATCT&lt;CCCC&gt;TCAT.. forbids primers in the central CCCC.</td>
 										 </tr>
 										 <tr>
 												<td style="padding-right: 10px;">Pair OK Region List</td>
 												<td><input name="SEQUENCE_PRIMER_PAIR_OK_REGION_LIST" type="text" value="" /></td>
-												<td style="padding-left: 10px;">Possible locations of left and right primers in primer pairs.</td>
+												<td>Possible locations of left and right primers in primer pairs.</td>
 										 </tr>
 										 <tr>
 												<td>Included Region</td>
 												<td><input name="SEQUENCE_INCLUDED_REGION" type="text" value="" /></td>
-												<td style="padding-left: 10px;">E.g. 20,400: only pick primers in the 400 base region starting at position 20. Or use { and } in the source sequence to mark the beginning and end of the included region: e.g. in ATC{TTC...TCT}AT the included region is TTC...TCT.</td>
+												<td>E.g. 20,400: only pick primers in the 400 base region starting at position 20. Or use { and } in the source sequence to mark the beginning and end of the included region: e.g. in ATC{TTC...TCT}AT the included region is TTC...TCT.</td>
 										 </tr>
 										 <tr>
 												<td>Start Codon Position</td>
 												<td><input name="SEQUENCE_START_CODON_POSITION" type="text" value="" /></td>
-												<td style="padding-left: 10px;">Index of the first base of a start codon.</td>
+												<td>Index of the first base of a start codon.</td>
 										 </tr>
 										 <tr>
 												<td>Internal Oligo Excluded Region</td>
 												<td><input name="SEQUENCE_INTERNAL_EXCLUDED_REGION" type="text" value="" /></td>
-												<td style="padding-left: 10px;">The sequence of an internal oligo to check and around which to design left and right primers.</td>
+												<td>The sequence of an internal oligo to check and around which to design left and right primers.</td>
 										 </tr>
 									</tbody>
 							 </table>
@@ -150,7 +150,7 @@
 										 </tr>
 									</tbody>
 							 </table>
-							 <a name='GPPC'><h3>General Primer Picking Conditions</h3></a>
+							 <a class='deco-none' name='GPPC'><h3>General Primer Picking Conditions</h3></a>
 							 <table border="0">
 									<!-- tbody -->
 									<tbody>
@@ -192,7 +192,7 @@
 							 <table border="0">
 									<tbody>
 										 <tr>
-												<td>Product Size Ranges <input name="PRIMER_PRODUCT_SIZE_RANGE" size="80" type="text" value="150-250 100-300 301-400 401-500 501-600 601-700 701-850 851-1000" /></td>
+												<td>Product Size Ranges <input name="PRIMER_PRODUCT_SIZE_RANGE" size="80" type="text" value="150,250; 100,300; 301,400; 401,500; 501,600; 601,700;" /></td>
 										 </tr>
 										 <!--
 												<tr>
@@ -356,7 +356,7 @@
 										 </tr>
 									</tbody>
 							 </table>
-							 <a name='OFPWFP'><h3>Objective Function Penalty Weights for Primers</h3></a>
+							 <a class='deco-none' name='OFPWFP'><h3>Objective Function Penalty Weights for Primers</h3></a>
 							 <table border="0">
 									<!-- tbody -->
 									<tbody>
@@ -469,7 +469,7 @@
 										 <!-- /tbody -->
 									</tbody>
 							 </table>
-							 <a name='OFPWFPP'><h3>Objective Function Penalty Weights for Primer Pairs</h3></a>
+							 <a class='deco-none' name='OFPWFPP'><h3>Objective Function Penalty Weights for Primer Pairs</h3></a>
 							 <table border="0">
 									<!-- tbody -->
 									<tbody>
@@ -562,7 +562,7 @@
 										 </tr>
 									</tbody>
 							 </table>
-							 <a name='IOGC'><h3>Internal Oligo (Hyb Oligo) General Conditions</h3></a>
+							 <a class='deco-none' name='IOGC'><h3>Internal Oligo (Hyb Oligo) General Conditions</h3></a>
 							 <table border="0">
 									<!-- tbody -->
 									<tbody>
@@ -683,7 +683,7 @@
 										 </tr>
 									</tbody>
 							 </table>
-							 <a name='OFPWFIO'><h3>Objective Function Penalty Weights for Internal Oligos (Hyb Oligos)</h3></a>
+							 <a class='deco-none' name='OFPWFIO'><h3>Objective Function Penalty Weights for Internal Oligos (Hyb Oligos)</h3></a>
 							 <table border="0">
 									<!-- tbody -->
 									<tbody>

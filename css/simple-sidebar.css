@@ -127,3 +127,13 @@
         margin-right: 0;
     }
 }
+
+td {
+    padding-right: 10px;
+}
+
+a.deco-none {
+    color: inherit;
+    text-decoration:none;
+}
+
