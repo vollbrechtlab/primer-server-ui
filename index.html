@@ -1,107 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta class='deco-none' name="description" content="">
-<meta class='deco-none' name="author" content="">
-
-<title>Primer3 Web UI</title>
-
-<!-- Bootstrap Core CSS -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="css/style.css" rel="stylesheet">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/css/bootstrap-select.min.css">
-
-</head>
-
-
-<body>
-
-<div class="basic_wrapper">
-
-	<h1>Primer Server (v1.0)</h1>
-
-	<br>
-
-	<!-- sequence input -->
-	<div class="form-group">
-	  <textarea class="form-control" rows="5" id="input_sequence" placeholder="Enter Input Sequence"></textarea>
-	</div>
-
-	<!-- Basic and Advanced settings tabs -->
-	<div id="exTab2" class="container">	
-		<!-- Nav tabs -->
-		<ul class="nav nav-tabs nav-justified">
-			<li class="active">
-        <a  href="#1" data-toggle="tab">Basic</a>
-			</li>
-			<li>
-				<a href="#2" data-toggle="tab">Advanced</a>
-			</li>
-		</ul>
-		<!-- Tab panels -->
-		<div class="tab-content ">
-			<!--Basic Settings Panel-->
-		  <div class="tab-pane active" id="1">
-		  	<div class="pick_primer_selection">
-	    		<div class="question">
-				    <label for="PRIMER_PICK_LEFT_PRIMER">Pick Left Primer</label>
-				    <input class="pick_left_primer_check" type="checkbox" name="PRIMER_PICK_LEFT_PRIMER" id="PRIMER_PICK_LEFT_PRIMER" checked>
-				  </div>
-				  <div class="answer_pick_left_primer_check" hidden>
-				    <input type="text" name="SEQUENCE_PRIMER" placeholder="use this left primer">
-				  </div>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta class='deco-none' name="description" content="">
+		<meta class='deco-none' name="author" content="">
+		<title>Primer3 Web UI</title>
+		<!-- Bootstrap Core CSS -->
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Custom CSS -->
+		<link href="css/style.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/css/bootstrap-select.min.css">
+	</head>
+	<body>
+		<div class="basic_wrapper">
+			<h1>Primer Server (v1.0)</h1>
+			<br>
+			<!-- sequence input -->
+			<div class="block">
+				<div class="form-group">
+					<textarea class="form-control" rows="5" id="input_sequence" placeholder="Enter Input Sequence" autofocus></textarea>
 				</div>
-				<div class="pick_primer_selection">
-				  <div class="question">
-				    <label for="PRIMER_PICK_INTERNAL_OLIGO">Pick Internal Oligo</label>
-				    <input class="pick_internal_oligo_check" type="checkbox" name="PRIMER_PICK_INTERNAL_OLIGO" id="PRIMER_PICK_INTERNAL_OLIGO" checked>
-				  </div>
-				  <div class="answer_pick_internal_oligo_check" hidden>
-				    <input type="text" name="SEQUENCE_INTERNAL_OLIGO" placeholder="use this internal oligo">
-				  </div>
-				</div>
-				<div class="pick_primer_selection">
-				  <div class="question">
-				    <label for="PRIMER_PICK_RIGHT_PRIMER">Pick Right Primer</label>
-				    <input class="pick_right_primer_check" type="checkbox" name="PRIMER_PICK_RIGHT_PRIMER" id="PRIMER_PICK_RIGHT_PRIMER" checked>
-				  </div>
-				  <div class="answer_pick_right_primer_check" hidden>
-				    <input type="text" name="SEQUENCE_PRIMER_REVCOMP" placeholder="use this right primer">
-				  </div>
-				</div>
-				<label>WTF</label>
-				
 			</div>
-			<!--Advanced Settings Panel-->
-			<div class="tab-pane"  id="2">
-        <h3>Advanced maybe</h3>
+			
+			<!-- Settings -->
+			<div class="block">
+				<!-- Basic and Advanced settings tabs -->
+				<div id="exTab2" class="container">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs nav-justified">
+						<li class="active">
+							<a  href="#1" data-toggle="tab">Basic</a>
+						</li>
+						<li>
+							<a href="#2" data-toggle="tab">Advanced</a>
+						</li>
+					</ul>
+					<!-- Tab panels -->
+					<div class="tab-content ">
+						<!--Basic Settings Panel-->
+						<div class="tab-pane active" id="1">
+							<div class="table-responsive">
+								<table class="basic_settings_table">
+									<tbody>
+										<tr>
+											<td>
+												<span class="question">
+													<label for="PRIMER_PICK_LEFT_PRIMER">Pick Left Primer</label>
+													<input class="pick_left_primer_check" type="checkbox" name="PRIMER_PICK_LEFT_PRIMER" id="PRIMER_PICK_LEFT_PRIMER" checked>
+												</span>
+												<span class="answer_pick_left_primer_check" hidden>
+													<input type="text" name="SEQUENCE_PRIMER" placeholder="use this left primer">
+												</span>
+											</td>
+											<td>
+												<span class="question">
+													<label for="PRIMER_PICK_INTERNAL_OLIGO">Pick Internal Oligo</label>
+													<input class="pick_internal_oligo_check" type="checkbox" name="PRIMER_PICK_INTERNAL_OLIGO" id="PRIMER_PICK_INTERNAL_OLIGO" checked>
+												</span>
+												<span class="answer_pick_internal_oligo_check" hidden>
+													<input type="text" name="SEQUENCE_INTERNAL_OLIGO" placeholder="use this internal oligo">
+												</span>
+											</td>
+											<td>
+												<span class="question">
+													<label for="PRIMER_PICK_RIGHT_PRIMER">Pick Right Primer</label>
+													<input class="pick_right_primer_check" type="checkbox" name="PRIMER_PICK_RIGHT_PRIMER" id="PRIMER_PICK_RIGHT_PRIMER" checked>
+												</span>
+												<span class="answer_pick_right_primer_check" hidden>
+													<input type="text" name="SEQUENCE_PRIMER_REVCOMP" placeholder="use this right primer">
+												</span>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label for="PRIMER_PRODUCT_SIZE_MIN">Product Size</label>
+											</td>
+											<td>
+												<table>
+													<tr>
+														<td style="padding-right:10px">
+															Min: <input type="text" id="PRIMER_PRODUCT_SIZE_MIN" name="PRIMER_PRODUCT_MIN" value="0" size="5">
+														</td>
+														<td>
+															Max: <input type="text" id="PRIMER_PRODUCT_SIZE_MAX" name="PRIMER_PRODUCT_MAX" value="0" size="5">
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td>
+												<label for="PRIMER_PRODUCT_SIZE_MIN">Targets</label>
+											</td>
+											<td>
+												<table>
+													<tr>
+														<td style="padding-right:10px">
+															Min: <input type="text" id="PRIMER_PRODUCT_SIZE_MIN" name="PRIMER_PRODUCT_MIN" value="0" size="5">
+														</td>
+														<td>
+															Max: <input type="text" id="PRIMER_PRODUCT_SIZE_MAX" name="PRIMER_PRODUCT_MAX" value="0" size="5">
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td>
+												<label for="PRIMER_PRODUCT_SIZE_MIN">Excluded Regions</label>
+											</td>
+											<td>
+												<table>
+													<tr>
+														<td style="padding-right:10px">
+															Min: <input type="text" id="PRIMER_PRODUCT_SIZE_MIN" name="PRIMER_PRODUCT_MIN" value="0" size="5">
+														</td>
+														<td>
+															Max: <input type="text" id="PRIMER_PRODUCT_SIZE_MAX" name="PRIMER_PRODUCT_MAX" value="0" size="5">
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td>
+												<label for="PRIMER_MIN_TM">Primer Melting Temp (Tm)</label>
+											</td>
+											<td>
+												<table>
+													<tr>
+														<td style="padding-right:10px">
+															Min: <input type="text" id="PRIMER_MIN_TM" name="PRIMER_MIN_TM" value="0" size="5">
+														</td>
+														<td style="padding-right:10px">
+															Opt: <input type="text" id="PRIMER_OPT_TM" name="PRIMER_OPT_TM" value="0" size="5">
+														</td>
+														<td>
+															Max: <input type="text" id="PRIMER_OPT_TM" name="PRIMER_OPT_TM" value="0" size="5">
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td>
+												<label for="PRIMER_PAIR_MAX_DIFF_TM">Max Tm Difference</label>
+											</td>
+											<td>
+												<input type="text" id="PRIMER_PAIR_MAX_DIFF_TM" name="PRIMER_PAIR_MAX_DIFF_TM" value="3" size="5">
+											</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td>
+												<label for="PRIMER_SALT_CORRECTIONS">Salt Correction Formula</label>
+											</td>
+											<td>
+												<select class="selectpicker" name="PRIMER_SALT_CORRECTIONS" id="PRIMER_SALT_CORRECTIONS">
+													<option value="0">Schildkraut and Lifson 1965</option>
+													<option selected="selected" value="1">SantaLucia 1998</option>
+													<option value="2">Owczarzy et. 2004</option>
+												</select>
+											</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td>
+												<label for="PRIMER_TM_FORMULA">Table of thermodynamic parameters</label>
+											</td>
+											<td>
+												<select class="selectpicker" name="PRIMER_TM_FORMULA" id="PRIMER_TM_FORMULA">
+													<option value="0">Breslauer et al. 1986</option>
+													<option selected="selected" value="1">SantaLucia 1998</option>
+												</select>
+											</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!--Advanced Settings Panel-->
+						<div class="tab-pane"  id="2">
+							<h3>Advanced maybe</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Specificity Checking -->
+			<div class="block">
+				<table>
+					<tr>
+						<td>
+							<label for="TOTAL_PRIMER_SPECIFICITY_MISMATCH">Primer specificity stringency</label>
+						</td>
+						<td>
+							Primer must have at least
+							<input type="text" id="TOTAL_PRIMER_SPECIFICITY_MISMATCH" value="2" size="1">
+							total mismatches to unintended targets.
+							<br />
+							Including at least
+							<input type="text" id="PRIMER_3END_SPECIFICITY_MISMATCH" value="2" size="1">
+							mismatches within the last
+							<input type="text" id="PRIMER_3END_MISMATCH_REGION_LENGTH" value="5" size="1">
+							bps at the 3' end.
+							Ignore targets that have
+							<input type="text" id="TOTAL_MISMATCH_IGNORE" value="6" size="1">
+							or more mismatches to the primer.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="MAX_TARGET_SIZE">Max target size</label>
+						</td>
+						<td>
+							<input type="text" id="MAX_TARGET_SIZE" name="MAX_TARGET_SIZE" value="3000"/>
+						</td>
+					</tr>
+				</table>
 			</div>
 		</div>
-  </div>
-
-</div>
-
-<!-- jQuery -->
-<script
-src="https://code.jquery.com/jquery-3.2.1.min.js"
-integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-crossorigin="anonymous"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<script src="js/main.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js"></script>
-
-</body>
-
+		<!-- jQuery -->
+		<script
+		src="https://code.jquery.com/jquery-3.2.1.min.js"
+		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+		crossorigin="anonymous"></script>
+		<!-- Bootstrap Core JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="js/main.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js"></script>
+	</body>
 </html>
