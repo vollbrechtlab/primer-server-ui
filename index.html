@@ -3,812 +3,104 @@
 
 <head>
 
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta class='deco-none' name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
-	<meta class='deco-none' name="description" content="">
-	<meta class='deco-none' name="author" content="">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta class='deco-none' name="description" content="">
+<meta class='deco-none' name="author" content="">
 
-	<title>Primer3 Web UI</title>
+<title>Primer3 Web UI</title>
 
-	<!-- Bootstrap Core CSS -->
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Core CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
-	<!-- Custom CSS -->
-	<link href="css/simple-sidebar.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="css/style.css" rel="stylesheet">
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/css/bootstrap-select.min.css">
 
 </head>
 
+
 <body>
 
-<div id="wrapper">
-	 <!-- Sidebar -->
-	 <div id="sidebar-wrapper">
-			<ul class="sidebar-nav">
-				<li class="sidebar-brand"><a href="#">Primer3 Web UI</a></li>
-				<li><a href="#SI">Sequence Information</a></li>
-				<li><a href="#GPPC">General Primer Picking Conditions</a></li>
-				<li><a href="#OFPWFP">Penalty Weights for Primers</a></li>
-				<li><a href="#OFPWFPP">Penalty Weights for Primer Pairs</a></li>
-				<li><a href="#IOGC">Internal Oligo General Conditions</a></li>
-				<li><a href="#OFPWFIO">Penalty Weights for Internal Oligos</a></li>
-				<li><button type="button" class="btn btn-primary" onclick="pickPrimers()">Pick primers</button><li>
-			</ul>
-	 </div>
-	 <!-- /#sidebar-wrapper --> <!-- Page Content -->
-	 <div id="page-content-wrapper">
-			<div class="container-fluid">
-				 <div class="row">
-						<div class="col-lg-12">
-							 <h1>Primer3 Web UI</h1>
-							 <!-- Toggle Menu<br> -->
-							 <h3><a class='deco-none' name='SI'>Sequence Information</a></h3>
-							 <p>
-									Task for primer selection
-									<select class="selectpicker" name="PRIMER_TASK">
-										 <option selected="selected">generic</option>
-										 <option>check_primers</option>
-										 <option>pick_primer_list</option>
-										 <option>pick_sequencing_primers</option>
-										 <option>pick_cloning_primers</option>
-										 <option>pick_discriminative_primers</option>
-									</select>
-							 </p>
-							 <p>Paste source sequence below (5'-&gt;3', string of ACGTNacgtn -- other letters treated as N -- numbers and blanks ignored). FASTA format ok. Please N-out undesirable sequence (vector, ALUs, LINEs, etc.)</p>
-							 <p><textarea style="width: 80%;" name="SEQUENCE_TEMPLATE"></textarea></p>
-							 <table border="0">
-									<tbody>
-										 <tr>
-												<td><input checked="checked" name="PRIMER_PICK_LEFT_PRIMER" type="checkbox" value="1" /> Pick left primer, or use this left primer</td>
-												<td><input name="SEQUENCE_PRIMER" size="36" type="text" value="" /></td>
-										 </tr>
-										 <tr>
-												<td><input name="PRIMER_PICK_INTERNAL_OLIGO" type="checkbox" value="1" /> Pick hybridization probe (internal oligo), or use this oligo</td>
-												<td><input name="SEQUENCE_INTERNAL_OLIGO" size="36" type="text" value="" /></td>
-										 </tr>
-										 <tr>
-												<td><input checked="checked" name="PRIMER_PICK_RIGHT_PRIMER" type="checkbox" value="1" /> Pick right primer, or use this right primer (5' to 3' on opposite strand)</td>
-												<td><input name="SEQUENCE_PRIMER_REVCOMP" size="36" type="text" value="" /></td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <table border="0">
-									<tbody>
-										 <tr>
-												<td>Sequence Id</td>
-												<td><input name="SEQUENCE_ID" type="text" value="" /></td>
-												<td>A string to identify your output.</td>
-										 </tr>
-										 <tr>
-												<td>Targets</td>
-												<td><input name="SEQUENCE_TARGET" type="text" value="" /></td>
-												<td>E.g. 50,2 requires primers to surround the 2 bases at positions 50 and 51. Or mark the source sequence with [ and ]: e.g. ...ATCT[CCCC]TCAT.. means that primers must flank the central CCCC.</td>
-										 </tr>
-										 <tr>
-												<td>Overlap Junction List</td>
-												<td><input name="SEQUENCE_OVERLAP_JUNCTION_LIST" type="text" value="" /></td>
-												<td>E.g. 27 requires one primer to overlap the junction between positions 27 and 28. Or mark the source sequence with -: e.g. ...ATCTAC-TGTCAT.. means that primers must overlap the junction between the C and T.</td>
-										 </tr>
-										 <tr>
-												<td>Excluded Regions</td>
-												<td><input name="SEQUENCE_EXCLUDED_REGION" type="text" value="" /></td>
-												<td>E.g. 401,7 68,3 forbids selection of primers in the 7 bases starting at 401 and the 3 bases at 68. Or mark the source sequence with &lt; and &gt;: e.g. ...ATCT&lt;CCCC&gt;TCAT.. forbids primers in the central CCCC.</td>
-										 </tr>
-										 <tr>
-												<td style="padding-right: 10px;">Pair OK Region List</td>
-												<td><input name="SEQUENCE_PRIMER_PAIR_OK_REGION_LIST" type="text" value="" /></td>
-												<td>Possible locations of left and right primers in primer pairs.</td>
-										 </tr>
-										 <tr>
-												<td>Included Region</td>
-												<td><input name="SEQUENCE_INCLUDED_REGION" type="text" value="" /></td>
-												<td>E.g. 20,400: only pick primers in the 400 base region starting at position 20. Or use { and } in the source sequence to mark the beginning and end of the included region: e.g. in ATC{TTC...TCT}AT the included region is TTC...TCT.</td>
-										 </tr>
-										 <tr>
-												<td>Start Codon Position</td>
-												<td><input name="SEQUENCE_START_CODON_POSITION" type="text" value="" /></td>
-												<td>Index of the first base of a start codon.</td>
-										 </tr>
-										 <tr>
-												<td>Internal Oligo Excluded Region</td>
-												<td><input name="SEQUENCE_INTERNAL_EXCLUDED_REGION" type="text" value="" /></td>
-												<td>The sequence of an internal oligo to check and around which to design left and right primers.</td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <table>
-									<tbody>
-										 <tr>
-												<td align="right">Force Left Primer Start</td>
-												<td><input name="SEQUENCE_FORCE_LEFT_START" size="4" type="text" value="-1000000" /></td>
-												<td align="right">Force Right Primer Start</td>
-												<td><input name="SEQUENCE_FORCE_RIGHT_START" size="4" type="text" value="-1000000" /></td>
-										 </tr>
-										 <tr>
-												<td align="right">Force Left Primer End</td>
-												<td><input name="SEQUENCE_FORCE_LEFT_END" size="4" type="text" value="-1000000" /></td>
-												<td align="right">Force Right Primer End</td>
-												<td><input name="SEQUENCE_FORCE_RIGHT_END" size="4" type="text" value="-1000000" /></td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <p>Sequence Quality</p>
-							 <p><textarea style="width: 80%;" name="SEQUENCE_QUALITY"></textarea></p>
-							 <table border="0">
-									<tbody>
-										 <tr>
-												<td>Min Sequence Quality</td>
-												<td><input name="PRIMER_MIN_QUALITY" size="4" type="text" value="0" /></td>
-												<td>Min End Sequence Quality</td>
-												<td><input name="PRIMER_MIN_END_QUALITY" size="4" type="text" value="0" /></td>
-												<td>Sequence Quality Range Min</td>
-												<td><input name="PRIMER_QUALITY_RANGE_MIN" size="4" type="text" value="0" /></td>
-												<td>Sequence Quality Range Max</td>
-												<td><input name="PRIMER_QUALITY_RANGE_MAX" size="4" type="text" value="100" /></td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <a class='deco-none' name='GPPC'><h3>General Primer Picking Conditions</h3></a>
-							 <table border="0">
-									<!-- tbody -->
-									<tbody>
-										 <tr>
-												<td>Primer Size</td>
-												<td>Min <input name="PRIMER_MIN_SIZE" size="4" type="text" value="18" /></td>
-												<td>Opt <input name="PRIMER_OPT_SIZE" size="4" type="text" value="20" /></td>
-												<td>Max <input name="PRIMER_MAX_SIZE" size="4" type="text" value="23" /></td>
-										 </tr>
-										 <tr>
-												<td>Primer Tm</td>
-												<td>Min <input name="PRIMER_MIN_TM" size="4" type="text" value="57.0" /></td>
-												<td>Opt <input name="PRIMER_OPT_TM" size="4" type="text" value="59.0" /></td>
-												<td>Max <input name="PRIMER_MAX_TM" size="4" type="text" value="62.0" /></td>
-												<td>Max Tm Difference <input name="PRIMER_PAIR_MAX_DIFF_TM" size="4" type="text" value="5.0" /></td>
-												<td>
-													 Table of thermodynamic parameters
-													 <select class="selectpicker" name="PRIMER_TM_FORMULA">
-															<option value="0">Breslauer et al. 1986</option>
-															<option selected="selected" value="1">SantaLucia 1998</option>
-													 </select>
-												</td>
-										 </tr>
-										 <tr>
-												<td>Product Tm</td>
-												<td>Min <input name="PRIMER_PRODUCT_MIN_TM" size="4" type="text" value="-1000000.0" /></td>
-												<td>Opt <input name="PRIMER_PRODUCT_OPT_TM" size="4" type="text" value="0.0" /></td>
-												<td>Max <input name="PRIMER_PRODUCT_MAX_TM" size="4" type="text" value="1000000.0" /></td>
-										 </tr>
-										 <tr>
-												<td>Primer GC%</td>
-												<td>Min <input name="PRIMER_MIN_GC" size="4" type="text" value="30.0" /></td>
-												<td>Opt <input name="PRIMER_OPT_GC_PERCENT" size="4" type="text" value="50.0" /></td>
-												<td>Max <input name="PRIMER_MAX_GC" size="4" type="text" value="70.0" /></td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <p> </p>
-							 <table border="0">
-									<tbody>
-										 <tr>
-												<td>Product Size Ranges <input name="PRIMER_PRODUCT_SIZE_RANGE" size="80" type="text" value="150,250; 100,300; 301,400; 401,500; 501,600; 601,700;" /></td>
-										 </tr>
-										 <!--
-												<tr>
-												<td>
-												Click here to specify the min, opt, and max product sizes only if you
-												absolutely must. Using them is too slow (and too computationally
-												intensive for our server).
-												</td></tr>
-												-->
-									</tbody>
-							 </table>
-							 <table border="0">
-									<tbody>
-										 <tr>
-												<td align="right">Number To Return</td>
-												<td><input name="PRIMER_NUM_RETURN" size="4" type="text" value="5" /></td>
-												<td align="right">Max 3' Stability</td>
-												<td><input name="PRIMER_MAX_END_STABILITY" size="4" type="text" value="9.0" /></td>
-										 </tr>
-										 <tr>
-												<td align="right">Max Library Mispriming</td>
-												<td><input name="PRIMER_MAX_LIBRARY_MISPRIMING" size="4" type="text" value="12.00" /></td>
-												<td align="right"> Pair Max Library Mispriming</td>
-												<td><input name="PRIMER_PAIR_MAX_LIBRARY_MISPRIMING" size="4" type="text" value="20.00" /></td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <p> </p>
-							 <table border="0">
-									<tbody>
-										 <tr>
-												<td>
-													 <table border="0">
-															<tbody>
-																 <tr>
-																		<td colspan="2"><input checked="checked" name="MUST_XLATE_PRIMER_THERMODYNAMIC_OLIGO_ALIGNMENT" type="checkbox" value="1" /> Use Thermodynamic Oligo Alignment</td>
-																		<td colspan="1"> </td>
-																		<td colspan="2"><input name="MUST_XLATE_PRIMER_THERMODYNAMIC_TEMPLATE_ALIGNMENT" type="checkbox" value="1" /> Use Thermodynamic Template Alignment</td>
-																		<td colspan="1"> </td>
-																 </tr>
-																 <tr>
-																		<td colspan="2"> TH: Max Template Mispriming</td>
-																		<td colspan="1"><input name="PRIMER_MAX_TEMPLATE_MISPRIMING_TH" size="4" type="text" value="40.00" /></td>
-																		<td colspan="2"> TH: Pair Max Template Mispriming</td>
-																		<td colspan="1"><input name="PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH" size="4" type="text" value="70.00" /></td>
-																 </tr>
-																 <tr>
-																		<td colspan="2">TH: Max Self Complementarity</td>
-																		<td colspan="1"><input name="PRIMER_MAX_SELF_ANY_TH" size="4" type="text" value="45.0" /></td>
-																		<td colspan="2">TH: Max 3' Self Complementarity</td>
-																		<td colspan="1"><input name="PRIMER_MAX_SELF_END_TH" size="4" type="text" value="35.0" /></td>
-																		<td colspan="2"> </td>
-																 </tr>
-																 <tr>
-																		<td colspan="2">TH: Max Pair Complementarity</td>
-																		<td colspan="1"><input name="PRIMER_PAIR_MAX_COMPL_ANY_TH" size="4" type="text" value="45.0" /></td>
-																		<td colspan="2">TH: Max 3' Pair Complementarity</td>
-																		<td colspan="1"><input name="PRIMER_PAIR_MAX_COMPL_END_TH" size="4" type="text" value="35.0" /></td>
-																		<td colspan="2"> </td>
-																 </tr>
-																 <tr>
-																		<td colspan="2">TH: Max Primer Hairpin</td>
-																		<td colspan="1"><input name="PRIMER_MAX_HAIRPIN_TH" size="4" type="text" value="24.0" /></td>
-																		<td colspan="2"> </td>
-																 </tr>
-															</tbody>
-													 </table>
-												</td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <table border="0">
-									<tbody>
-										 <tr>
-												<td colspan="2">Max #N's accepted</td>
-												<td colspan="1"><input name="PRIMER_MAX_NS_ACCEPTED" size="4" type="text" value="0" /></td>
-												<td colspan="2">Max Poly-X</td>
-												<td colspan="1"><input name="PRIMER_MAX_POLY_X" size="4" type="text" value="4" /></td>
-												<td colspan="2"> </td>
-										 </tr>
-										 <tr>
-												<td colspan="2">Inside Target Penalty</td>
-												<td colspan="1"><input name="PRIMER_INSIDE_PENALTY" size="4" type="text" value="-1.0" /></td>
-												<td colspan="2">Outside Target Penalty</td>
-												<td colspan="1"><input name="PRIMER_OUTSIDE_PENALTY" size="4" type="text" value="0" /></td>
-												<td colspan="2"> Note: you can set Inside Target Penalty to allow primers inside a target. </td>
-										 </tr>
-										 <tr>
-												<td colspan="2">First Base Index</td>
-												<td colspan="1"><input name="PRIMER_FIRST_BASE_INDEX" size="4" type="text" value="1" /></td>
-												<td colspan="2">CG Clamp</td>
-												<td colspan="1"><input name="PRIMER_GC_CLAMP" size="4" type="text" value="0" /></td>
-										 </tr>
-										 <tr>
-												<td colspan="2">Max GC in primer 3' end</td>
-												<td colspan="1"><input name="PRIMER_MAX_END_GC" size="4" type="text" value="5" /></td>
-										 </tr>
-										 <tr>
-												<td colspan="2">3' End Distance Between Left Primers</td>
-												<td colspan="1"><input name="PRIMER_MIN_LEFT_THREE_PRIME_DISTANCE" size="4" type="text" value="3" /></td>
-												<td colspan="2">3' End Distance Between Right Primers</td>
-												<td colspan="1"><input name="PRIMER_MIN_RIGHT_THREE_PRIME_DISTANCE" size="4" type="text" value="3" /></td>
-												<td colspan="2"> </td>
-										 </tr>
-										 <tr>
-												<td colspan="2">5 Prime Junction Overlap</td>
-												<td colspan="1"><input name="PRIMER_MIN_5_PRIME_OVERLAP_OF_JUNCTION" size="4" type="text" value="7" /></td>
-												<td colspan="2">3 Prime Junction Overlap</td>
-												<td colspan="1"><input name="PRIMER_MIN_3_PRIME_OVERLAP_OF_JUNCTION" size="4" type="text" value="4" /></td>
-												<td colspan="2">(Distance of the primer ends to one overlap position.)</td>
-										 </tr>
-										 <tr>
-												<td colspan="2">Concentration of Monovalent Cations</td>
-												<td colspan="1"><input name="PRIMER_SALT_MONOVALENT" size="4" type="text" value="50.0" /></td>
-												<td colspan="2">Salt Correction Formula</td>
-												<td colspan="3">
-													 <select class="selectpicker" name="PRIMER_SALT_CORRECTIONS">
-															<option value="0">Schildkraut and Lifson 1965</option>
-															<option selected="selected" value="1">SantaLucia 1998</option>
-															<option value="2">Owczarzy et. 2004</option>
-													 </select>
-												</td>
-										 </tr>
-										 <tr>
-												<td colspan="2">Concentration of Divalent Cations</td>
-												<td colspan="1"><input name="PRIMER_SALT_DIVALENT" size="4" type="text" value="1.5" /></td>
-												<td colspan="2">Concentration of dNTPs</td>
-												<td colspan="1"><input name="PRIMER_DNTP_CONC" size="4" type="text" value="0.6" /></td>
-												<td colspan="2"> </td>
-										 </tr>
-										 <tr>
-												<td colspan="2">Annealing Oligo Concentration</td>
-												<td colspan="1"><input name="PRIMER_DNA_CONC" size="4" type="text" value="50.0" /></td>
-												<td colspan="5">(Not the concentration of oligos in the reaction mix but of those annealing to template.)</td>
-										 </tr>
-										 <tr>
-												<td colspan="2">Sequencing Spacing</td>
-												<td colspan="1"><input name="PRIMER_SEQUENCING_SPACING" size="4" type="text" value="500" /></td>
-												<td colspan="2">Sequencing Interval</td>
-												<td colspan="1"><input name="PRIMER_SEQUENCING_INTERVAL" size="4" type="text" value="250" /></td>
-										 </tr>
-										 <tr>
-												<td colspan="2">Sequencing Lead</td>
-												<td colspan="1"><input name="PRIMER_SEQUENCING_LEAD" size="4" type="text" value="50" /></td>
-												<td colspan="2">Sequencing Accuracy</td>
-												<td colspan="1"><input name="PRIMER_SEQUENCING_ACCURACY" size="4" type="text" value="20" /></td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <table border="0">
-									<tbody>
-										 <tr>
-												<td><input checked="checked" name="MUST_XLATE_PRIMER_LIBERAL_BASE" type="checkbox" value="1" /> Liberal Base</td>
-												<td><input name="MUST_XLATE_PRINT_INPUT" type="checkbox" value="1" /> Show Debuging Info</td>
-												<td><input name="MUST_XLATE_PRIMER_LIB_AMBIGUITY_CODES_CONSENSUS" type="checkbox" value="1" /> Treat ambiguity codes in libraries as consensus</td>
-										 </tr>
-										 <tr>
-												<td><input name="MUST_XLATE_PRIMER_LOWERCASE_MASKING" type="checkbox" value="1" /> Lowercase masking</td>
-												<td><input name="MUST_XLATE_PRIMER_PICK_ANYWAY" type="checkbox" value="1" /> Pick anyway</td>
-												<td><input checked="checked" name="MUST_XLATE_PRIMER_EXPLAIN_FLAG" type="checkbox" value="1" /> Print Statistics</td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <a class='deco-none' name='OFPWFP'><h3>Objective Function Penalty Weights for Primers</h3></a>
-							 <table border="0">
-									<!-- tbody -->
-									<tbody>
-										 <tr>
-												<td>Size</td>
-												<td>Lt</td>
-												<td><input name="PRIMER_WT_SIZE_LT" size="4" type="text" value="1.0" /></td>
-												<td>Gt</td>
-												<td><input name="PRIMER_WT_SIZE_GT" size="4" type="text" value="1.0" /></td>
-										 </tr>
-										 <tr>
-												<td>Tm</td>
-												<td>Lt</td>
-												<td><input name="PRIMER_WT_TM_LT" size="4" type="text" value="1.0" /></td>
-												<td>Gt</td>
-												<td><input name="PRIMER_WT_TM_GT" size="4" type="text" value="1.0" /></td>
-										 </tr>
-										 <tr>
-												<td>GC%</td>
-												<td>Lt</td>
-												<td><input name="PRIMER_WT_GC_PERCENT_LT" size="4" type="text" value="0.0" /></td>
-												<td>Gt</td>
-												<td><input name="PRIMER_WT_GC_PERCENT_GT" size="4" type="text" value="0.0" /></td>
-										 </tr>
-										 <!-- /tbody -->
-									</tbody>
-							 </table>
-							 <p> </p>
-							 <table border="0">
-									<tbody>
-										 <tr>
-												<td>
-													 <table border="0">
-															<tbody>
-																 <tr>
-																		<td>TH: Self Complementarity</td>
-																		<td><input name="PRIMER_WT_SELF_ANY_TH" size="4" type="text" value="0.0" /></td>
-																 </tr>
-																 <tr>
-																		<td>TH: 3' End Self Complementarity</td>
-																		<td><input name="PRIMER_WT_SELF_END_TH" size="4" type="text" value="0.0" /></td>
-																 </tr>
-																 <tr>
-																		<td>TH: Hairpin</td>
-																		<td><input name="PRIMER_WT_HAIRPIN_TH" size="4" type="text" value="0.0" /></td>
-																 </tr>
-																 <tr>
-																		<td>TH: Template Mispriming</td>
-																		<td><input name="PRIMER_WT_TEMPLATE_MISPRIMING_TH" size="4" type="text" value="0.0" /></td>
-																 </tr>
-															</tbody>
-													 </table>
-												</td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <p> </p>
-							 <table border="0">
-									<tbody>
-										 <tr>
-												<td>
-													 <table border="0">
-															<tbody>
-																 <tr>
-																		<td>Self Complementarity</td>
-																		<td><input name="PRIMER_WT_SELF_ANY" size="4" type="text" value="0.0" /></td>
-																 </tr>
-																 <tr>
-																		<td>3' End Self Complementarity</td>
-																		<td><input name="PRIMER_WT_SELF_END" size="4" type="text" value="0.0" /></td>
-																 </tr>
-																 <tr>
-																		<td>Template Mispriming</td>
-																		<td><input name="PRIMER_WT_TEMPLATE_MISPRIMING" size="4" type="text" value="0.0" /></td>
-																 </tr>
-															</tbody>
-													 </table>
-												</td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <p> </p>
-							 <table border="0">
-									<!-- tbody -->
-									<tbody>
-										 <tr>
-												<td>#N's</td>
-												<td><input name="PRIMER_WT_NUM_NS" size="4" type="text" value="0.0" /></td>
-										 </tr>
-										 <tr>
-												<td>Library Mispriming</td>
-												<td><input name="PRIMER_WT_LIBRARY_MISPRIMING" size="4" type="text" value="0.0" /></td>
-										 </tr>
-										 <tr>
-												<td>Sequence Quality</td>
-												<td><input name="PRIMER_WT_SEQ_QUAL" size="4" type="text" value="0.0" /></td>
-										 </tr>
-										 <tr>
-												<td>End Sequence Quality</td>
-												<td><input name="PRIMER_WT_END_QUAL" size="4" type="text" value="0.0" /></td>
-										 </tr>
-										 <tr>
-												<td>Position Penalty</td>
-												<td><input name="PRIMER_WT_POS_PENALTY" size="4" type="text" value="0.0" /></td>
-										 </tr>
-										 <tr>
-												<td>End Stability</td>
-												<td><input name="PRIMER_WT_END_STABILITY" size="4" type="text" value="0.0" /></td>
-										 </tr>
-										 <!-- /tbody -->
-									</tbody>
-							 </table>
-							 <a class='deco-none' name='OFPWFPP'><h3>Objective Function Penalty Weights for Primer Pairs</h3></a>
-							 <table border="0">
-									<!-- tbody -->
-									<tbody>
-										 <tr>
-												<td>Product Size</td>
-												<td>Lt</td>
-												<td><input name="PRIMER_PAIR_WT_PRODUCT_SIZE_LT" size="4" type="text" value="0.0" /></td>
-												<td>Gt</td>
-												<td><input name="PRIMER_PAIR_WT_PRODUCT_SIZE_GT" size="4" type="text" value="0.0" /></td>
-										 </tr>
-										 <tr>
-												<td>Product Tm</td>
-												<td>Lt</td>
-												<td><input name="PRIMER_PAIR_WT_PRODUCT_TM_LT" size="4" type="text" value="0.0" /></td>
-												<td>Gt</td>
-												<td><input name="PRIMER_PAIR_WT_PRODUCT_TM_GT" size="4" type="text" value="0.0" /></td>
-										 </tr>
-										 <!-- /tbody -->
-									</tbody>
-							 </table>
-							 <p> </p>
-							 <table border="0">
-									<tbody>
-										 <tr>
-												<td>
-													 <table border="0">
-															<tbody>
-																 <tr>
-																		<td>TH: Any Complementarity</td>
-																		<td><input name="PRIMER_PAIR_WT_COMPL_ANY_TH" size="4" type="text" value="0.0" /></td>
-																 </tr>
-																 <tr>
-																		<td>TH: 3' End Complementarity</td>
-																		<td><input name="PRIMER_PAIR_WT_COMPL_END_TH" size="4" type="text" value="0.0" /></td>
-																 </tr>
-																 <tr>
-																		<td>TH: Template Mispriming Weight</td>
-																		<td><input name="PRIMER_PAIR_WT_TEMPLATE_MISPRIMING_TH" size="4" type="text" value="0.0" /></td>
-																 </tr>
-															</tbody>
-													 </table>
-												</td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <p> </p>
-							 <table border="0">
-									<tbody>
-										 <tr>
-												<td>
-													 <table border="0">
-															<tbody>
-																 <tr>
-																		<td>Any Complementarity</td>
-																		<td><input name="PRIMER_PAIR_WT_COMPL_ANY" size="4" type="text" value="0.0" /></td>
-																 </tr>
-																 <tr>
-																		<td>3' End Complementarity</td>
-																		<td><input name="PRIMER_PAIR_WT_COMPL_END" size="4" type="text" value="0.0" /></td>
-																 </tr>
-																 <tr>
-																		<td>Template Mispriming Weight</td>
-																		<td><input name="PRIMER_PAIR_WT_TEMPLATE_MISPRIMING" size="4" type="text" value="0.0" /></td>
-																 </tr>
-															</tbody>
-													 </table>
-												</td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <p> </p>
-							 <table border="0">
-									<!-- tbody -->
-									<tbody>
-										 <tr>
-												<td>Tm Difference</td>
-												<td><input name="PRIMER_PAIR_WT_DIFF_TM" size="4" type="text" value="0.0" /></td>
-										 </tr>
-										 <tr>
-												<td>Library Mispriming</td>
-												<td><input name="PRIMER_PAIR_WT_LIBRARY_MISPRIMING" size="4" type="text" value="0.0" /></td>
-										 </tr>
-										 <tr>
-												<td>Primer Penalty Weight</td>
-												<td><input name="PRIMER_PAIR_WT_PR_PENALTY" size="4" type="text" value="1.0" /></td>
-										 </tr>
-										 <tr>
-												<td>Internal Oligo Penalty Weight</td>
-												<td><input name="PRIMER_PAIR_WT_IO_PENALTY" size="4" type="text" value="0.0" /></td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <a class='deco-none' name='IOGC'><h3>Internal Oligo (Hyb Oligo) General Conditions</h3></a>
-							 <table border="0">
-									<!-- tbody -->
-									<tbody>
-										 <tr>
-												<td>Internal Oligo Size</td>
-												<td>Min <input name="PRIMER_INTERNAL_MIN_SIZE" size="4" type="text" value="18" /></td>
-												<td>Opt <input name="PRIMER_INTERNAL_OPT_SIZE" size="4" type="text" value="20" /></td>
-												<td>Max <input name="PRIMER_INTERNAL_MAX_SIZE" size="4" type="text" value="27" /></td>
-										 </tr>
-										 <tr>
-												<td>Internal Oligo Tm</td>
-												<td>Min <input name="PRIMER_INTERNAL_MIN_TM" size="4" type="text" value="57.0" /></td>
-												<td>Opt <input name="PRIMER_INTERNAL_OPT_TM" size="4" type="text" value="60.0" /></td>
-												<td>Max <input name="PRIMER_INTERNAL_MAX_TM" size="4" type="text" value="63.0" /></td>
-										 </tr>
-										 <tr>
-												<td>Internal Oligo GC%</td>
-												<td>Min <input name="PRIMER_INTERNAL_MIN_GC" size="4" type="text" value="20.0" /></td>
-												<td>Opt <input name="PRIMER_INTERNAL_OPT_GC_PERCENT" size="4" type="text" value="50.0" /></td>
-												<td>Max <input name="PRIMER_INTERNAL_MAX_GC" size="4" type="text" value="80.0" /></td>
-										 </tr>
-										 <!-- /tbody -->
-									</tbody>
-							 </table>
-							 <p> </p>
-							 <table border="0">
-									<tbody>
-										 <tr>
-												<td>
-													 <table border="0">
-															<tbody>
-																 <tr>
-																		<td colspan="2">TH: Internal Oligo Self Complementarity</td>
-																		<td colspan="1"><input name="PRIMER_INTERNAL_MAX_SELF_ANY_TH" size="4" type="text" value="47.00" /></td>
-																		<td colspan="1"> </td>
-																		<td colspan="2">TH: Internal Oligo Max 3' End Self Complementarity</td>
-																		<td colspan="1"><input name="PRIMER_INTERNAL_MAX_SELF_END_TH" size="4" type="text" value="47.00" /></td>
-																		<td colspan="2"> </td>
-																 </tr>
-																 <tr>
-																		<td colspan="2">TH: Internal Oligo Hairpin</td>
-																		<td colspan="1"><input name="PRIMER_INTERNAL_MAX_HAIRPIN_TH" size="4" type="text" value="47.00" /></td>
-																		<td colspan="1"> </td>
-																 </tr>
-															</tbody>
-													 </table>
-												</td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <p> </p>
-							 <table border="0">
-									<tbody>
-										 <tr>
-												<td>
-													 <table border="0">
-															<tbody>
-																 <tr>
-																		<td colspan="2">Internal Oligo Self Complementarity</td>
-																		<td colspan="1"><input name="PRIMER_INTERNAL_MAX_SELF_ANY" size="4" type="text" value="12.00" /></td>
-																		<td colspan="1"> </td>
-																		<td colspan="2">Internal Oligo Max 3' End Self Complementarity</td>
-																		<td colspan="1"><input name="PRIMER_INTERNAL_MAX_SELF_END" size="4" type="text" value="12.00" /></td>
-																		<td colspan="2"> </td>
-																 </tr>
-															</tbody>
-													 </table>
-												</td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <p> </p>
-							 <table border="0">
-									<tbody>
-										 <tr>
-												<td colspan="2">Internal Oligo Min Sequence Quality</td>
-												<td colspan="1"><input name="PRIMER_INTERNAL_MIN_QUALITY" size="4" type="text" value="0" /></td>
-												<td colspan="2"> </td>
-										 </tr>
-										 <tr>
-												<td colspan="2">Max #Ns</td>
-												<td colspan="1"><input name="PRIMER_INTERNAL_MAX_NS_ACCEPTED" size="4" type="text" value="0" /></td>
-												<td colspan="1"> </td>
-												<td colspan="2">Internal Oligo Max Poly-X</td>
-												<td colspan="1"><input name="PRIMER_INTERNAL_MAX_POLY_X" size="4" type="text" value="5" /></td>
-												<td colspan="2"> </td>
-										 </tr>
-										 <tr>
-												<td colspan="2">Internal Oligo Mishyb Library</td>
-												<td colspan="2">
-													 <select class="selectpicker" name="PRIMER_INTERNAL_MISHYB_LIBRARY">
-															<option selected="selected">NONE</option>
-															<option>HUMAN</option>
-															<option>RODENT_AND_SIMPLE</option>
-															<option>RODENT</option>
-															<option>DROSOPHILA</option>
-													 </select>
-												</td>
-												<td colspan="2">Internal Oligo Max Library Mishyb</td>
-												<td colspan="1"><input name="PRIMER_INTERNAL_MAX_LIBRARY_MISHYB" size="4" type="text" value="12.00" /></td>
-												<td colspan="2"> </td>
-										 </tr>
-										 <tr>
-												<td colspan="2">Internal Oligo Conc of monovalent cations</td>
-												<td colspan="1"><input name="PRIMER_INTERNAL_SALT_MONOVALENT" size="4" type="text" value="50.0" /></td>
-												<td colspan="1"> </td>
-												<td colspan="2">Internal Oligo DNA Concentration</td>
-												<td colspan="1"><input name="PRIMER_INTERNAL_DNA_CONC" size="4" type="text" value="50.0" /></td>
-												<td colspan="2"> </td>
-										 </tr>
-										 <tr>
-												<td colspan="2">Internal Oligo conc of divalent cations</td>
-												<td colspan="1"><input name="PRIMER_INTERNAL_SALT_DIVALENT" size="4" type="text" value="1.5" /></td>
-												<td colspan="1"> </td>
-												<td colspan="2">Internal Oligo [dNTP]</td>
-												<td colspan="1"><input name="PRIMER_INTERNAL_DNTP_CONC" size="4" type="text" value="0.0" /></td>
-												<td colspan="2"> </td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <a class='deco-none' name='OFPWFIO'><h3>Objective Function Penalty Weights for Internal Oligos (Hyb Oligos)</h3></a>
-							 <table border="0">
-									<!-- tbody -->
-									<tbody>
-										 <tr>
-												<td>Internal Oligo Size</td>
-												<td>Lt</td>
-												<td><input name="PRIMER_INTERNAL_WT_SIZE_LT" size="4" type="text" value="1.0" /></td>
-												<td>Gt</td>
-												<td><input name="PRIMER_INTERNAL_WT_SIZE_GT" size="4" type="text" value="1.0" /></td>
-										 </tr>
-										 <tr>
-												<td>Internal Oligo Tm</td>
-												<td>Lt</td>
-												<td><input name="PRIMER_INTERNAL_WT_TM_LT" size="4" type="text" value="1.0" /></td>
-												<td>Gt</td>
-												<td><input name="PRIMER_INTERNAL_WT_TM_GT" size="4" type="text" value="1.0" /></td>
-										 </tr>
-										 <tr>
-												<td>Internal Oligo GC%</td>
-												<td>Lt</td>
-												<td><input name="PRIMER_INTERNAL_WT_GC_PERCENT_LT" size="4" type="text" value="0.0" /></td>
-												<td>Gt</td>
-												<td><input name="PRIMER_INTERNAL_WT_GC_PERCENT_GT" size="4" type="text" value="0.0" /></td>
-										 </tr>
-										 <!-- /tbody -->
-									</tbody>
-							 </table>
-							 <p> </p>
-							 <table border="0">
-									<tbody>
-										 <tr>
-												<td>
-													 <table border="0">
-															<tbody>
-																 <tr>
-																		<td>TH: Internal Oligo Self Complementarity</td>
-																		<td><input name="PRIMER_INTERNAL_WT_SELF_ANY_TH" size="4" type="text" value="0.0" /></td>
-																 </tr>
-																 <tr>
-																		<td>TH: Internal Oligo 3' End Complementarity</td>
-																		<td><input name="PRIMER_INTERNAL_WT_SELF_END_TH" size="4" type="text" value="0.0" /></td>
-																 </tr>
-																 <tr>
-																		<td>TH: Internal Oligo Hairpin</td>
-																		<td><input name="PRIMER_INTERNAL_WT_HAIRPIN_TH" size="4" type="text" value="0.0" /></td>
-																 </tr>
-															</tbody>
-													 </table>
-												</td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <p> </p>
-							 <table border="0">
-									<tbody>
-										 <tr>
-												<td>
-													 <table border="0">
-															<tbody>
-																 <tr>
-																		<td>Internal Oligo Self Complementarity</td>
-																		<td><input name="PRIMER_INTERNAL_WT_SELF_ANY" size="4" type="text" value="0.0" /></td>
-																 </tr>
-																 <tr>
-																		<td>Internal Oligo 3' End Complementarity</td>
-																		<td><input name="PRIMER_INTERNAL_WT_SELF_END" size="4" type="text" value="0.0" /></td>
-																 </tr>
-															</tbody>
-													 </table>
-												</td>
-										 </tr>
-									</tbody>
-							 </table>
-							 <p> </p>
-							 <table border="0">
-									<!-- tbody -->
-									<tbody>
-										 <tr>
-												<td>Internal Oligo #N's</td>
-												<td><input name="PRIMER_INTERNAL_WT_NUM_NS" size="4" type="text" value="0.0" /></td>
-										 </tr>
-										 <tr>
-												<td>Internal Oligo Library Mishybing</td>
-												<td><input name="PRIMER_INTERNAL_WT_LIBRARY_MISHYB" size="4" type="text" value="0.0" /></td>
-										 </tr>
-										 <tr>
-												<td> Internal Oligo Sequence Quality</td>
-												<td><input name="PRIMER_INTERNAL_WT_SEQ_QUAL" size="4" type="text" value="0.0" /></td>
-										 </tr>
-										 <tr>
-												<td> Internal Oligo Sequence End Quality</td>
-												<td><input name="PRIMER_INTERNAL_WT_END_QUAL" size="4" type="text" value="0.0" /></td>
-										 </tr>
-										 <!-- /tbody -->
-									</tbody>
-							 </table>
-						</div>
-				 </div>
+<div class="basic_wrapper">
+
+	<h1>Primer Server (v1.0)</h1>
+
+	<br>
+
+	<!-- sequence input -->
+	<div class="form-group">
+	  <textarea class="form-control" rows="5" id="input_sequence" placeholder="Enter Input Sequence"></textarea>
+	</div>
+
+	<!-- Basic and Advanced settings tabs -->
+	<div id="exTab2" class="container">	
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs nav-justified">
+			<li class="active">
+        <a  href="#1" data-toggle="tab">Basic</a>
+			</li>
+			<li>
+				<a href="#2" data-toggle="tab">Advanced</a>
+			</li>
+		</ul>
+		<!-- Tab panels -->
+		<div class="tab-content ">
+			<!--Basic Settings Panel-->
+		  <div class="tab-pane active" id="1">
+		  	<div class="pick_primer_selection">
+	    		<div class="question">
+				    <label for="PRIMER_PICK_LEFT_PRIMER">Pick Left Primer</label>
+				    <input class="pick_left_primer_check" type="checkbox" name="PRIMER_PICK_LEFT_PRIMER" id="PRIMER_PICK_LEFT_PRIMER" checked>
+				  </div>
+				  <div class="answer_pick_left_primer_check" hidden>
+				    <input type="text" name="SEQUENCE_PRIMER" placeholder="use this left primer">
+				  </div>
+				</div>
+				<div class="pick_primer_selection">
+				  <div class="question">
+				    <label for="PRIMER_PICK_INTERNAL_OLIGO">Pick Internal Oligo</label>
+				    <input class="pick_internal_oligo_check" type="checkbox" name="PRIMER_PICK_INTERNAL_OLIGO" id="PRIMER_PICK_INTERNAL_OLIGO" checked>
+				  </div>
+				  <div class="answer_pick_internal_oligo_check" hidden>
+				    <input type="text" name="SEQUENCE_INTERNAL_OLIGO" placeholder="use this internal oligo">
+				  </div>
+				</div>
+				<div class="pick_primer_selection">
+				  <div class="question">
+				    <label for="PRIMER_PICK_RIGHT_PRIMER">Pick Right Primer</label>
+				    <input class="pick_right_primer_check" type="checkbox" name="PRIMER_PICK_RIGHT_PRIMER" id="PRIMER_PICK_RIGHT_PRIMER" checked>
+				  </div>
+				  <div class="answer_pick_right_primer_check" hidden>
+				    <input type="text" name="SEQUENCE_PRIMER_REVCOMP" placeholder="use this right primer">
+				  </div>
+				</div>
+				<label>WTF</label>
+				
 			</div>
-	 </div>
-	 <!-- /#page-content-wrapper -->
+			<!--Advanced Settings Panel-->
+			<div class="tab-pane"  id="2">
+        <h3>Advanced maybe</h3>
+			</div>
+		</div>
+  </div>
+
 </div>
-<!-- /#wrapper -->
 
-	<!-- jQuery -->
-	<script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
+<!-- jQuery -->
+<script
+src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
 
-	<!-- Bootstrap Core JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-	<!-- Menu Toggle Script -->
-	<script>
-	$("#wrapper").toggleClass("toggled");
-	$("#menu-toggle").click(function(e) {
-		e.preventDefault();
-		$("#wrapper").toggleClass("toggled");
-	});
-	</script>
+<script src="js/main.js"></script>
 
-	<script src="js/main.js"></script>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js"></script>
 
 </body>
 

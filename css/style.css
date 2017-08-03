@@ -1,0 +1,20 @@
+.basic_wrapper {
+    margin-left: 3%;
+    margin-right: 3%;
+}
+.block_container {
+    text-align:center;
+}
+.block {
+    display:inline;
+}
+.pick_primer_selection {
+    float: left;
+    margin-left: 30px;
+}
+.basic_settings_container {
+    vertical-align: top
+}
+.basic_settings_block {
+    vertical-align: top
+}
