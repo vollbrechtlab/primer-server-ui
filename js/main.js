@@ -58,6 +58,8 @@ function submit()
 	console.log("reading info");
 	var data = readAndFormatData();
 	console.log(data);
+	sendToServer(data['send_this']);
+	
 }
 
 /**
@@ -121,12 +123,13 @@ function readAndFormatData()
 	/* format data step 2*/
 	data = {}
 	data['send_this'] = {}
+	data['send_this']['input'] = {}
 	data['extra'] = {}
 
 	for (var key in orgData)
 	{
 		if(key.includes('SEQUENCE_') || key.includes('PRIMER_')){
-			data['send_this'][key] = orgData[key];
+			data['send_this']['input'][key] = orgData[key];
 		} else {
 			data['extra'][key] = orgData[key];
 		}
@@ -136,5 +139,50 @@ function readAndFormatData()
 }
 
 function isNumeric(num){
-    return !isNaN(num)
+    return !isNaN(num);
+}
+
+function sendToServer(dataSent) {
+
+    $.ajax({
+    	url: "http://localhost:5000/primer-rest-api/v1.0/primer",
+	    data: JSON.stringify(dataSent),
+	    contentType: 'application/json',
+	    type: 'POST',
+	    success: function(data) {
+	    	console.log(data);
+	    	if(data['status'] == 'ok'){
+	    		checkResultLoop(data['result_uri']);
+	    	}
+	    }
+	});
+}
+
+function checkResultLoop(resultUrl) 
+{
+	checkResultLoopHelper(resultUrl, 0);
+}
+function checkResultLoopHelper (resultUrl, i) 
+{           
+   	timer = setTimeout(function () {  
+   		i++;  
+	    $.ajax({
+	    	url: resultUrl,
+		    type: 'GET',
+		    success: function(data) {
+		    	clearTimeout(timer);
+		    	writeResult(data);
+		    }
+		});                     
+	    if (i < 10) {           
+	        checkResultLoopHelper(resultUrl);             
+	    }                        
+   	}, 1000)
+}
+
+function writeResult(resultData) 
+{
+	console.log(data);
+	var resultDiv = document.getElementById('result');
+	resultDiv.innerHTML = resultDiv.innerHTML + JSON.stringify(resultData);
 }
