@@ -6,7 +6,7 @@
     text-align:center;
 }
 .block {
-    border:1px groove blue;
+    //border:1px groove blue;
     margin-bottom:20px;
     //background-color: lightblue;
 }
@@ -24,10 +24,18 @@
 .basic_settings_block {
     vertical-align: top;
 }
-.basic_settings_table {
+.settings_table {
     table-layout: fixed; 
     width: 100%;
 }
 td {
-  padding-top:5px;
+    padding-top:5px;
+}
+.nav_container {
+    width:100%;
+}
+select.fancy {
+    display: block;
+    //margin: 0 auto;
+    background-color: white;
 }
