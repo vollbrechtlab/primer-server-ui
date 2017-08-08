@@ -26,9 +26,13 @@ sudo yum -y install nodejs gcc-c++ make
 sudo npm install -g @angular/cli
 ```
 
-## Development server
+## Local Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve --poll=1000` for a dev server. Navigate to `http://<your IP address>:4200/`. The app will automatically reload if you change any of the source files.
+
+## Public Development server
+
+Run `ng serve --host <your IP address> --poll=1000` for a dev server. Navigate to `http://localhost:4200/` The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
