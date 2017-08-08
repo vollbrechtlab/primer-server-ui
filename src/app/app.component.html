@@ -1,4 +1,212 @@
-<h1>
-  {{title}}
-</h1>
-helloa
+<h1>{{title}} ({{version}})</h1>
+<br>
+<!-- sequence template input -->
+<div class="form-group">
+  <textarea class="form-control" rows="5" id="SEQUENCE_TEMPLATE" placeholder="Enter Input Sequence" autofocus></textarea>
+</div>
+
+<!-- Settings -->
+<h4>Settings</h4>
+<!-- Basic and Advanced settings tabs -->
+<ngb-tabset type="pills">
+  <ngb-tab>
+    <ng-template ngbTabTitle><b>Basic</b></ng-template>
+    <ng-template ngbTabContent>
+      <div class="table-responsive">
+        <table class="settings_table">
+          <tbody>
+            <tr>
+              <td>
+                <span class="question">
+                  <label for="PRIMER_PICK_LEFT_PRIMER">Pick Left Primer</label>
+                  <input class="pick_left_primer_check" type="checkbox" id="PRIMER_PICK_LEFT_PRIMER" checked>
+                </span>
+                <span class="answer_pick_left_primer_check" hidden>
+                  <input type="text" id="SEQUENCE_PRIMER" placeholder="use this left primer">
+                </span>
+              </td>
+              <td>
+                <span class="question">
+                  <label for="PRIMER_PICK_INTERNAL_OLIGO">Pick Internal Oligo</label>
+                  <input class="pick_internal_oligo_check" type="checkbox" id="PRIMER_PICK_INTERNAL_OLIGO">
+                </span>
+                <span class="answer_pick_internal_oligo_check">
+                  <input type="text" id="SEQUENCE_INTERNAL_OLIGO" placeholder="use this internal oligo">
+                </span>
+              </td>
+              <td>
+                <span class="question">
+                  <label for="PRIMER_PICK_RIGHT_PRIMER">Pick Right Primer</label>
+                  <input class="pick_right_primer_check" type="checkbox" id="PRIMER_PICK_RIGHT_PRIMER" checked>
+                </span>
+                <span class="answer_pick_right_primer_check" hidden>
+                  <input type="text" id="SEQUENCE_PRIMER_REVCOMP" placeholder="use this right primer">
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="PRIMER_PRODUCT_SIZE_MIN">Product Size</label>
+              </td>
+              <td>
+                <table>
+                  <tr>
+                    <td style="padding-right:10px">
+                      Min: <input type="text" id="PRIMER_PRODUCT_SIZE_MIN" value="0" size="5">
+                    </td>
+                    <td>
+                      Max: <input type="text" id="PRIMER_PRODUCT_SIZE_MAX" value="0" size="5">
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>
+                <label for="SEQUENCE_TARGET">Targets</label>
+              </td>
+              <td>
+                <input type="text" id="SEQUENCE_TARGET" size="30" placeholder="E.g. (<start>,<length>),(37,21),(60,10)">
+              </td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>
+                <label for="SEQUENCE_INTERNAL_EXCLUDED_REGION">Excluded Regions</label>
+              </td>
+              <td>
+                <input type="text" id="SEQUENCE_INTERNAL_EXCLUDED_REGION" size="30" placeholder="E.g. (<start>,<length>),(37,21),(60,10)">
+              </td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>
+                <label for="PRIMER_MIN_TM">Primer Melting Temp (Tm)</label>
+              </td>
+              <td>
+                <table>
+                  <tr>
+                    <td style="padding-right:10px">
+                      Min: <input type="text" id="PRIMER_MIN_TM" placeholder="57.0" size="5">
+                    </td>
+                    <td style="padding-right:10px">
+                      Opt: <input type="text" id="PRIMER_OPT_TM" placeholder="60.0" size="5">
+                    </td>
+                    <td>
+                      Max: <input type="text" id="PRIMER_OPT_TM" placeholder="63.0" size="5">
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>
+                <label for="PRIMER_PAIR_MAX_DIFF_TM">Max Tm Difference</label>
+              </td>
+              <td>
+                <input type="text" id="PRIMER_PAIR_MAX_DIFF_TM" placeholder="100.0" size="5">
+              </td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>
+                <label for="PRIMER_SALT_CORRECTIONS">Salt Correction Formula</label>
+              </td>
+              <td>
+                <select class="fancy" id="PRIMER_SALT_CORRECTIONS">
+                  <option value="0">Schildkraut and Lifson 1965</option>
+                  <option selected="selected" value="1">SantaLucia 1998</option>
+                  <option value="2">Owczarzy et. 2004</option>
+                </select>
+              </td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>
+                <label for="PRIMER_TM_FORMULA">Table of thermodynamic parameters</label>
+              </td>
+              <td>
+                <select class="fancy" id="PRIMER_TM_FORMULA">
+                  <option value="0">Breslauer et al. 1986</option>
+                  <option selected="selected" value="1">SantaLucia 1998</option>
+                </select>
+              </td>
+              <td>&nbsp;</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle><b>Advanced</b></ng-template>
+    <ng-template ngbTabContent>
+      <h3>Advanced maybe</h3>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>
+
+<hr>
+
+<!-- Specificity Checking -->
+<h4>Specificity Checking</h4>
+<table class="settings_table">
+  <tr>
+    <td>
+      <label for="GENOME">Genome</label>
+    </td>
+    <td>
+      <select class="fancy" id="GENOME">
+        <option selected="selected" value="Maize B73 AGPv3">Maize B73 AGPv3</option>
+        <option value="1">Something else</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      Primer must have at least
+      <input type="text" id="TOTAL_SPECIFICITY_MISMATCH" value="2" size="1">
+      total mismatches to unintended targets.
+      <br />
+      Including at least
+      <input type="text" id="SEND_SPECIFICITY_MISMATCH" value="2" size="1">
+      mismatches within the last
+      <input type="text" id="SEND_MISMATCH_REGION_LENGTH" value="5" size="1">
+      bps at the 3' end.
+      Ignore targets that have
+      <input type="text" id="TOTAL_MISMATCH_IGNORE" value="6" size="1">
+      or more mismatches to the primer.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <label for="MAX_TARGET_SIZE">Max target size</label>
+    </td>
+    <td>
+      <input type="text" id="MAX_TARGET_SIZE" value="3000"/>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+
+<hr>
+
+<!-- Submit and reset -->
+
+<table class="settings_table">
+  <tr>
+    <td class="submit_button">
+      <button type="button" class="btn btn-primary" onclick="submit()">Submit</button>
+    </td>
+    <td class="reset_button">
+      <button type="button" class="btn btn-default" onclick="reset()">Reset</button>  
+    </td>
+  </tr>
+</table>
+
+<!-- Result container -->
+<div class="result" id="result">
+</div>
