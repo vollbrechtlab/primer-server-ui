@@ -34,13 +34,13 @@ Run `ng serve --poll=1000` for a dev server. Navigate to `http://<your IP addres
 
 Run `ng serve --host <your IP address> --poll=1000` for a dev server. Navigate to `http://localhost:4200/` The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Development Build
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `ng build --dev --base-href <app's root directory>` to build the project for development. The build artifacts will be stored in the `dist/` directory. Just copy the contents of `dist/` to your web server.
 
-## Build
+## Production Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `ng build --prod --base-href <app's root directory>` to build the project for production. The build artifacts will be stored in the `dist/` directory. Just copy the contents of `dist/` to your web server.
 
 ## Running unit tests
 
