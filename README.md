@@ -4,6 +4,28 @@ Primer3 Web UI written in Angular 4
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.7.
 
+## How to install dependencies
+
+### Install NodeJS
+
+**On Debian/Ubuntu**
+```shell
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs build-essential
+```
+
+**On RHEL/CentOS/Fedora**
+```shell
+curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
+sudo yum -y install nodejs gcc-c++ make
+```
+
+### Install Angular 4
+
+```shell
+sudo npm install -g @angular/cli
+```
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
