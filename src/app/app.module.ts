@@ -40,6 +40,7 @@ import {
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
+import { Primer3Service } from './primer3.service'
 
 @NgModule({
   declarations: [
@@ -83,7 +84,7 @@ import { AppComponent } from './app.component';
     MdToolbarModule,
     MdTooltipModule
   ],
-  providers: [],
+  providers: [Primer3Service],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
