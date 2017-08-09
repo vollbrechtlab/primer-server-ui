@@ -1,152 +1,168 @@
-<h1>{{title}} ({{version}})</h1>
+<nav>
+<span class="title">{{title}} <small>{{version}}</small></span>
+</nav>
+
 <br>
 <!-- sequence template input -->
-<div class="form-group">
-  <textarea class="form-control" rows="5" id="SEQUENCE_TEMPLATE" placeholder="Enter Input Sequence" autofocus></textarea>
-</div>
+<form class="example-form">
+  <md-input-container class="example-full-width">
+    <textarea mdInput [(ngModel)]="SEQUENCE_TEMPLATE_INPUT" (ngModelChange)="calcParam()" name="SEQUENCE_TEMPLATE_INPUT" rows="5" placeholder="Paste sequence template here" autofocus></textarea>
+    <md-hint align="end">Length: {{sequence_length}}, GC Content: {{gc_content}}%</md-hint>
+    
+  </md-input-container>
+</form>
+<md-error *ngIf="!isSequenceOk">
+  Wrong Sequence
+</md-error>
+
 
 <!-- Settings -->
 <h4>Settings</h4>
-<!-- Basic and Advanced settings tabs -->
-<md-tab-group>
-  <md-tab>
-    <ng-template md-tab-label>
-      <b>Basic</b>
-    </ng-template>
-    <div class="table-responsive">
-      <table class="settings_table">
-        <tbody>
+<form class="example-form">
+  <table class="settings_table">
+    <tr>
+      <td>
+        <div>
+          <md-checkbox [(ngModel)]="PRIMER_PICK_LEFT_PRIMER" name="PRIMER_PICK_LEFT_PRIMER" align="end">Pick Left Primer</md-checkbox>
+        </div> &nbsp;
+        <div *ngIf="!PRIMER_PICK_LEFT_PRIMER">
+          <md-input-container class="pick-condition-input">
+            <input mdInput type="text" [(ngModel)]="SEQUENCE_PRIMER" name="SEQUENCE_PRIMER" placeholder="Use this left primer">
+          </md-input-container>
+        </div>
+      </td>
+      <td>
+        <div>
+          <md-checkbox [(ngModel)]="PRIMER_PICK_INTERNAL_OLIGO" name="PRIMER_PICK_INTERNAL_OLIGO" align="end">Pick Internal Oligo</md-checkbox>
+        </div> &nbsp;
+        <div *ngIf="!PRIMER_PICK_INTERNAL_OLIGO">
+          <md-input-container class="pick-condition-input">
+            <input mdInput type="text" [(ngModel)]="SEQUENCE_INTERNAL_OLIGO" name="SEQUENCE_INTERNAL_OLIGO" placeholder="Use this internal oligo">
+          </md-input-container>
+        </div>
+      </td>
+      <td>
+        <div>
+          <md-checkbox [(ngModel)]="PRIMER_PICK_RIGHT_PRIMER" name="PRIMER_PICK_RIGHT_PRIMER" align="end">Pick Right Primer</md-checkbox>
+        </div> &nbsp;
+        <div *ngIf="!PRIMER_PICK_RIGHT_PRIMER">
+          <md-input-container class="pick-condition-input">
+            <input mdInput type="text" [(ngModel)]="SEQUENCE_PRIMER_REVCOMP" name="SEQUENCE_PRIMER_REVCOMP" placeholder="Use this right primer">
+          </md-input-container>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="PRIMER_PRODUCT_SIZE_MIN">Product Size</label>
+      </td>
+      <td colspan="2">
+        <table>
           <tr>
             <td>
-              <span class="question">
-                <label for="PRIMER_PICK_LEFT_PRIMER">Pick Left Primer</label>
-                <input class="pick_left_primer_check" type="checkbox" id="PRIMER_PICK_LEFT_PRIMER" checked>
-              </span>
-              <span class="answer_pick_left_primer_check" hidden>
-                <input type="text" id="SEQUENCE_PRIMER" placeholder="use this left primer">
-              </span>
+              <md-input-container class="example-full-width">
+                <input mdInput type="number" [(ngModel)]="PRIMER_PRODUCT_SIZE_MIN" id="PRIMER_PRODUCT_SIZE_MIN" name="PRIMER_PRODUCT_SIZE_MIN" placeholder="Min">
+              </md-input-container>
             </td>
             <td>
-              <span class="question">
-                <label for="PRIMER_PICK_INTERNAL_OLIGO">Pick Internal Oligo</label>
-                <input class="pick_internal_oligo_check" type="checkbox" id="PRIMER_PICK_INTERNAL_OLIGO">
-              </span>
-              <span class="answer_pick_internal_oligo_check">
-                <input type="text" id="SEQUENCE_INTERNAL_OLIGO" placeholder="use this internal oligo">
-              </span>
-            </td>
-            <td>
-              <span class="question">
-                <label for="PRIMER_PICK_RIGHT_PRIMER">Pick Right Primer</label>
-                <input class="pick_right_primer_check" type="checkbox" id="PRIMER_PICK_RIGHT_PRIMER" checked>
-              </span>
-              <span class="answer_pick_right_primer_check" hidden>
-                <input type="text" id="SEQUENCE_PRIMER_REVCOMP" placeholder="use this right primer">
-              </span>
+              <md-input-container class="example-full-width">
+                <input mdInput type="number" [(ngModel)]="PRIMER_PRODUCT_SIZE_MAX" id="PRIMER_PRODUCT_SIZE_MAX" name="PRIMER_PRODUCT_SIZE_MAX" placeholder="Max">
+              </md-input-container>
             </td>
           </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="SEQUENCE_TARGET">Targets</label>
+      </td>
+      <td colspan="2">
+        <md-input-container class="example-full-width">
+          <input mdInput type="text" [(ngModel)]="SEQUENCE_TARGET" id="SEQUENCE_TARGET" name="SEQUENCE_TARGET">
+          <md-hint>E.g. (&lt;start&gt;,&lt;length&gt;),(37,21),(60,10)</md-hint>
+        </md-input-container>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="SEQUENCE_INTERNAL_EXCLUDED_REGION">Excluded Regions</label>
+      </td>
+      <td colspan="2">
+        <md-input-container class="example-full-width">
+          <input mdInput type="text" [(ngModel)]="SEQUENCE_INTERNAL_EXCLUDED_REGION" id="SEQUENCE_INTERNAL_EXCLUDED_REGION" name="SEQUENCE_INTERNAL_EXCLUDED_REGION">
+          <md-hint>E.g. (&lt;start&gt;,&lt;length&gt;),(37,21),(60,10)</md-hint>
+        </md-input-container>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="PRIMER_MIN_TM">Primer Melting Temp (Tm)</label>
+      </td>
+      <td colspan="2">
+        <table>
           <tr>
             <td>
-              <label for="PRIMER_PRODUCT_SIZE_MIN">Product Size</label>
+              <md-input-container class="example-full-width">
+                <input mdInput type="number" [(ngModel)]="PRIMER_MIN_TM" id="PRIMER_MIN_TM" name="PRIMER_MIN_TM" placeholder="Min">
+              </md-input-container>
             </td>
             <td>
-              <table>
-                <tr>
-                  <td style="padding-right:10px">
-                    Min: <input type="text" id="PRIMER_PRODUCT_SIZE_MIN" value="0" size="5">
-                  </td>
-                  <td>
-                    Max: <input type="text" id="PRIMER_PRODUCT_SIZE_MAX" value="0" size="5">
-                  </td>
-                </tr>
-              </table>
+              <md-input-container class="example-full-width">
+                <input mdInput type="number" [(ngModel)]="PRIMER_OPT_TM" id="PRIMER_OPT_TM" name="PRIMER_OPT_TM" placeholder="Opt">
+              </md-input-container>
             </td>
-            <td>&nbsp;</td>
+            <td>
+              <md-input-container class="example-full-width">
+                <input mdInput type="number" [(ngModel)]="PRIMER_MAX_TM" id="PRIMER_MAX_TM" name="PRIMER_MAX_TM" placeholder="Max">
+              </md-input-container>
+            </td>
           </tr>
-          <tr>
-            <td>
-              <label for="SEQUENCE_TARGET">Targets</label>
-            </td>
-            <td>
-              <input type="text" id="SEQUENCE_TARGET" size="30" placeholder="E.g. (<start>,<length>),(37,21),(60,10)">
-            </td>
-            <td>&nbsp;</td>
-          </tr>
-          <tr>
-            <td>
-              <label for="SEQUENCE_INTERNAL_EXCLUDED_REGION">Excluded Regions</label>
-            </td>
-            <td>
-              <input type="text" id="SEQUENCE_INTERNAL_EXCLUDED_REGION" size="30" placeholder="E.g. (<start>,<length>),(37,21),(60,10)">
-            </td>
-            <td>&nbsp;</td>
-          </tr>
-          <tr>
-            <td>
-              <label for="PRIMER_MIN_TM">Primer Melting Temp (Tm)</label>
-            </td>
-            <td>
-              <table>
-                <tr>
-                  <td style="padding-right:10px">
-                    Min: <input type="text" id="PRIMER_MIN_TM" placeholder="57.0" size="5">
-                  </td>
-                  <td style="padding-right:10px">
-                    Opt: <input type="text" id="PRIMER_OPT_TM" placeholder="60.0" size="5">
-                  </td>
-                  <td>
-                    Max: <input type="text" id="PRIMER_OPT_TM" placeholder="63.0" size="5">
-                  </td>
-                </tr>
-              </table>
-            </td>
-            <td>&nbsp;</td>
-          </tr>
-          <tr>
-            <td>
-              <label for="PRIMER_PAIR_MAX_DIFF_TM">Max Tm Difference</label>
-            </td>
-            <td>
-              <input type="text" id="PRIMER_PAIR_MAX_DIFF_TM" placeholder="100.0" size="5">
-            </td>
-            <td>&nbsp;</td>
-          </tr>
-          <tr>
-            <td>
-              <label for="PRIMER_SALT_CORRECTIONS">Salt Correction Formula</label>
-            </td>
-            <td>
-              <select class="fancy" id="PRIMER_SALT_CORRECTIONS">
-                <option value="0">Schildkraut and Lifson 1965</option>
-                <option selected="selected" value="1">SantaLucia 1998</option>
-                <option value="2">Owczarzy et. 2004</option>
-              </select>
-            </td>
-            <td>&nbsp;</td>
-          </tr>
-          <tr>
-            <td>
-              <label for="PRIMER_TM_FORMULA">Table of thermodynamic parameters</label>
-            </td>
-            <td>
-              <select class="fancy" id="PRIMER_TM_FORMULA">
-                <option value="0">Breslauer et al. 1986</option>
-                <option selected="selected" value="1">SantaLucia 1998</option>
-              </select>
-            </td>
-            <td>&nbsp;</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </md-tab>
-  <md-tab>
-    <ng-template md-tab-label>
-      <b>Advanced</b>
-    </ng-template>
-    <p>...</p>
-  </md-tab>
-</md-tab-group>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="PRIMER_PAIR_MAX_DIFF_TM">Max Tm Difference</label>
+      </td>
+      <td colspan="2">
+        <md-input-container class="max-diff-tm-input">
+          <input mdInput type="number" [(ngModel)]="PRIMER_PAIR_MAX_DIFF_TM" id="PRIMER_PAIR_MAX_DIFF_TM" name="PRIMER_PAIR_MAX_DIFF_TM">
+        </md-input-container>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="PRIMER_SALT_CORRECTIONS">Salt Correction Formula</label>
+      </td>
+      <td colspan="2">
+        <md-select [(ngModel)]="PRIMER_SALT_CORRECTIONS" name="option" class="salt-corrections-select">
+          <md-option *ngFor="let option of PRIMER_SALT_CORRECTIONS_OPTIONS" [value]="option.value">
+            {{option.viewValue}}
+          </md-option>
+        </md-select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="PRIMER_TM_FORMULA">Table of thermodynamic parameters</label>
+      </td>
+      <td colspan="2">
+        <md-select [(ngModel)]="PRIMER_TM_FORMULA" name="option" class="tm-formula-select">
+          <md-option *ngFor="let option of PRIMER_TM_FORMULA_OPTIONS" [value]="option.value">
+            {{option.viewValue}}
+          </md-option>
+        </md-select>
+      </td>
+    </tr>
+
+  </table>
+  </form>
+
+<hr>
+
+<!-- Additional Settings -->
+<h4>Additional Settings</h4>
 
 <hr>
 
@@ -157,26 +173,34 @@
     <td>
       <label for="GENOME">Genome</label>
     </td>
-    <td>
-      <select class="fancy" id="GENOME">
-        <option selected="selected" value="Maize B73 AGPv3">Maize B73 AGPv3</option>
-        <option value="1">Something else</option>
-      </select>
+    <td colspan="2">
+      <md-select [(ngModel)]="GENOME" name="option" class="example-full-width">
+        <md-option *ngFor="let option of GENOME_OPTIONS" [value]="option.value">
+          {{option.viewValue}}
+        </md-option>
+      </md-select>
     </td>
   </tr>
   <tr>
     <td colspan="3">
-      Primer must have at least
-      <input type="text" id="TOTAL_SPECIFICITY_MISMATCH" value="2" size="1">
-      total mismatches to unintended targets.
-      <br />
-      Including at least
-      <input type="text" id="SEND_SPECIFICITY_MISMATCH" value="2" size="1">
-      mismatches within the last
-      <input type="text" id="SEND_MISMATCH_REGION_LENGTH" value="5" size="1">
+      Primer must have at least 
+      <md-input-container class="specificity-checking-input">
+        <input mdInput type="number" [(ngModel)]="TOTAL_SPECIFICITY_MISMATCH" size="1">
+      </md-input-container>
+      total mismatches to unintended targets. &nbsp;
+      Including at least 
+      <md-input-container class="specificity-checking-input">
+        <input mdInput type="number" [(ngModel)]="SEND_SPECIFICITY_MISMATCH" size="1">
+      </md-input-container>
+      mismatches within the last 
+      <md-input-container class="specificity-checking-input">
+        <input mdInput type="number" [(ngModel)]="SEND_MISMATCH_REGION_LENGTH" size="1">
+      </md-input-container>
       bps at the 3' end.
-      Ignore targets that have
-      <input type="text" id="TOTAL_MISMATCH_IGNORE" value="6" size="1">
+      Ignore targets that have 
+      <md-input-container class="specificity-checking-input">
+        <input mdInput type="number" [(ngModel)]="TOTAL_MISMATCH_IGNORE" size="1">
+      </md-input-container>
       or more mismatches to the primer.
     </td>
   </tr>
@@ -184,10 +208,11 @@
     <td>
       <label for="MAX_TARGET_SIZE">Max target size</label>
     </td>
-    <td>
-      <input type="text" id="MAX_TARGET_SIZE" value="3000"/>
+    <td colspan="2">
+      <md-input-container class="example-full-width">
+        <input mdInput type="number" [(ngModel)]="MAX_TARGET_SIZE">
+      </md-input-container>
     </td>
-    <td>&nbsp;</td>
   </tr>
 </table>
 
@@ -197,10 +222,10 @@
 <table class="settings_table">
   <tr>
     <td class="submit_button">
-      <button md-fab onclick="submit()">Submit</button>
+      <button md-raised-button (click)="submit()">Submit</button>
     </td>
     <td class="reset_button">
-      <button md-fab onclick="reset()">Reset</button>  
+      <button md-raised-button (click)="reset()">Reset</button>  
     </td>
   </tr>
 </table>
