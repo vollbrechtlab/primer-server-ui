@@ -8,11 +8,11 @@
   <md-input-container class="example-full-width">
     <textarea mdInput [(ngModel)]="SEQUENCE_TEMPLATE_INPUT" (ngModelChange)="calcParam()" name="SEQUENCE_TEMPLATE_INPUT" rows="5" placeholder="Paste sequence template here" autofocus></textarea>
     <md-hint align="end">Length: {{sequence_length}}, GC Content: {{gc_content}}%</md-hint>
-    
+
   </md-input-container>
 </form>
 <md-error *ngIf="!isSequenceOk">
-  Wrong Sequence
+  Wrong Sequence: Paste correct sequence
 </md-error>
 
 
