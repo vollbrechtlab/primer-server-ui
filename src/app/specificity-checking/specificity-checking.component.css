@@ -1,0 +1,11 @@
+.settings_table {
+    table-layout: fixed; 
+    width: 100%;
+}
+.specificity-checking-input {
+  width: 30px;
+}
+.genome-select {
+  width: 100%;
+  max-width: 300px;
+}
