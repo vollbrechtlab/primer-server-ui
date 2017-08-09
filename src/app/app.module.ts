@@ -2,87 +2,33 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MdAutocompleteModule,
-  MdButtonModule,
-  MdButtonToggleModule,
-  MdCardModule,
-  MdCheckboxModule,
-  MdChipsModule,
-  MdCoreModule,
-  MdDatepickerModule,
-  MdDialogModule,
-  MdExpansionModule,
-  MdGridListModule,
-  MdIconModule,
-  MdInputModule,
-  MdListModule,
-  MdMenuModule,
-  MdNativeDateModule,
-  MdPaginatorModule,
-  MdProgressBarModule,
-  MdProgressSpinnerModule,
-  MdRadioModule,
-  MdRippleModule,
-  MdSelectModule,
-  MdSidenavModule,
-  MdSliderModule,
-  MdSlideToggleModule,
-  MdSnackBarModule,
-  MdSortModule,
-  MdTableModule,
-  MdTabsModule,
-  MdToolbarModule,
-  MdTooltipModule,
-} from '@angular/material';
-import 'hammerjs';
 
+import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { AppComponent } from './app.component';
-import { Primer3Service } from './primer3.service'
+import { Primer3Service } from './primer3.service';
+import { AdditionalParamComponent } from './additional-param/additional-param.component';
+import { SequenceSettingsComponent } from './sequence-settings/sequence-settings.component';
+import { SpecificityCheckingComponent } from './specificity-checking/specificity-checking.component';
+import { SubmitAreaComponent } from './submit-area/submit-area.component';
+import { ResultAreaComponent } from './result-area/result-area.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AdditionalParamComponent,
+    SequenceSettingsComponent,
+    SpecificityCheckingComponent,
+    SubmitAreaComponent,
+    ResultAreaComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-
-    BrowserAnimationsModule,
-    MdAutocompleteModule,
-    MdButtonModule,
-    MdButtonToggleModule,
-    MdCardModule,
-    MdCheckboxModule,
-    MdChipsModule,
-    MdCoreModule,
-    MdDatepickerModule,
-    MdDialogModule,
-    MdExpansionModule,
-    MdGridListModule,
-    MdIconModule,
-    MdInputModule,
-    MdListModule,
-    MdMenuModule,
-    MdNativeDateModule,
-    MdPaginatorModule,
-    MdProgressBarModule,
-    MdProgressSpinnerModule,
-    MdRadioModule,
-    MdRippleModule,
-    MdSelectModule,
-    MdSidenavModule,
-    MdSliderModule,
-    MdSlideToggleModule,
-    MdSnackBarModule,
-    MdSortModule,
-    MdTableModule,
-    MdTabsModule,
-    MdToolbarModule,
-    MdTooltipModule
+    AngularMaterialModule,
+    ReactiveFormsModule,
   ],
   providers: [Primer3Service],
   bootstrap: [AppComponent]
