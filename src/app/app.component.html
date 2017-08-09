@@ -162,7 +162,7 @@
 <hr>
 
 <!-- Additional Settings -->
-<h4>Additional Settings</h4>
+<h4>Additional Parameters</h4>
 
 <hr>
 
@@ -183,21 +183,21 @@
   </tr>
   <tr>
     <td colspan="3">
-      Primer must have at least 
+      Primer must have at least
       <md-input-container class="specificity-checking-input">
         <input mdInput type="number" [(ngModel)]="TOTAL_SPECIFICITY_MISMATCH" size="1">
       </md-input-container>
       total mismatches to unintended targets. &nbsp;
-      Including at least 
+      Including at least
       <md-input-container class="specificity-checking-input">
         <input mdInput type="number" [(ngModel)]="SEND_SPECIFICITY_MISMATCH" size="1">
       </md-input-container>
-      mismatches within the last 
+      mismatches within the last
       <md-input-container class="specificity-checking-input">
         <input mdInput type="number" [(ngModel)]="SEND_MISMATCH_REGION_LENGTH" size="1">
       </md-input-container>
       bps at the 3' end.
-      Ignore targets that have 
+      Ignore targets that have
       <md-input-container class="specificity-checking-input">
         <input mdInput type="number" [(ngModel)]="TOTAL_MISMATCH_IGNORE" size="1">
       </md-input-container>
@@ -225,7 +225,7 @@
       <button md-raised-button (click)="submit()">Submit</button>
     </td>
     <td class="reset_button">
-      <button md-raised-button (click)="reset()">Reset</button>  
+      <button md-raised-button (click)="reset()">Reset</button>
     </td>
   </tr>
 </table>
