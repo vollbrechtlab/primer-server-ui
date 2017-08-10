@@ -15,7 +15,7 @@ import 'rxjs/add/observable/fromEvent';
   styleUrls: ['./additional-param.component.css']
 })
 export class AdditionalParamComponent {
-  displayedColumns = ['view_name', 'name', 'value'];
+  displayedColumns = ['view_name', 'value'];
   exampleDatabase = new ExampleDatabase();
   dataSource: ExampleDataSource | null;
 
@@ -35,7 +35,7 @@ export class AdditionalParamComponent {
 
 /** Constants used to fill up our data base. */
 const NAMES = [
-  'SEQUENCE_EXCLUDED_REGION', 
+  'SEQUENCE_INTERNAL_EXCLUDED_REGION', 
   'SEQUENCE_INCLUDED_REGION',
   'SEQUENCE_FORCE_LEFT_END', 
   'SEQUENCE_QUALITY', 
@@ -184,7 +184,7 @@ const NAMES = [
   'PRIMER_PAIR_WT_PRODUCT_SIZE_GT'];
 
 const VIEW_NAMES = [
-  'SEQUENCE EXCLUDED REGION', 
+  'SEQUENCE INTERNAL EXCLUDED REGION', 
   'SEQUENCE INCLUDED REGION',
   'SEQUENCE FORCE LEFT END', 
   'SEQUENCE QUALITY', 
@@ -334,7 +334,6 @@ const VIEW_NAMES = [
 ];
 
 export interface UserData {
-
   name: string;
   view_name: string;
   value: string;
@@ -348,8 +347,10 @@ export class ExampleDatabase {
   get data(): UserData[] { return this.dataChange.value; }
 
   constructor() {
-    // Fill up the database with 100 users.
-    for (let i = 0; i < NAMES.length; i++) { this.addUser(i); }
+    // Fill up the database with parameters.
+    for (let i = 0; i < NAMES.length; i++) { 
+      this.addUser(i); 
+    }
   }
 
   /** Adds a new user to the database. */
