@@ -1,0 +1,12 @@
+.submit_button {
+    text-align: right; 
+    padding-right:10%;
+}
+.reset_button {
+    text-align: left; 
+    padding-left:10%;
+}
+.settings_table {
+    table-layout: fixed; 
+    width: 100%;
+}
