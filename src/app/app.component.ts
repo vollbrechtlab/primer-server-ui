@@ -9,4 +9,9 @@ export class AppComponent {
   /* General */
   title = 'Primer Server';
   version = "2.0.2";  
+
+  constructor(){
+
+  }
+  
 }
