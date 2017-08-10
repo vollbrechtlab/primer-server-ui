@@ -31,7 +31,7 @@ export class SequenceSettingsComponent implements OnInit {
   // targets
   SEQUENCE_TARGET: string;
   // excluded regions
-  SEQUENCE_INTERNAL_EXCLUDED_REGION: string;
+  SEQUENCE_EXCLUDED_REGION: string;
   // primer melting temp
   PRIMER_MIN_TM = 57.0;
   PRIMER_OPT_TM = 60.0;
@@ -64,7 +64,7 @@ export class SequenceSettingsComponent implements OnInit {
    this.p3DataSharingSerice['p3Input']['SEQUENCE_PRIMER_REVCOMP'] = "";
    this.p3DataSharingSerice['p3Input']['PRIMER_PRODUCT_SIZE_RANGE'] = null;
    this.p3DataSharingSerice['p3Input']['SEQUENCE_TARGET'] = null;
-   this.p3DataSharingSerice['p3Input']['SEQUENCE_INTERNAL_EXCLUDED_REGION'] = null;
+   this.p3DataSharingSerice['p3Input']['SEQUENCE_EXCLUDED_REGION'] = null;
    this.p3DataSharingSerice['p3Input']['PRIMER_MIN_TM'] = 57.0;
    this.p3DataSharingSerice['p3Input']['PRIMER_OPT_TM'] = 60.0;
    this.p3DataSharingSerice['p3Input']['PRIMER_MAX_TM'] = 63.0;
@@ -83,12 +83,12 @@ export class SequenceSettingsComponent implements OnInit {
     this.calcSequenceLength();
     this.calcGcContent();
     this.calcProdSize();
-    console.log(this.p3DataSharingSerice['p3Input']['SEQUENCE_TEMPLATE']);
+    //console.log(this.p3DataSharingSerice['p3Input']['SEQUENCE_TEMPLATE']);
   }
 
   validateSequenceInput() {
-    for(var i = 0; i < this.p3DataSharingSerice['SEQUENCE_TEMPLATE'].length; i++){
-      if(!(this.p3DataSharingSerice['SEQUENCE_TEMPLATE'][i] == 'A' || this.p3DataSharingSerice['SEQUENCE_TEMPLATE'][i] == 'G' || this.p3DataSharingSerice['SEQUENCE_TEMPLATE'][i] == 'C' || this.p3DataSharingSerice['SEQUENCE_TEMPLATE'][i] == 'T')){
+    for(var i = 0; i < this.p3DataSharingSerice['p3Input']['SEQUENCE_TEMPLATE'].length; i++){
+      if(!(this.p3DataSharingSerice['p3Input']['SEQUENCE_TEMPLATE'][i] == 'A' || this.p3DataSharingSerice['p3Input']['SEQUENCE_TEMPLATE'][i] == 'G' || this.p3DataSharingSerice['p3Input']['SEQUENCE_TEMPLATE'][i] == 'C' || this.p3DataSharingSerice['p3Input']['SEQUENCE_TEMPLATE'][i] == 'T')){
         this.isSequenceOk = false;
         return false;
       }
@@ -97,15 +97,15 @@ export class SequenceSettingsComponent implements OnInit {
     return true;
   }
   calcSequenceLength() {
-    this.sequence_length = this.p3DataSharingSerice['SEQUENCE_TEMPLATE'].length;
+    this.sequence_length = this.p3DataSharingSerice['p3Input']['SEQUENCE_TEMPLATE'].length;
   }
   calcGcContent() {
     if(this.sequence_length == 0){
       return 0;
     }
     var numGc = 0;
-    for(var i = 0; i < this.p3DataSharingSerice['SEQUENCE_TEMPLATE'].length; i++){
-      if(this.p3DataSharingSerice['SEQUENCE_TEMPLATE'][i] == 'G' || this.p3DataSharingSerice['SEQUENCE_TEMPLATE'][i] == 'C'){
+    for(var i = 0; i < this.p3DataSharingSerice['p3Input']['SEQUENCE_TEMPLATE'].length; i++){
+      if(this.p3DataSharingSerice['p3Input']['SEQUENCE_TEMPLATE'][i] == 'G' || this.p3DataSharingSerice['p3Input']['SEQUENCE_TEMPLATE'][i] == 'C'){
         ++numGc;
       }
     }

@@ -15,20 +15,20 @@
     <!-- value Column -->
     <ng-container cdkColumnDef="value">
       <md-header-cell *cdkHeaderCellDef> Value </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.value}}% </md-cell>
+      <md-cell *cdkCellDef="let row"> {{row.value}} </md-cell>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container cdkColumnDef="view_name">
       <md-header-cell *cdkHeaderCellDef> Name </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+      <md-cell *cdkCellDef="let row"> {{row.view_name}} </md-cell>
     </ng-container>
 
-    <!-- Param Name Column -->
+    <!-- Param Name Column 
     <ng-container cdkColumnDef="name">
       <md-header-cell *cdkHeaderCellDef> Param Name </md-header-cell>
       <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
-    </ng-container>
+    </ng-container>-->
 
     <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
     <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
