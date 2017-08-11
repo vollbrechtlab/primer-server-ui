@@ -8,77 +8,113 @@ import { P3DataSharingService } from '../p3-data-sharing.service';
   styleUrls: ['./sequence-settings.component.css']
 })
 export class SequenceSettingsComponent implements OnInit {
-
-    /* Sequence template input */
-  SEQUENCE_TEMPLATE_INPUT = "";
-  SEQUENCE_TEMPLATE = "";
-  sequence_length = 0;
-  gc_content = 0;
-  isSequenceOk = true;
+  /* Sequence template input */
+  SEQUENCE_TEMPLATE_INPUT: string;
+  sequence_length: number;
+  gc_content: number;
+  isSequenceOk: boolean;
 
   /* Settings */
-
   // pick condition
-  PRIMER_PICK_LEFT_PRIMER = true;
-  SEQUENCE_PRIMER: string;
-  PRIMER_PICK_INTERNAL_OLIGO = false;
-  SEQUENCE_INTERNAL_OLIGO: string;
-  PRIMER_PICK_RIGHT_PRIMER = true;
-  SEQUENCE_PRIMER_REVCOMP: string;
+  PRIMER_PICK_LEFT_PRIMER_INPUT: boolean;
+  SEQUENCE_PRIMER_INPUT: string;
+  PRIMER_PICK_INTERNAL_OLIGO_INPUT: boolean;
+  SEQUENCE_INTERNAL_OLIGO_INPUT: string;
+  PRIMER_PICK_RIGHT_PRIMER_INPUT: boolean;
+  SEQUENCE_PRIMER_REVCOMP_INPUT: string;
   // product size
-  PRIMER_PRODUCT_SIZE_MIN: number;
-  PRIMER_PRODUCT_SIZE_MAX: number;
+  PRIMER_PRODUCT_SIZE_MIN_INPUT: number;
+  PRIMER_PRODUCT_SIZE_MAX_INPUT: number;
   // targets
-  SEQUENCE_TARGET: string;
+  SEQUENCE_TARGET_INPUT: string;
   // excluded regions
-  SEQUENCE_EXCLUDED_REGION: string;
+  SEQUENCE_EXCLUDED_REGION_INPUT: string;
   // primer melting temp
-  PRIMER_MIN_TM = 57.0;
-  PRIMER_OPT_TM = 60.0;
-  PRIMER_MAX_TM = 63.0;
+  PRIMER_MIN_TM_INPUT: number;
+  PRIMER_OPT_TM_INPUT: number;
+  PRIMER_MAX_TM_INPUT: number;
   // max tm difference
-  PRIMER_PAIR_MAX_DIFF_TM = 100.0;
+  PRIMER_PAIR_MAX_DIFF_TM_INPUT: number;
   // salt correction formula
-  PRIMER_SALT_CORRECTIONS = 1;
-  PRIMER_SALT_CORRECTIONS_OPTIONS = [
-    {value: 0, viewValue: 'Schildkraut and Lifson 1965'},
-    {value: 1, viewValue: 'SantaLucia 1998'},
-    {value: 2, viewValue: 'Owczarzy et. 2004'}
-  ];
+  PRIMER_SALT_CORRECTIONS_INPUT: number;
+  PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS: Array<{}>;
   // table of thermodynamic parameters
-  PRIMER_TM_FORMULA = 1;
-  PRIMER_TM_FORMULA_OPTIONS = [
-    {value: 0, viewValue: 'Breslauer et al. 1986'},
-    {value: 1, viewValue: 'SantaLucia 1998'}
-  ];
+  PRIMER_TM_FORMULA_INPUT: number;
+  PRIMER_TM_FORMULA_INPUT_OPTIONS: Array<{}>;
 
  constructor(
     private p3DataSharingSerice: P3DataSharingService
   ) { 
-   this.p3DataSharingSerice['p3Input']['SEQUENCE_TEMPLATE'] = "";
-   this.p3DataSharingSerice['p3Input']['PRIMER_PICK_LEFT_PRIMER'] = true;
-   this.p3DataSharingSerice['p3Input']['SEQUENCE_PRIMER'] = "";
-   this.p3DataSharingSerice['p3Input']['PRIMER_PICK_INTERNAL_OLIGO'] = false;
-   this.p3DataSharingSerice['p3Input']['SEQUENCE_INTERNAL_OLIGO'] = "";
-   this.p3DataSharingSerice['p3Input']['PRIMER_PICK_RIGHT_PRIMER'] = true;
-   this.p3DataSharingSerice['p3Input']['SEQUENCE_PRIMER_REVCOMP'] = "";
-   this.p3DataSharingSerice['p3Input']['PRIMER_PRODUCT_SIZE_RANGE'] = null;
-   this.p3DataSharingSerice['p3Input']['SEQUENCE_TARGET'] = null;
-   this.p3DataSharingSerice['p3Input']['SEQUENCE_EXCLUDED_REGION'] = null;
-   this.p3DataSharingSerice['p3Input']['PRIMER_MIN_TM'] = 57.0;
-   this.p3DataSharingSerice['p3Input']['PRIMER_OPT_TM'] = 60.0;
-   this.p3DataSharingSerice['p3Input']['PRIMER_MAX_TM'] = 63.0;
-   this.p3DataSharingSerice['p3Input']['PRIMER_PAIR_MAX_DIFF_TM'] = 100.0;
-   this.p3DataSharingSerice['p3Input']['PRIMER_SALT_CORRECTIONS'] = 1;
-   this.p3DataSharingSerice['p3Input']['PRIMER_TM_FORMULA'] = 1;
- }
+    this.SEQUENCE_TEMPLATE_INPUT = this.p3DataSharingSerice.p3Input['SEQUENCE_TEMPLATE'];
+    this.PRIMER_PICK_LEFT_PRIMER_INPUT = this.p3DataSharingSerice.p3Input['PRIMER_PICK_LEFT_PRIMER'];
+    this.SEQUENCE_PRIMER_INPUT = this.p3DataSharingSerice.p3Input['PRIMER_PICK_LEFT_PRIMER'];
+    this.PRIMER_PICK_INTERNAL_OLIGO_INPUT = this.p3DataSharingSerice.p3Input['PRIMER_PICK_INTERNAL_OLIGO'];
+    this.SEQUENCE_INTERNAL_OLIGO_INPUT = this.p3DataSharingSerice.p3Input['SEQUENCE_INTERNAL_OLIGO'];
+    this.PRIMER_PICK_RIGHT_PRIMER_INPUT = this.p3DataSharingSerice.p3Input['PRIMER_PICK_RIGHT_PRIMER'];
+    this.SEQUENCE_PRIMER_REVCOMP_INPUT = this.p3DataSharingSerice.p3Input['SEQUENCE_PRIMER_REVCOMP'];
+    this.PRIMER_PRODUCT_SIZE_MIN_INPUT = this.p3DataSharingSerice.p3Input['PRIMER_PRODUCT_SIZE_RANGE'][0][0];
+    this.PRIMER_PRODUCT_SIZE_MAX_INPUT = this.p3DataSharingSerice.p3Input['PRIMER_PRODUCT_SIZE_RANGE'][0][1];
+    this.SEQUENCE_TARGET_INPUT = this.convertArrToRangelist(this.p3DataSharingSerice.p3Input['SEQUENCE_TARGET']);
+    this.SEQUENCE_EXCLUDED_REGION_INPUT = this.convertArrToRangelist(this.p3DataSharingSerice.p3Input['SEQUENCE_TARGET']);
+    this.PRIMER_MIN_TM_INPUT = this.p3DataSharingSerice.p3Input['PRIMER_MIN_TM'];
+    this.PRIMER_OPT_TM_INPUT = this.p3DataSharingSerice.p3Input['PRIMER_OPT_TM'];
+    this.PRIMER_MAX_TM_INPUT = this.p3DataSharingSerice.p3Input['PRIMER_MAX_TM'];
+    this.PRIMER_PAIR_MAX_DIFF_TM_INPUT = this.p3DataSharingSerice.p3Input['PRIMER_PAIR_MAX_DIFF_TM'];
+    this.PRIMER_SALT_CORRECTIONS_INPUT = this.p3DataSharingSerice.p3Input['PRIMER_SALT_CORRECTIONS'];
+    this.PRIMER_TM_FORMULA_INPUT = this.p3DataSharingSerice.p3Input['PRIMER_TM_FORMULA'];
+
+    this.sequence_length = 0;
+    this.gc_content = 0;
+    this.isSequenceOk = true;
+    this.PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS = [
+      {value: 0, viewValue: 'Schildkraut and Lifson 1965'},
+      {value: 1, viewValue: 'SantaLucia 1998'},
+      {value: 2, viewValue: 'Owczarzy et. 2004'}
+    ];
+    this.PRIMER_TM_FORMULA_INPUT_OPTIONS = [
+      {value: 0, viewValue: 'Breslauer et al. 1986'},
+      {value: 1, viewValue: 'SantaLucia 1998'}
+    ];
+  }
+
+  shareAllInput(){
+    this.p3DataSharingSerice.p3Input['SEQUENCE_TEMPLATE'] = this.SEQUENCE_TEMPLATE_INPUT;
+    this.p3DataSharingSerice.p3Input['PRIMER_PICK_LEFT_PRIMER'] = this.PRIMER_PICK_LEFT_PRIMER_INPUT;
+    this.p3DataSharingSerice.p3Input['PRIMER_PICK_LEFT_PRIMER'] = this.SEQUENCE_PRIMER_INPUT;
+    this.p3DataSharingSerice.p3Input['PRIMER_PICK_INTERNAL_OLIGO'] = this.PRIMER_PICK_INTERNAL_OLIGO_INPUT;
+    this.p3DataSharingSerice.p3Input['SEQUENCE_INTERNAL_OLIGO'] = this.SEQUENCE_INTERNAL_OLIGO_INPUT;
+    this.p3DataSharingSerice.p3Input['PRIMER_PICK_RIGHT_PRIMER'] = this.PRIMER_PICK_RIGHT_PRIMER_INPUT; 
+    this.p3DataSharingSerice.p3Input['SEQUENCE_PRIMER_REVCOMP'] = this.SEQUENCE_PRIMER_REVCOMP_INPUT; 
+    this.p3DataSharingSerice.p3Input['PRIMER_PRODUCT_SIZE_RANGE'][0][0] = this.PRIMER_PRODUCT_SIZE_MIN_INPUT;
+    this.p3DataSharingSerice.p3Input['PRIMER_PRODUCT_SIZE_RANGE'][0][1] = this.PRIMER_PRODUCT_SIZE_MAX_INPUT;
+    this.p3DataSharingSerice.p3Input['SEQUENCE_TARGET'] = this.convertRangelistToArr(this.SEQUENCE_TARGET_INPUT);
+    this.p3DataSharingSerice.p3Input['SEQUENCE_TARGET'] = this.convertRangelistToArr(this.SEQUENCE_EXCLUDED_REGION_INPUT);
+    this.p3DataSharingSerice.p3Input['PRIMER_MIN_TM'] = this.PRIMER_MIN_TM_INPUT;
+    this.p3DataSharingSerice.p3Input['PRIMER_OPT_TM'] = this.PRIMER_OPT_TM_INPUT;
+    this.p3DataSharingSerice.p3Input['PRIMER_MAX_TM'] = this.PRIMER_MAX_TM_INPUT;
+    this.p3DataSharingSerice.p3Input['PRIMER_PAIR_MAX_DIFF_TM'] = this.PRIMER_PAIR_MAX_DIFF_TM_INPUT;
+    this.p3DataSharingSerice.p3Input['PRIMER_SALT_CORRECTIONS'] = this.PRIMER_SALT_CORRECTIONS_INPUT;
+    this.p3DataSharingSerice.p3Input['PRIMER_TM_FORMULA'] = this.PRIMER_TM_FORMULA_INPUT;
+  }
+
+  convertRangelistToArr(rangelist: string){
+    var arr = [];
+    for(let i = 0; i < rangelist.length; i++){
+      
+    }
+    return null;
+  }
+
+  convertArrToRangelist(arr: Array<Array<number>>){
+    return null;
+  }
 
   ngOnInit() {
   }
 
   calcParam(){
     this.SEQUENCE_TEMPLATE_INPUT = this.SEQUENCE_TEMPLATE_INPUT.toUpperCase();
-    this.p3DataSharingSerice['p3Input']['SEQUENCE_TEMPLATE'] = this.SEQUENCE_TEMPLATE_INPUT;
+    this.p3DataSharingSerice.p3Input['SEQUENCE_TEMPLATE'] = this.SEQUENCE_TEMPLATE_INPUT;
     this.validateSequenceInput();
     this.calcSequenceLength();
     this.calcGcContent();
@@ -112,8 +148,8 @@ export class SequenceSettingsComponent implements OnInit {
     this.gc_content = Math.round(numGc/this.sequence_length*100);
   }
   calcProdSize() {
-    this.PRIMER_PRODUCT_SIZE_MIN = Math.round(this.sequence_length/3);
-    this.PRIMER_PRODUCT_SIZE_MAX = this.sequence_length;
+    this.PRIMER_PRODUCT_SIZE_MIN_INPUT = Math.round(this.sequence_length/3);
+    this.PRIMER_PRODUCT_SIZE_MAX_INPUT = this.sequence_length;
   }
 
 }

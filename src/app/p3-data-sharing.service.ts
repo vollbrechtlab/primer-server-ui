@@ -23,6 +23,23 @@ export class P3DataSharingService {
     return this.p3Result.asObservable();
   }
 
-  constructor() { }
+  constructor() { 
+    this.p3Input['SEQUENCE_TEMPLATE'] = "";
+    this.p3Input['PRIMER_PICK_LEFT_PRIMER'] = true;
+    this.p3Input['SEQUENCE_PRIMER'] = "";
+    this.p3Input['PRIMER_PICK_INTERNAL_OLIGO'] = false;
+    this.p3Input['SEQUENCE_INTERNAL_OLIGO'] = "";
+    this.p3Input['PRIMER_PICK_RIGHT_PRIMER'] = true;
+    this.p3Input['SEQUENCE_PRIMER_REVCOMP'] = "";
+    this.p3Input['PRIMER_PRODUCT_SIZE_RANGE'] = [[]];
+    this.p3Input['SEQUENCE_TARGET'] = null;
+    this.p3Input['SEQUENCE_EXCLUDED_REGION'] = null;
+    this.p3Input['PRIMER_MIN_TM'] = 57.0;
+    this.p3Input['PRIMER_OPT_TM'] = 60.0;
+    this.p3Input['PRIMER_MAX_TM'] = 63.0;
+    this.p3Input['PRIMER_PAIR_MAX_DIFF_TM'] = 3;
+    this.p3Input['PRIMER_SALT_CORRECTIONS'] = 1;
+    this.p3Input['PRIMER_TM_FORMULA'] = 1;
+  }
 
 }

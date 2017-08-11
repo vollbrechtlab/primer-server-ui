@@ -22,14 +22,13 @@ export class SubmitAreaComponent implements OnInit {
 
   submit(){
     console.log('submit');
-    var task = {};
-    task['input'] = this.p3DataSharingSerice['p3Input'];
-    this.primer3Service.sendP3Request(task)
-      .then(p3Status => this.getResult(p3Status['result_url']))
+    //var task = {};
+    //task['input'] = this.p3DataSharingSerice['p3Input'];
+    //this.primer3Service.sendP3Request(task)
+    //  .then(p3Status => this.getResult(p3Status['result_url']))
   }
   reset(){
     console.log('reset');
-    console.log(this.p3DataSharingSerice['p3Input']);
   }
 
   getResult(url){
