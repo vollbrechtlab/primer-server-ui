@@ -1,0 +1,9 @@
+{
+	"data": [
+		{"id": 0, "param_name": "SEQUENCE_INTERNAL_EXCLUDED_REGION", "view_name": "internal excluded regions", "description":"this is internal excluded", "form_type":"input_text", "type":"interval_list", "default_value":null, "value":null},
+		{"id": 1, "param_name": "SEQUENCE_INCLUDED_REGION", "view_name": "included regions", "description":"this is included", "form_type":"input_text", "type":"interval_list", "default_value":null, "value":null},
+		{"id": 2, "param_name": "SEQUENCE_FORCE_LEFT_END", "view_name": "force left end", "description":"this is force left", "form_type":"input_number", "type":"number", "default_value":-1000000, "value":null}
+	]
+}
+
+
