@@ -47,7 +47,7 @@ export class SequenceSettingsComponent implements OnInit {
   ) { 
     this.SEQUENCE_TEMPLATE_INPUT = this.p3DataSharingSerice.p3Input['SEQUENCE_TEMPLATE'];
     this.PRIMER_PICK_LEFT_PRIMER_INPUT = this.p3DataSharingSerice.p3Input['PRIMER_PICK_LEFT_PRIMER'];
-    this.SEQUENCE_PRIMER_INPUT = this.p3DataSharingSerice.p3Input['PRIMER_PICK_LEFT_PRIMER'];
+    this.SEQUENCE_PRIMER_INPUT = this.p3DataSharingSerice.p3Input['SEQUENCE_PRIMER_INPUT'];
     this.PRIMER_PICK_INTERNAL_OLIGO_INPUT = this.p3DataSharingSerice.p3Input['PRIMER_PICK_INTERNAL_OLIGO'];
     this.SEQUENCE_INTERNAL_OLIGO_INPUT = this.p3DataSharingSerice.p3Input['SEQUENCE_INTERNAL_OLIGO'];
     this.PRIMER_PICK_RIGHT_PRIMER_INPUT = this.p3DataSharingSerice.p3Input['PRIMER_PICK_RIGHT_PRIMER'];
