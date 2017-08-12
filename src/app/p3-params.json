@@ -1,0 +1,6 @@
+[
+// additional
+	{"param_name": "SEQUENCE_INTERNAL_EXCLUDED_REGION", "view_name": "internal excluded regions", "description":"this is internal excluded", "value":null},
+	{"param_name": "SEQUENCE_INCLUDED_REGION", "view_name": "included regions", "description":"this is included", "value":null},
+	{"param_name": "SEQUENCE_FORCE_LEFT_END", "view_name": "force left end", "description":"this is force left", "value":null},
+]
