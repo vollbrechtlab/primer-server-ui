@@ -21,7 +21,7 @@ export class AdditionalParamComponent {
   ngOnInit(){
     this.p3Service.getParams().then(params => {
       this.allParams = params;
-      this.selectedParams = [this.allParams[0]];
+      //this.selectedParams = [this.allParams[0]];
     });
   }
   
