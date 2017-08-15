@@ -1,7 +1,4 @@
 import {Component} from '@angular/core';
-import {FormControl} from '@angular/forms';
-
-import {AutoCompleteModule, InputTextModule} from 'primeng/primeng';
 
 import {P3Service} from '../p3.service';
 
@@ -14,6 +11,7 @@ export class AdditionalParamComponent {
 
   selectedParams: any[];
   filteredParamsMultiple: any[];
+  displayDescription = false;
 
   constructor(private p3Service: P3Service) { }
 
@@ -41,6 +39,10 @@ export class AdditionalParamComponent {
 
   onInputTextChange(event){
     console.log(event);
+  }
+
+  showDescription(){
+    this.displayDescription = true;
   }
         
 }

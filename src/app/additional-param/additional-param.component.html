@@ -6,27 +6,43 @@
                 [minLength]="1" placeholder="Parameters" 
                 field="name" 
                 [multiple]="true" 
-                styleClass="wid100">
+                styleClass="autocomp_input">
 </p-autoComplete>
 <table class="param_table">
   <tr *ngFor="let p of selectedParams">
-    <td title="{{p.description}}" *ngIf="p.form_type == 'input_text'">
-      <label for="{{p.name}}">{{p.name}} ({{p.type}}): </label>
+    <!-- Form type is input text -->
+    <td *ngIf="p.form_type == 'input_text'">
+      <label for="{{p.name}}">{{p.name}} ({{p.type}}) 
+        <button pButton type="button" icon="fa-info" iconPos="left" class="help-button" (click)="showDescription()"></button>  
+      </label>
     </td>
     <td *ngIf="p.form_type == 'input_text'">
       <input type="text" pInputText placeholder="{{p.default_value}}" id="{{p.name}}" (ngModelChange)="onInputTextChange($event)"> 
     </td>
 
-    <td title="{{p.description}}" *ngIf="p.form_type == 'input_number'">
-      <label for="{{p.name}}">{{p.name}} ({{p.type}}): </label>
+    <!-- Form type is input number -->
+    <td *ngIf="p.form_type == 'input_number'">
+      <label for="{{p.name}}">{{p.name}} ({{p.type}}) 
+        <button pButton type="button" icon="fa-info" iconPos="left" class="help-button" (click)="showDescription()"></button>  
+      </label>
     </td>
     <td *ngIf="p.form_type == 'input_number'">
       <input type="number" pInputText placeholder="{{p.default_value}}" id="{{p.name}}" > 
     </td>
 
+    <!-- Form type is checkbox -->
     <td title="{{p.description}}" *ngIf="p.form_type == 'checkbox'">
       <md-checkbox align="right">{{p.name}}</md-checkbox>
+      <button pButton type="button" icon="fa-info" iconPos="left" class="help-button" (click)="showDescription()"></button>  
     </td>
     <td *ngIf="p.form_type == 'checkbox'"> </td>
+
+    <!-- descirption dialog -->
+    <p-dialog header="Description" [(visible)]="displayDescription">
+      {{p.description}}
+    </p-dialog>
   </tr>
 </table>
+
+
+
