@@ -12,22 +12,18 @@ import {P3Service} from '../p3.service';
 })
 export class AdditionalParamComponent {
 
-  allParams: any[];
   selectedParams: any[];
   filteredParamsMultiple: any[];
 
   constructor(private p3Service: P3Service) { }
 
   ngOnInit(){
-    this.p3Service.getParams().then(params => {
-      this.allParams = params;
-      //this.selectedParams = [this.allParams[0]];
-    });
+    this.p3Service.loadParams();
   }
   
   filterParamMultiple(event) {
     let query = event.query;
-    this.filteredParamsMultiple = this.filterParam(query, this.allParams);
+    this.filteredParamsMultiple = this.filterParam(query, this.p3Service.params);
   }
   
   filterParam(query, params: any[]):any[] {
@@ -35,8 +31,7 @@ export class AdditionalParamComponent {
     let filtered : any[] = [];
     for(let i = 0; i < params.length; i++) {
       let param = params[i];
-      let mixedStr = param.view_name + param.param_name;
-      if(mixedStr.toLowerCase().includes(query.toLowerCase())) {
+      if(param.name.toLowerCase().includes(query.toLowerCase())) {
         filtered.push(param);
       }
     }

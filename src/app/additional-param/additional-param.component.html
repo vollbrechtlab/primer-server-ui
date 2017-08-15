@@ -6,17 +6,42 @@
                 [minLength]="1" placeholder="Parameters" 
                 field="name" 
                 [multiple]="true" 
-                field="view_name" 
                 styleClass="wid100">
 </p-autoComplete>
 <table>
   <tr *ngFor="let p of selectedParams">
-    <td title="{{p.description}}">{{p.view_name}}: </td>
-    <td *ngIf="p.form_type == 'input_text'">
-      <input type="text" pInputText placeholder="{{p.default_value}}" (ngModelChange)="onInputTextChange($event)"> 
-    </td>
-    <td *ngIf="p.form_type == 'input_number'">
-      <input type="number" pInputText placeholder="{{p.default_value}}"> 
-    </td>
+    <div *ngIf="p.setting_type == 'additional'">
+      <div *ngIf="p.form_type == 'input_text'">
+        <td title="{{p.description}}">
+          <label for="{{p.name}}">{{p.name}} ({{p.type}}): </label>
+        </td>
+        <td>
+          <input type="text" pInputText placeholder="{{p.default_value}}" id="{{p.name}}" (ngModelChange)="onInputTextChange($event)"> 
+        </td>
+      </div>
+      <div *ngIf="p.form_type == 'input_number'">
+        <td title="{{p.description}}">
+          <label for="{{p.name}}">{{p.name}} ({{p.type}}): </label>
+        </td>
+        <td>
+          <input type="number" pInputText placeholder="{{p.default_value}}" id="{{p.name}}" > 
+        </td>
+      </div>
+      <div *ngIf="p.form_type == 'checkbox'">
+        <td title="{{p.description}}">
+          <md-checkbox align="right">{{p.name}}</md-checkbox>
+        </td>
+      </div>
+    </div>
+    <div *ngIf="p.setting_type == 'basic'">
+      <div>
+        <td title="{{p.description}}">
+          <label for="{{p.name}}">{{p.name}} ({{p.type}}): </label>
+        </td>
+        <td>
+          <p>Set in the basic setting</p>
+        </td>
+      </div>
+    </div>
   </tr>
 </table>
