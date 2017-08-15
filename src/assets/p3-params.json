@@ -1,9 +1,1490 @@
 {
-	"data": [
-		{"id": 0, "param_name": "SEQUENCE_INTERNAL_EXCLUDED_REGION", "view_name": "internal excluded regions", "description":"this is internal excluded", "form_type":"input_text", "type":"interval_list", "default_value":null, "value":null},
-		{"id": 1, "param_name": "SEQUENCE_INCLUDED_REGION", "view_name": "included regions", "description":"this is included", "form_type":"input_text", "type":"interval_list", "default_value":null, "value":null},
-		{"id": 2, "param_name": "SEQUENCE_FORCE_LEFT_END", "view_name": "force left end", "description":"this is force left", "form_type":"input_number", "type":"number", "default_value":-1000000, "value":null}
-	]
+  "basic": [
+    {
+      "id": 0,
+      "param_name": "SEQUENCE_TEMPLATE",
+      "view_name": "Use this sequence",
+      "description": "The sequence from which to choose primers. The sequence must be presented 5' -> 3' (i.e, in the normal way). In general, the bases may be upper or lower case, but lower case letters are treated specially if PRIMER_LOWERCASE_MASKING is set. The entire sequence MUST be all on a single line. (In other words, the sequence cannot span several lines.)",
+      "form_type": "textarea",
+      "type": "string",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 1,
+      "param_name": "PRIMER_PICK_LEFT_PRIMER",
+      "view_name": "Pick left primer",
+      "description": "",
+      "form_type": "checkbox",
+      "type": "boolean",
+      "default_value": "TRUE",
+      "options": ""
+    },
+    {
+      "id": 2,
+      "param_name": "SEQUENCE_PRIMER",
+      "view_name": "Use this left primer",
+      "description": "The sequence of a left primer to check and around which to design right primers and optional internal oligos. Must be a substring of SEQUENCE_TEMPLATE.",
+      "form_type": "input_text",
+      "type": "string",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 3,
+      "param_name": "PRIMER_PICK_INTERNAL_OLIGO",
+      "view_name": "Pick internal oligo",
+      "description": "",
+      "form_type": "checkbox",
+      "type": "boolean",
+      "default_value": "FALSE",
+      "options": ""
+    },
+    {
+      "id": 4,
+      "param_name": "SEQUENCE_INTERNAL_OLIGO",
+      "view_name": "Use this internal oligo",
+      "description": "The sequence of an internal oligo to check and around which to design left and right primers. Must be a substring of SEQUENCE_TEMPLATE.",
+      "form_type": "input_text",
+      "type": "string",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 5,
+      "param_name": "PRIMER_PICK_RIGHT_PRIMER",
+      "view_name": "Pick right primer",
+      "description": "",
+      "form_type": "checkbox",
+      "type": "boolean",
+      "default_value": "TRUE",
+      "options": ""
+    },
+    {
+      "id": 6,
+      "param_name": "SEQUENCE_PRIMER_REVCOMP",
+      "view_name": "Use this right primer",
+      "description": "The sequence of a right primer to check and around which to design left primers and optional internal oligos. Must be a substring of the reverse strand of SEQUENCE_TEMPLATE.",
+      "form_type": "input_text",
+      "type": "string",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 7,
+      "param_name": "PRIMER_PRODUCT_SIZE_RANGE",
+      "view_name": "Product Size",
+      "description": "The associated values specify the lengths of the product that the user wants the primers to create, and is a space separated list of elements of the form\n\n<x>-<y>\nwhere an <x>-<y> pair is a legal range of lengths for the product. For example, if one wants PCR products to be between 100 to 150 bases (inclusive) then one would set this parameter to 100-150. If one desires PCR products in either the range from 100 to 150 bases or in the range from 200 to 250 bases then one would set this parameter to 100-150 200-250.\n\nPrimer3 favors product-size ranges to the left side of the parameter string. Primer3 will return legal primers pairs in the first range regardless the value of the objective function for pairs in subsequent ranges. Only if there are an insufficient number of primers in the first range will primer3 return primers in a subsequent range.\n\nFor those with primarily a computational background, the PCR product size is the size (in base pairs) of the DNA fragment that would be produced by the PCR reaction on the given sequence template. This would, of course, include the primers themselves.",
+      "form_type": "input_text",
+      "type": "size_range_list",
+      "default_value": "100-300",
+      "options": ""
+    },
+    {
+      "id": 8,
+      "param_name": "SEQUENCE_TARGET",
+      "view_name": "Target ranges",
+      "description": "If one or more targets is specified then a legal primer pair must flank at least one of them. A target might be a simple sequence repeat site (for example a CA repeat) or a single-base-pair polymorphism, or an exon for resequencing. The value should be a space-separated list of\n\n<start>,<length>\npairs where <start> is the index of the first base of a target, and <length> is its length.\n\nSee also PRIMER_INSIDE_PENALTY, PRIMER_OUTSIDE_PENALTY. Has a different meaning when PRIMER_TASK=pick_sequencing_primers. See PRIMER_TASK for more information.",
+      "form_type": "input_text",
+      "type": "interval_list",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 9,
+      "param_name": "SEQUENCE_EXCLUDED_REGION",
+      "view_name": "Excluded regions",
+      "description": "Primers and oligos may not overlap any region specified in this tag. The associated value must be a space-separated list of\n\n<start>,<length>\npairs where <start> is the index of the first base of the excluded region, and <length> is its length. This tag is useful for tasks such as excluding regions of low sequence quality or for excluding regions containing repetitive elements such as ALUs or LINEs.",
+      "form_type": "input_text",
+      "type": "interval_list",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 10,
+      "param_name": "PRIMER_MIN_TM",
+      "view_name": "Primer min melting temp (tm)",
+      "description": "Minimum acceptable melting temperature (Celsius) for a primer oligo.",
+      "form_type": "input_number",
+      "type": "float",
+      "default_value": 57,
+      "options": ""
+    },
+    {
+      "id": 11,
+      "param_name": "PRIMER_OPT_TM",
+      "view_name": "Primer opt melting temp (tm)",
+      "description": "Optimum melting temperature (Celsius) for a primer. Primer3 will try to pick primers with melting temperatures are close to this temperature. The oligo melting temperature formula used can be specified by user. Please see PRIMER_TM_FORMULA for more information.",
+      "form_type": "input_number",
+      "type": "float",
+      "default_value": 60,
+      "options": ""
+    },
+    {
+      "id": 12,
+      "param_name": "PRIMER_MAX_TM",
+      "view_name": "Primer max melting temp (tm)",
+      "description": "Maximum acceptable melting temperature (Celsius) for a primer oligo.",
+      "form_type": "input_number",
+      "type": "float",
+      "default_value": 63,
+      "options": ""
+    },
+    {
+      "id": 13,
+      "param_name": "PRIMER_PAIR_MAX_DIFF_TM",
+      "view_name": "Max Tm Difference",
+      "description": "Maximum acceptable (unsigned) difference between the melting temperatures of the left and right primers.",
+      "form_type": "input_number",
+      "type": "float",
+      "default_value": 100,
+      "options": ""
+    },
+    {
+      "id": 14,
+      "param_name": "PRIMER_SALT_CORRECTIONS",
+      "view_name": "Salt Correction Formula",
+      "description": "Specifies the salt correction formula for the melting temperature calculation. (New in v. 1.1.0, added by Maido Remm and Triinu Koressaar)\n\nA value of 0 directs primer3 to use the the salt correction formula in the paper [Schildkraut, C, and Lifson, S (1965) \"Dependence of the melting temperature of DNA on salt concentration\", Biopolymers 3:195-208 (not available on-line)]. This was the formula used in older versions of primer3. \n\nA value of 1 (*RECOMMENDED*) directs primer3 to use the salt correction formula in the paper [SantaLucia JR (1998) \"A unified view of polymer, dumbbell and oligonucleotide DNA nearest-neighbor thermodynamics\", Proc Natl Acad Sci 95:1460-65 http://dx.doi.org/10.1073/pnas.95.4.1460] \n\nA value of 2 directs primer3 to use the salt correction formula in the paper [Owczarzy, R., Moreira, B.G., You, Y., Behlke, M.A., and Walder, J.A. (2008). Predicting stability of DNA duplexes in solutions containing magnesium and monovalent cations. Biochemistry 47, 5336-5353 http://dx.doi.org/10.1021/bi702363u] following recommendations in the paper [Ahsen, v.N., Wittwer, C.T., and SchÃ¼tz, E. (2010). Monovalent and divalent salt correction algorithms for Tm prediction-recommendations for Primer3 usage. Brief Bioinform 12, 514 http://dx.doi.org/10.1093/bib/bbq081]. \n\nFor all values of PRIMER_SALT_CORRECTIONS, Primer3 also considers the values of the tags PRIMER_SALT_DIVALENT, PRIMER_INTERNAL_SALT_DIVALENT, PRIMER_DNTP_CONC, and PRIMER_INTERNAL_DNTP_CONC.",
+      "form_type": "select",
+      "type": "option",
+      "default_value": 1,
+      "options": "{value: 0, viewValue: 'Schildkraut and Lifson 1965'},\n{value: 1, viewValue: 'SantaLucia 1998'},\n{value: 2, viewValue: 'Owczarzy et. 2004'}"
+    },
+    {
+      "id": 15,
+      "param_name": "PRIMER_TM_FORMULA",
+      "view_name": "Table of thermodynamic parameters",
+      "description": "Specifies details of melting temperature calculation. (New in v. 1.1.0, added by Maido Remm and Triinu Koressaar.)\n\nA value of 0 directs primer3 to a backward compatible calculation (in other words, the only calculation available in previous version of primer3).\n\nThis backward compatible calculation uses the table of thermodynamic parameters in the paper [Breslauer KJ, Frank R, BlÃ¶cker H and Marky LA (1986) \"Predicting DNA duplex stability from the base sequence\" Proc Natl Acad Sci 83:4746-50 http://dx.doi.org/10.1073/pnas.83.11.3746], and the method in the paper [Rychlik W, Spencer WJ and Rhoads RE (1990) \"Optimization of the annealing temperature for DNA amplification in vitro\", Nucleic Acids Res 18:6409-12 http://dx.doi.org/10.1093/nar/18.21.6409].\n\nA value of 1 (*RECOMMENDED*) directs primer3 to use the table of thermodynamic values and the method for melting temperature calculation suggested in the paper [SantaLucia JR (1998) \"A unified view of polymer, dumbbell and oligonucleotide DNA nearest-neighbor thermodynamics\", Proc Natl Acad Sci 95:1460-65 http://dx.doi.org/10.1073/pnas.95.4.1460].\n\nUse tag PRIMER_SALT_CORRECTIONS, to specify the salt correction method for melting temperature calculation.\n\nExample of calculating the melting temperature of an oligo if PRIMER_TM_FORMULA=1 and PRIMER_SALT_CORRECTIONS=1 recommended values):\n\nprimer=CGTGACGTGACGGACT\n\nUsing default salt and DNA concentrations we have\n\nTm = deltaH/(deltaS + R*ln(C/4))\nwhere R is the gas constant (1.987 cal/K mol) and C is the DNA concentration.\n\ndeltaH(predicted) =\n  = dH(CG) + dH(GT) + dH(TG) + .. + dH(CT) +\n     + dH(init.w.term.GC) + dH(init.w.term.AT) =\n\n  = -10.6 + (-8.4) + (-8.5) + .. + (-7.8) + 0.1 + 2.3  =\n\n  = -128.8 kcal/mol\nwhere 'init.w.term GC' and 'init.w.term AT' are two initiation parameters for duplex formation: 'initiation with terminal GC' and 'initiation with terminal AT'\n\ndeltaS(predicted) =\n  = dS(CG) + dS(GT) + dS(TG) + .. + dS(CT) +\n    + dS(init.w.term.GC) + dS(init.w.term.AT) =\n\n  = -27.2 + (-22.4) + (-22.7) + .. + (-21.0) + (-2.8) + 4.1 =\n \n  = -345.2 cal/k*mol\n\ndeltaS(salt corrected) = \n  = deltaS(predicted) + 0.368*15(NN pairs)*ln(0.05M monovalent cations) =\n  = -361.736\n\nTm = -128.800/(-361.736+1.987*ln((5*10^(-8))/4)) =\n   = 323.704 K\n\nTm(C) = 323.704 - 273.15 = 50.554 C",
+      "form_type": "select",
+      "type": "option",
+      "default_value": 1,
+      "options": "{value: 0, viewValue: 'Breslauer et al. 1986'},\n{value: 1, viewValue: 'SantaLucia 1998'}"
+    }
+  ],
+
+  "additional":     [
+    {
+      "id": 0,
+      "param_name": "SEQUENCE_INTERNAL_EXCLUDED_REGION",
+      "description": "Middle oligos may not overlap any region specified by this tag. The associated value must be a space-separated list of\n\n<start>,<length>\npairs, where <start> is the index of the first base of an excluded region, and <length> is its length. Often one would make Target regions excluded regions for internal oligos.",
+      "form_type": "input_text",
+      "type": "interval list",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 1,
+      "param_name": "SEQUENCE_INCLUDED_REGION",
+      "description": "A sub-region of the given sequence in which to pick primers. For example, often the first dozen or so bases of a sequence are vector, and should be excluded from consideration. The value for this parameter has the form\n\n<start>,<length>\nwhere <start> is the index of the first base to consider, and <length> is the number of subsequent bases in the primer-picking region.",
+      "form_type": "input_text",
+      "type": "interval list",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 2,
+      "param_name": "SEQUENCE_FORCE_LEFT_END",
+      "description": "Forces the 3' end of the left primer to be at the indicated position. Primers are also picked if they violate certain constraints. The default value indicates that the end of the left primer can be anywhere.",
+      "form_type": "input_number",
+      "type": "int",
+      "default_value": -1000000,
+      "options": ""
+    },
+    {
+      "id": 3,
+      "param_name": "SEQUENCE_QUALITY",
+      "description": "A list of space separated integers. There must be exactly one integer for each base in SEQUENCE_TEMPLATE if this argument is non-empty. For example, for the sequence ANNTTCA... SEQUENCE_QUALITY might be 45 10 0 50 30 34 50 67 .... High numbers indicate high confidence in the base called at that position and low numbers indicate low confidence in the base call at that position. This parameter is only relevant if you are using a base calling program that provides quality information (for example phred).",
+      "form_type": "input_text",
+      "type": "space separated integers",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 4,
+      "param_name": "SEQUENCE_FORCE_LEFT_START",
+      "description": "Forces the 5' end of the left primer to be at the indicated position. Primers are also picked if they violate certain constraints. The default value indicates that the start of the left primer can be anywhere.",
+      "form_type": "input_number",
+      "type": "int",
+      "default_value": -1000000,
+      "options": ""
+    },
+    {
+      "id": 5,
+      "param_name": "SEQUENCE_START_CODON_POSITION",
+      "description": "This parameter should be considered EXPERIMENTAL at this point. Please check the output carefully; some erroneous inputs might cause an error in primer3.\n\nIndex of the first base of a start codon. This parameter allows primer3 to select primer pairs to create in-frame amplicons e.g. to create a template for a fusion protein. Primer3 will attempt to select an in-frame left primer, ideally starting at or to the left of the start codon, or to the right if necessary. Negative values of this parameter are legal if the actual start codon is to the left of available sequence. If this parameter is non-negative primer3 signals an error if the codon at the position specified by this parameter is not an ATG. A value less than or equal to -10^6 indicates that primer3 should ignore this parameter.\n\nPrimer3 selects the position of the right primer by scanning right from the left primer for a stop codon. Ideally the right primer will end at or after the stop codon.",
+      "form_type": "input_number",
+      "type": "int",
+      "default_value": -2000000,
+      "options": ""
+    },
+    {
+      "id": 6,
+      "param_name": "SEQUENCE_FORCE_RIGHT_END",
+      "description": "Forces the 3' end of the right primer to be at the indicated position. Primers are also picked if they violate certain constraints. The default value indicates that the end of the right primer can be anywhere.",
+      "form_type": "input_number",
+      "type": "int",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 7,
+      "param_name": "SEQUENCE_OVERLAP_JUNCTION_LIST",
+      "description": "If this list is not empty, then the forward OR the reverse primer must overlap one of these junction points by at least PRIMER_MIN_3_PRIME_OVERLAP_OF_JUNCTION nucleotides at the 3' end and at least PRIMER_MIN_5_PRIME_OVERLAP_OF_JUNCTION nucleotides at the 5' end. \n\nIn more detail: The junction associated with a given position is the space immediately to the right of that position in the template sequence on the strand given as input. \n\nFor example:\n\n\nSEQUENCE_OVERLAP_JUNCTION_LIST=20\n# 1-based indexes\nPRIMER_MIN_3_PRIME_OVERLAP_OF_JUNCTION=4\n\ntemplate: atcataggccatgcctgagc^gctacgact\n\n          ok           ...gagc^gcta-3'  (left primer)\n          not ok       ...gagc^gct-3'   (left primer)\n          ok           3'-ctcg^cgat...  (right pimer)\n          not ok        3'-tcg^cgat...  (right primer)\n\nPRIMER_MIN_5_PRIME_OVERLAP_OF_JUNCTION=5\n\n         ok           5'-tgagc^gccg...  (left primer)\n         not ok        5'-gagc^gccg...  (left primer)\n         ok           ...tgagc^gctac-5' (right primer)\n         not ok       ...tgagc^gcta-5'  (right primer)",
+      "form_type": "input_text",
+      "type": "space separated integers",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 8,
+      "param_name": "SEQUENCE_FORCE_RIGHT_START",
+      "description": "Forces the 5' end of the right primer to be at the indicated position. Primers are also picked if they violate certain constraints. The default value indicates that the start of the right primer can be anywhere.",
+      "form_type": "input_number",
+      "type": "int",
+      "default_value": -1000000,
+      "options": ""
+    },
+    {
+      "id": 9,
+      "param_name": "SEQUENCE_ID",
+      "description": "Short description of the sequence. It is used as an identifier that is reproduced in the output to enable users to identify the source of the chosen primers.",
+      "form_type": "input_string",
+      "type": "string",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 10,
+      "param_name": "SEQUENCE_PRIMER_PAIR_OK_REGION_LIST",
+      "description": "This tag allows detailed specification of possible locations of left and right primers in primer pairs. \n\nThe associated value must be a semicolon-separated list of\n\n<left_start>,<left_length>,<right_start>,<right_length>\nquadruples. The left primer must be in the region specified by <left_start>,<left_length> and the right primer must be in the region specified by <right_start>,<right_length>. <left_start> and <left_length> specify the location of the left primer in terms of the index of the first base in the region and the length of the region. <right_start> and <right_length> specify the location of the right primer in analogous fashion. As seen in the example below, if no integers are specified for a region then the location of the corresponding primer is not constrained. \n\nExample:\n\nSEQUENCE_PRIMER_PAIR_OK_REGION_LIST=100,50,300,50 ; 900,60,, ; ,,930,100\n\nSpecifies that there are three choices: \n\nLeft primer in the 50 bp region starting at position 100 AND right primer in the 50 bp region starting at position 300 \n\nOR \n\nLeft primer in the 60 bp region starting at position 900 (and right primer anywhere) \n\nOR \n\nRight primer in the 100 bp region starting at position 930 (and left primer anywhere)",
+      "form_type": "input_text",
+      "type": "quadruples",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 11,
+      "param_name": "PRIMER_DNA_CONC",
+      "description": "A value to use as nanomolar (nM) concentration of each annealing oligo over the course the PCR. Primer3 uses this argument to esimate oligo melting temperatures. This parameter corresponds to 'c' in equation (ii) of the paper [SantaLucia (1998) A unified view of polymer, dumbbell, and oligonucleotide DNA nearest-neighbor thermodynamics. Proc Natl Acad Sci 95:1460-1465 http://www.pnas.org/content/95/4/1460.full.pdf+html], where a suitable value (for a lower initial concentration of template) is \"empirically determined\".\n\nThe default (50nM) works well with the standard protocol used at the Whitehead/MIT Center for Genome Research--0.5 microliters of 20 micromolar concentration for each primer in a 20 microliter reaction with 10 nanograms template, 0.025 units/microliter Taq polymerase in 0.1 mM each dNTP, 1.5mM MgCl2, 50mM KCl, 10mM Tris-HCL (pH 9.3) using 35 cycles with an annealing temperature of 56 degrees Celsius.\n\nThe value of this parameter is less than the actual concentration of oligos in the initial reaction mix because it is the concentration of annealing oligos, which in turn depends on the amount of template (including PCR product) in a given cycle. This concentration increases a great deal during a PCR; fortunately PCR seems quite robust for a variety of oligo melting temperatures. \nSee ADVICE FOR PICKING PRIMERS.",
+      "form_type": "input_number",
+      "type": "float",
+      "default_value": 50,
+      "options": ""
+    },
+    {
+      "id": 12,
+      "param_name": "PRIMER_MAX_END_GC",
+      "description": "The maximum number of Gs or Cs allowed in the last five 3' bases of a left or right primer.",
+      "form_type": "input_number",
+      "type": "int",
+      "default_value": 5,
+      "options": ""
+    },
+    {
+      "id": 13,
+      "param_name": "PRIMER_PAIR_WT_PRODUCT_SIZE_LT",
+      "description": "Penalty weight for products shorter than PRIMER_PRODUCT_OPT_SIZE.",
+      "form_type": "input_number",
+      "type": "float",
+      "default_value": 0,
+      "options": ""
+    },
+    {
+      "id": 14,
+      "param_name": "PRIMER_DNTP_CONC",
+      "description": "The millimolar concentration of the sum of all deoxyribonucleotide triphosphates. A reaction mix containing 0.2 mM ATP, 0.2 mM CTP, 0.2 mM GTP and 0.2 mM TTP would have a PRIMER_DNTP_CONC=0.8. This argument is considered for oligo and primer melting temperatures, for PCR product melting temperature, or for secondary structure calculations only if PRIMER_SALT_DIVALENT is > 0.0. See PRIMER_SALT_DIVALENT.",
+      "form_type": "input_number",
+      "type": "float",
+      "default_value": 0.6,
+      "options": ""
+    },
+    {
+      "id": 15,
+      "param_name": "PRIMER_MAX_END_STABILITY",
+      "description": "The maximum stability for the last five 3' bases of a left or right primer. Bigger numbers mean more stable 3' ends. The value is the maximum delta G (kcal/mol) for duplex disruption for the five 3' bases as calculated using the nearest-neighbor parameter values specified by the option of PRIMER_TM_FORMULA \n\nFor example if the table of thermodynamic parameters suggested by SantaLucia 1998, DOI:10.1073/pnas.95.4.1460 is used the deltaG values for the most stable and for the most labile 5mer duplex are 6.86 kcal/mol (GCGCG) and 0.86 kcal/mol (TATAT) respectively.\n\nIf the table of thermodynamic parameters suggested by Breslauer et al. 1986, 10.1073/pnas.83.11.3746 is used the deltaG values for the most stable and for the most labile 5mer are 13.4 kcal/mol (GCGCG) and 4.6 kcal/mol (TATAC) respectively.",
+      "form_type": "input_number",
+      "type": "float",
+      "default_value": 100,
+      "options": ""
+    },
+    {
+      "id": 16,
+      "param_name": "PRIMER_PAIR_WT_PRODUCT_TM_GT",
+      "description": "Penalty weight for products with a Tm higher than PRIMER_PRODUCT_OPT_TM.",
+      "form_type": "",
+      "type": "float",
+      "default_value": 0,
+      "options": ""
+    },
+    {
+      "id": 17,
+      "param_name": "PRIMER_EXPLAIN_FLAG",
+      "description": "If this flag is 1 (non-0), produce PRIMER_LEFT_EXPLAIN, PRIMER_RIGHT_EXPLAIN, PRIMER_INTERNAL_EXPLAIN and/or PRIMER_PAIR_EXPLAIN output tags as appropriate. These output tags are intended to provide information on the number of oligos and primer pairs that primer3 examined and counts of the number discarded for various reasons. If -format_output is set similar information is produced in the user-oriented output.",
+      "form_type": "checkbox",
+      "type": "boolean",
+      "default_value": "FALSE",
+      "options": ""
+    },
+    {
+      "id": 18,
+      "param_name": "PRIMER_MAX_GC",
+      "description": "Maximum allowable percentage of Gs and Cs in any primer generated by Primer.",
+      "form_type": "input_number",
+      "type": "number",
+      "default_value": 80,
+      "options": ""
+    },
+    {
+      "id": 19,
+      "param_name": "PRIMER_PAIR_WT_PRODUCT_TM_LT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 20,
+      "param_name": "PRIMER_FIRST_BASE_INDEX",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 21,
+      "param_name": "PRIMER_MAX_HAIRPIN_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 22,
+      "param_name": "PRIMER_PAIR_WT_PR_PENALTY",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 23,
+      "param_name": "PRIMER_GC_CLAMP",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 24,
+      "param_name": "PRIMER_MAX_LIBRARY_MISPRIMING",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 25,
+      "param_name": "PRIMER_PAIR_WT_TEMPLATE_MISPRIMING",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 26,
+      "param_name": "PRIMER_INSIDE_PENALTY",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 27,
+      "param_name": "PRIMER_MAX_NS_ACCEPTED",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 28,
+      "param_name": "PRIMER_PAIR_WT_TEMPLATE_MISPRIMING_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 29,
+      "param_name": "PRIMER_INTERNAL_DNA_CONC",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 30,
+      "param_name": "PRIMER_MAX_POLY_X",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 31,
+      "param_name": "PRIMER_PICK_ANYWAY",
+      "description": "",
+      "form_type": "",
+      "type": "boolean",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 32,
+      "param_name": "PRIMER_INTERNAL_DNTP_CONC",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 33,
+      "param_name": "PRIMER_MAX_SELF_ANY",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 34,
+      "param_name": "PRIMER_INTERNAL_MAX_GC",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 35,
+      "param_name": "PRIMER_MAX_SELF_ANY_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 36,
+      "param_name": "PRIMER_INTERNAL_MAX_HAIRPIN_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 37,
+      "param_name": "PRIMER_MAX_SELF_END",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 38,
+      "param_name": "PRIMER_INTERNAL_MAX_LIBRARY_MISHYB",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 39,
+      "param_name": "PRIMER_MAX_SELF_END_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 40,
+      "param_name": "PRIMER_PRODUCT_MAX_TM",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 41,
+      "param_name": "PRIMER_INTERNAL_MAX_NS_ACCEPTED",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 42,
+      "param_name": "PRIMER_MAX_SIZE",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 43,
+      "param_name": "PRIMER_PRODUCT_MIN_TM",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 44,
+      "param_name": "PRIMER_INTERNAL_MAX_POLY_X",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 45,
+      "param_name": "PRIMER_MAX_TEMPLATE_MISPRIMING",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 46,
+      "param_name": "PRIMER_PRODUCT_OPT_SIZE",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 47,
+      "param_name": "PRIMER_INTERNAL_MAX_SELF_ANY",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 48,
+      "param_name": "PRIMER_MAX_TEMPLATE_MISPRIMING_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 49,
+      "param_name": "PRIMER_PRODUCT_OPT_TM",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 50,
+      "param_name": "PRIMER_INTERNAL_MAX_SELF_ANY_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 51,
+      "param_name": "PRIMER_INTERNAL_MAX_SELF_END",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 52,
+      "param_name": "PRIMER_MIN_3_PRIME_OVERLAP_OF_JUNCTION",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 53,
+      "param_name": "PRIMER_QUALITY_RANGE_MAX",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 54,
+      "param_name": "PRIMER_INTERNAL_MAX_SELF_END_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 55,
+      "param_name": "PRIMER_MIN_5_PRIME_OVERLAP_OF_JUNCTION",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 56,
+      "param_name": "PRIMER_QUALITY_RANGE_MIN",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 57,
+      "param_name": "PRIMER_INTERNAL_MAX_SIZE",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 58,
+      "param_name": "PRIMER_MIN_END_QUALITY",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 59,
+      "param_name": "PRIMER_INTERNAL_MAX_TM",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 60,
+      "param_name": "PRIMER_MIN_GC",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 61,
+      "param_name": "PRIMER_SALT_DIVALENT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 62,
+      "param_name": "PRIMER_INTERNAL_MIN_GC",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 63,
+      "param_name": "PRIMER_MIN_LEFT_THREE_PRIME_DISTANCE",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 64,
+      "param_name": "PRIMER_SALT_MONOVALENT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 65,
+      "param_name": "PRIMER_INTERNAL_MIN_QUALITY",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 66,
+      "param_name": "PRIMER_MIN_QUALITY",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 67,
+      "param_name": "PRIMER_SEQUENCING_ACCURACY",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 68,
+      "param_name": "PRIMER_INTERNAL_MIN_SIZE",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 69,
+      "param_name": "PRIMER_MIN_RIGHT_THREE_PRIME_DISTANCE",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 70,
+      "param_name": "PRIMER_SEQUENCING_INTERVAL",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 71,
+      "param_name": "PRIMER_INTERNAL_MIN_TM",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 72,
+      "param_name": "PRIMER_MIN_SIZE",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 73,
+      "param_name": "PRIMER_SEQUENCING_LEAD",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 74,
+      "param_name": "PRIMER_INTERNAL_MISHYB_LIBRARY",
+      "description": "",
+      "form_type": "",
+      "type": "string",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 75,
+      "param_name": "PRIMER_MIN_THREE_PRIME_DISTANCE",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 76,
+      "param_name": "PRIMER_SEQUENCING_SPACING",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 77,
+      "param_name": "PRIMER_INTERNAL_MUST_MATCH_FIVE_PRIME",
+      "description": "",
+      "form_type": "",
+      "type": "string",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 78,
+      "param_name": "PRIMER_TASK",
+      "description": "",
+      "form_type": "",
+      "type": "string",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 79,
+      "param_name": "PRIMER_INTERNAL_MUST_MATCH_THREE_PRIME",
+      "description": "",
+      "form_type": "",
+      "type": "string",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 80,
+      "param_name": "PRIMER_MISPRIMING_LIBRARY",
+      "description": "",
+      "form_type": "",
+      "type": "string",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 81,
+      "param_name": "PRIMER_THERMODYNAMIC_OLIGO_ALIGNMENT",
+      "description": "",
+      "form_type": "",
+      "type": "boolean",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 82,
+      "param_name": "PRIMER_INTERNAL_OPT_GC_PERCENT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 83,
+      "param_name": "PRIMER_MUST_MATCH_FIVE_PRIME",
+      "description": "",
+      "form_type": "",
+      "type": "string",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 84,
+      "param_name": "PRIMER_THERMODYNAMIC_PARAMETERS_PATH",
+      "description": "",
+      "form_type": "",
+      "type": "string",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 85,
+      "param_name": "PRIMER_INTERNAL_OPT_SIZE",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 86,
+      "param_name": "PRIMER_MUST_MATCH_THREE_PRIME",
+      "description": "",
+      "form_type": "",
+      "type": "string",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 87,
+      "param_name": "PRIMER_THERMODYNAMIC_TEMPLATE_ALIGNMENT",
+      "description": "",
+      "form_type": "",
+      "type": "boolean",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 88,
+      "param_name": "PRIMER_INTERNAL_OPT_TM",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 89,
+      "param_name": "PRIMER_NUM_RETURN",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 90,
+      "param_name": "PRIMER_INTERNAL_SALT_DIVALENT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 91,
+      "param_name": "PRIMER_OPT_GC_PERCENT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 92,
+      "param_name": "PRIMER_WT_END_QUAL",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 93,
+      "param_name": "PRIMER_INTERNAL_SALT_MONOVALENT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 94,
+      "param_name": "PRIMER_OPT_SIZE",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 95,
+      "param_name": "PRIMER_WT_END_STABILITY",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 96,
+      "param_name": "PRIMER_INTERNAL_WT_END_QUAL",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 97,
+      "param_name": "PRIMER_WT_GC_PERCENT_GT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 98,
+      "param_name": "PRIMER_INTERNAL_WT_GC_PERCENT_GT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 99,
+      "param_name": "PRIMER_OUTSIDE_PENALTY",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 100,
+      "param_name": "PRIMER_WT_GC_PERCENT_LT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 101,
+      "param_name": "PRIMER_INTERNAL_WT_GC_PERCENT_LT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 102,
+      "param_name": "PRIMER_PAIR_MAX_COMPL_ANY",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 103,
+      "param_name": "PRIMER_WT_HAIRPIN_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 104,
+      "param_name": "PRIMER_INTERNAL_WT_HAIRPIN_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 105,
+      "param_name": "PRIMER_PAIR_MAX_COMPL_ANY_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 106,
+      "param_name": "PRIMER_WT_LIBRARY_MISPRIMING",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 107,
+      "param_name": "PRIMER_INTERNAL_WT_LIBRARY_MISHYB",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 108,
+      "param_name": "PRIMER_PAIR_MAX_COMPL_END",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 109,
+      "param_name": "PRIMER_WT_NUM_NS",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 110,
+      "param_name": "PRIMER_INTERNAL_WT_NUM_NS",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 111,
+      "param_name": "PRIMER_PAIR_MAX_COMPL_END_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 112,
+      "param_name": "PRIMER_WT_POS_PENALTY",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 113,
+      "param_name": "PRIMER_INTERNAL_WT_SELF_ANY",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 114,
+      "param_name": "PRIMER_WT_SELF_ANY",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 115,
+      "param_name": "PRIMER_INTERNAL_WT_SELF_ANY_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 116,
+      "param_name": "PRIMER_PAIR_MAX_LIBRARY_MISPRIMING",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 117,
+      "param_name": "PRIMER_WT_SELF_ANY_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 118,
+      "param_name": "PRIMER_INTERNAL_WT_SELF_END",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 119,
+      "param_name": "PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 120,
+      "param_name": "PRIMER_WT_SELF_END",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 121,
+      "param_name": "PRIMER_INTERNAL_WT_SELF_END_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 122,
+      "param_name": "PRIMER_PAIR_MAX_TEMPLATE_MISPRIMING_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 123,
+      "param_name": "PRIMER_WT_SELF_END_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 124,
+      "param_name": "PRIMER_INTERNAL_WT_SEQ_QUAL",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 125,
+      "param_name": "PRIMER_PAIR_WT_COMPL_ANY",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 126,
+      "param_name": "PRIMER_WT_SEQ_QUAL",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 127,
+      "param_name": "PRIMER_INTERNAL_WT_SIZE_GT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 128,
+      "param_name": "PRIMER_PAIR_WT_COMPL_ANY_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 129,
+      "param_name": "PRIMER_WT_SIZE_GT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 130,
+      "param_name": "PRIMER_INTERNAL_WT_SIZE_LT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 131,
+      "param_name": "PRIMER_PAIR_WT_COMPL_END",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 132,
+      "param_name": "PRIMER_WT_SIZE_LT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 133,
+      "param_name": "PRIMER_INTERNAL_WT_TM_GT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 134,
+      "param_name": "PRIMER_PAIR_WT_COMPL_END_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 135,
+      "param_name": "PRIMER_WT_TEMPLATE_MISPRIMING",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 136,
+      "param_name": "PRIMER_INTERNAL_WT_TM_LT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 137,
+      "param_name": "PRIMER_PAIR_WT_DIFF_TM",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 138,
+      "param_name": "PRIMER_WT_TEMPLATE_MISPRIMING_TH",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 139,
+      "param_name": "PRIMER_LIBERAL_BASE",
+      "description": "",
+      "form_type": "",
+      "type": "boolean",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 140,
+      "param_name": "PRIMER_PAIR_WT_IO_PENALTY",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 141,
+      "param_name": "PRIMER_WT_TM_GT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 142,
+      "param_name": "PRIMER_LIB_AMBIGUITY_CODES_CONSENSUS",
+      "description": "",
+      "form_type": "",
+      "type": "boolean",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 143,
+      "param_name": "PRIMER_PAIR_WT_LIBRARY_MISPRIMING",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 144,
+      "param_name": "PRIMER_WT_TM_LT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 145,
+      "param_name": "PRIMER_LOWERCASE_MASKING",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    },
+    {
+      "id": 146,
+      "param_name": "PRIMER_PAIR_WT_PRODUCT_SIZE_GT",
+      "description": "",
+      "form_type": "",
+      "type": "number",
+      "default_value": "",
+      "options": ""
+    }
+  ]
 }
-
-
