@@ -1,3 +1,12 @@
 .param_table {
   overflow-x:auto;
 }
+.autocomp_input {
+  width: 100%;
+}
+.help-button-wrapper {
+  text-align: center;
+}
+.help-button {
+  font-size: 10px;
+}

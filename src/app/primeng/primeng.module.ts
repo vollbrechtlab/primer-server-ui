@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {AutoCompleteModule, InputTextModule} from 'primeng/primeng';
+import {
+  AutoCompleteModule, 
+  InputTextModule, 
+  ButtonModule,
+  DialogModule} from 'primeng/primeng';
 
 @NgModule({
   exports: [
     AutoCompleteModule,
-    InputTextModule
+    InputTextModule,
+    ButtonModule,
+    DialogModule
   ]
 })
 export class PrimengModule { }
