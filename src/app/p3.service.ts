@@ -3,14 +3,13 @@ import { Http } from '@angular/http';
 
 @Injectable()
 export class P3Service {
+  params = [];
 
   constructor(private http: Http) {}
 
-    getParams() {
-      return this.http.get('assets/p3-params.json')
-                  .toPromise()
-                  .then(res => <any[]> res.json().data)
-                  .then(data => { return data; });
-    }
-
+  loadParams() {
+    return this.http.get('assets/p3-params.json')
+                .toPromise()
+                .then(res => { this.params = res.json().data; });
+  }
 }
