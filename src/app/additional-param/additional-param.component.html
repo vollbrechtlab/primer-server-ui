@@ -8,40 +8,25 @@
                 [multiple]="true" 
                 styleClass="wid100">
 </p-autoComplete>
-<table>
+<table class="param_table">
   <tr *ngFor="let p of selectedParams">
-    <div *ngIf="p.setting_type == 'additional'">
-      <div *ngIf="p.form_type == 'input_text'">
-        <td title="{{p.description}}">
-          <label for="{{p.name}}">{{p.name}} ({{p.type}}): </label>
-        </td>
-        <td>
-          <input type="text" pInputText placeholder="{{p.default_value}}" id="{{p.name}}" (ngModelChange)="onInputTextChange($event)"> 
-        </td>
-      </div>
-      <div *ngIf="p.form_type == 'input_number'">
-        <td title="{{p.description}}">
-          <label for="{{p.name}}">{{p.name}} ({{p.type}}): </label>
-        </td>
-        <td>
-          <input type="number" pInputText placeholder="{{p.default_value}}" id="{{p.name}}" > 
-        </td>
-      </div>
-      <div *ngIf="p.form_type == 'checkbox'">
-        <td title="{{p.description}}">
-          <md-checkbox align="right">{{p.name}}</md-checkbox>
-        </td>
-      </div>
-    </div>
-    <div *ngIf="p.setting_type == 'basic'">
-      <div>
-        <td title="{{p.description}}">
-          <label for="{{p.name}}">{{p.name}} ({{p.type}}): </label>
-        </td>
-        <td>
-          <p>Set in the basic setting</p>
-        </td>
-      </div>
-    </div>
+    <td title="{{p.description}}" *ngIf="p.form_type == 'input_text'">
+      <label for="{{p.name}}">{{p.name}} ({{p.type}}): </label>
+    </td>
+    <td *ngIf="p.form_type == 'input_text'">
+      <input type="text" pInputText placeholder="{{p.default_value}}" id="{{p.name}}" (ngModelChange)="onInputTextChange($event)"> 
+    </td>
+
+    <td title="{{p.description}}" *ngIf="p.form_type == 'input_number'">
+      <label for="{{p.name}}">{{p.name}} ({{p.type}}): </label>
+    </td>
+    <td *ngIf="p.form_type == 'input_number'">
+      <input type="number" pInputText placeholder="{{p.default_value}}" id="{{p.name}}" > 
+    </td>
+
+    <td title="{{p.description}}" *ngIf="p.form_type == 'checkbox'">
+      <md-checkbox align="right">{{p.name}}</md-checkbox>
+    </td>
+    <td *ngIf="p.form_type == 'checkbox'"> </td>
   </tr>
 </table>

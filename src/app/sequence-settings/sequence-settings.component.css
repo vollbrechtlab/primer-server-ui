@@ -20,25 +20,11 @@ textarea {
     float: left;
     margin-left: 30px;
 }
-.basic_settings_container {
-    vertical-align: top;
-}
-.basic_settings_block {
-    vertical-align: top;
-}
 .settings_table {
     table-layout: fixed; 
     width: 100%;
 }
 
-.nav_container {
-    width:100%;
-}
-select.fancy {
-    display: block;
-    //margin: 0 auto;
-    background-color: white;
-}
 
 .example-form {
   width: 100%;

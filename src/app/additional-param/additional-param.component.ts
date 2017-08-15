@@ -18,7 +18,6 @@ export class AdditionalParamComponent {
   constructor(private p3Service: P3Service) { }
 
   ngOnInit(){
-    this.p3Service.loadParams();
   }
   
   filterParamMultiple(event) {
@@ -26,12 +25,14 @@ export class AdditionalParamComponent {
     this.filteredParamsMultiple = this.filterParam(query, this.p3Service.params);
   }
   
-  filterParam(query, params: any[]):any[] {
-    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+  filterParam(query, params: any):any[] {
     let filtered : any[] = [];
-    for(let i = 0; i < params.length; i++) {
-      let param = params[i];
-      if(param.name.toLowerCase().includes(query.toLowerCase())) {
+    let param_names = Object.keys(params);
+    for(let i = 0; i < param_names.length; i++) {
+      let param_name = param_names[i];
+      if(param_name.toLowerCase().includes(query.toLowerCase())) {
+        let param = params[param_name];
+        param['name'] = param_name;
         filtered.push(param);
       }
     }
