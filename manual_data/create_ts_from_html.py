@@ -56,7 +56,7 @@ for tag in soup.find_all("h3"):
 
 			# fix default value
 			if "empty" in param_default_val:
-				param_default_val = ""
+				param_default_val = None
 
 			# fix some types and default value
 			if "int" in param_type:

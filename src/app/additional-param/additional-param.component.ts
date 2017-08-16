@@ -23,10 +23,12 @@ export class AdditionalParamComponent {
   ) { }
 
   ngOnInit(){
+    /*
     let testInitialData = this.p3Service.params['SEQUENCE_ID'];
     testInitialData['name'] = 'SEQUENCE_ID';
     this.selectedParams = [];
     this.selectedParams.push(testInitialData);
+    */
   }
   
   filterParamMultiple(event) {
