@@ -8,8 +8,11 @@
   text-align: center;
 }
 .help-button {
-  font-size: 1.0rem;
-  width: 3px; 
-  min-width: 3px;
-  text-align: left;
+  //font-size: 1.0rem;
+  //width: 3px; 
+  //min-width: 3px;
+  //text-align: left;
+  //line-height: 4rem; 
+  //width: 4rem; 
+  //height: 4rem; 
 }
