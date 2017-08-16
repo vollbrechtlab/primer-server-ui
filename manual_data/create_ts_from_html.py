@@ -53,6 +53,7 @@ for tag in soup.find_all("h3"):
 
 			# get the default value
 			param_default_val = param_type_default_val[1]
+			param_default_val = param_default_val.replace(' ', '')
 
 			# fix default value
 			if "empty" in param_default_val:
@@ -77,6 +78,12 @@ for tag in soup.find_all("h3"):
 					param_default_val = float(param_default_val)
 				except:
 					param_default_val = None
+			elif "boolean" in param_type:
+				param_type = "boolean"
+				if param_default_val == "0":
+					param_default_val = False
+				else:
+					param_default_val = True
 
 			# get the parameter name
 			param_name = str(atag["name"])
@@ -105,6 +112,7 @@ for tag in soup.find_all("h3"):
 			params[param_name] = { "description":param_description, 
 								   "type":param_type,
 								   "default_value":param_default_val, 
+								   "value":param_default_val, 
 								   "setting_type":setting_type, 
 								   "form_type":form_type }
 	except:
