@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import {
-  AutoCompleteModule, 
-  InputTextModule, 
-  ButtonModule,
-  DialogModule} from 'primeng/primeng';
+import { AutoCompleteModule, 
+         InputTextModule, 
+         ButtonModule,
+         DialogModule } from 'primeng/primeng';
 
 @NgModule({
   exports: [

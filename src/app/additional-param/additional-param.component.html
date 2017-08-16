@@ -8,13 +8,17 @@
                 [multiple]="true" 
                 styleClass="autocomp_input">
 </p-autoComplete>
+
 <table class="param_table">
   <tr *ngFor="let p of selectedParams">
     <!-- Form type is input text -->
     <td *ngIf="p.form_type == 'input_text'">
-      <label for="{{p.name}}">{{p.name}} ({{p.type}}) 
-        <button pButton type="button" icon="fa-info" iconPos="left" class="help-button" (click)="showDescription()"></button>  
+      <label for="{{p.name}}">
+        {{p.name}} ({{p.type}}) 
       </label>
+      <button md-button (click)="showDescription(p.description)" class="help-button">
+        <md-icon>help</md-icon>
+      </button>
     </td>
     <td *ngIf="p.form_type == 'input_text'">
       <input type="text" pInputText placeholder="{{p.default_value}}" id="{{p.name}}" (ngModelChange)="onInputTextChange($event)"> 
@@ -23,7 +27,6 @@
     <!-- Form type is input number -->
     <td *ngIf="p.form_type == 'input_number'">
       <label for="{{p.name}}">{{p.name}} ({{p.type}}) 
-        <button pButton type="button" icon="fa-info" iconPos="left" class="help-button" (click)="showDescription()"></button>  
       </label>
     </td>
     <td *ngIf="p.form_type == 'input_number'">
@@ -33,14 +36,9 @@
     <!-- Form type is checkbox -->
     <td title="{{p.description}}" *ngIf="p.form_type == 'checkbox'">
       <md-checkbox align="right">{{p.name}}</md-checkbox>
-      <button pButton type="button" icon="fa-info" iconPos="left" class="help-button" (click)="showDescription()"></button>  
     </td>
     <td *ngIf="p.form_type == 'checkbox'"> </td>
 
-    <!-- descirption dialog -->
-    <p-dialog header="Description" [(visible)]="displayDescription">
-      {{p.description}}
-    </p-dialog>
   </tr>
 </table>
 
