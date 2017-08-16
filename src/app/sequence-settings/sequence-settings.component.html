@@ -19,11 +19,11 @@
       <td>
         <div class="pick-option-container">
           <div>
-            <md-checkbox [(ngModel)]="PRIMER_PICK_LEFT_PRIMER_INPUT" name="PRIMER_PICK_LEFT_PRIMER" align="end">Pick Left Primer</md-checkbox>
+            <md-checkbox [(ngModel)]="p3Service.params['PRIMER_PICK_LEFT_PRIMER']['value']" name="PRIMER_PICK_LEFT_PRIMER" align="end">Pick Left Primer</md-checkbox>
           </div> &nbsp;
-          <div *ngIf="!PRIMER_PICK_LEFT_PRIMER_INPUT">
+          <div *ngIf="!p3Service.params['PRIMER_PICK_LEFT_PRIMER']['value']">
             <md-input-container class="pick-condition-input">
-              <input mdInput type="text" [(ngModel)]="SEQUENCE_PRIMER_INPUT" name="SEQUENCE_PRIMER" placeholder="Use this left primer">
+              <input mdInput type="text" [(ngModel)]="p3Service.params['SEQUENCE_PRIMER']['value']" name="SEQUENCE_PRIMER" placeholder="Use this left primer">
             </md-input-container>
           </div>
         </div>
@@ -31,11 +31,11 @@
       <td>
         <div class="pick-option-container">
           <div>
-            <md-checkbox [(ngModel)]="PRIMER_PICK_INTERNAL_OLIGO_INPUT" name="PRIMER_PICK_INTERNAL_OLIGO" align="end">Pick Internal Oligo</md-checkbox>
+            <md-checkbox [(ngModel)]="p3Service.params['PRIMER_PICK_INTERNAL_OLIGO']['value']" name="PRIMER_PICK_INTERNAL_OLIGO" align="end">Pick Internal Oligo</md-checkbox>
           </div> &nbsp;
-          <div *ngIf="!PRIMER_PICK_INTERNAL_OLIGO_INPUT">
+          <div *ngIf="!p3Service.params['PRIMER_PICK_INTERNAL_OLIGO']['value']">
             <md-input-container class="pick-condition-input">
-              <input mdInput type="text" [(ngModel)]="SEQUENCE_INTERNAL_OLIGO_INPUT" name="SEQUENCE_INTERNAL_OLIGO" placeholder="Use this internal oligo">
+              <input mdInput type="text" [(ngModel)]="p3Service.params['SEQUENCE_INTERNAL_OLIGO']['value']" name="SEQUENCE_INTERNAL_OLIGO" placeholder="Use this internal oligo">
             </md-input-container>
           </div>
         </div>
@@ -43,11 +43,11 @@
       <td>
         <div class="pick-option-container">
           <div>
-            <md-checkbox [(ngModel)]="PRIMER_PICK_RIGHT_PRIMER_INPUT" name="PRIMER_PICK_RIGHT_PRIMER" align="end">Pick Right Primer</md-checkbox>
+            <md-checkbox [(ngModel)]="p3Service.params['PRIMER_PICK_RIGHT_PRIMER']['value']" name="PRIMER_PICK_RIGHT_PRIMER" align="end">Pick Right Primer</md-checkbox>
           </div> &nbsp;
-          <div *ngIf="!PRIMER_PICK_RIGHT_PRIMER_INPUT">
+          <div *ngIf="!p3Service.params['PRIMER_PICK_RIGHT_PRIMER']['value']">
             <md-input-container class="pick-condition-input">
-              <input mdInput type="text" [(ngModel)]="SEQUENCE_PRIMER_REVCOMP_INPUT" name="SEQUENCE_PRIMER_REVCOMP" placeholder="Use this right primer">
+              <input mdInput type="text" [(ngModel)]="p3Service.params['SEQUENCE_PRIMER_REVCOMP']['value']" name="SEQUENCE_PRIMER_REVCOMP" placeholder="Use this right primer">
             </md-input-container>
           </div>
         </div>
@@ -91,7 +91,7 @@
       </td>
       <td colspan="2">
         <md-input-container class="example-full-width">
-          <input mdInput type="text" [(ngModel)]="SEQUENCE_EXCLUDED_REGION_INPUT" id="SEQUENCE_INTERNAL_REGION" name="SEQUENCE_EXCLUDED_REGION">
+          <input mdInput type="text" [(ngModel)]="SEQUENCE_EXCLUDED_REGION_INPUT" id="SEQUENCE_EXCLUDED_REGION" name="SEQUENCE_EXCLUDED_REGION">
           <md-hint>&lt;start&gt;-&lt;length&gt;  e.g. 37-21 60-10</md-hint>
         </md-input-container>
       </td>
@@ -105,17 +105,17 @@
           <tr>
             <td>
               <md-input-container class="example-full-width">
-                <input mdInput type="number" [(ngModel)]="PRIMER_MIN_TM_INPUT" id="PRIMER_MIN_TM" name="PRIMER_MIN_TM" placeholder="Min">
+                <input mdInput type="number" [(ngModel)]="p3Service.params['PRIMER_MIN_TM']['value']" id="PRIMER_MIN_TM" name="PRIMER_MIN_TM" placeholder="Min">
               </md-input-container>
             </td>
             <td>
               <md-input-container class="example-full-width">
-                <input mdInput type="number" [(ngModel)]="PRIMER_OPT_TM_INPUT" id="PRIMER_OPT_TM" name="PRIMER_OPT_TM" placeholder="Opt">
+                <input mdInput type="number" [(ngModel)]="p3Service.params['PRIMER_OPT_TM']['value']" id="PRIMER_OPT_TM" name="PRIMER_OPT_TM" placeholder="Opt">
               </md-input-container>
             </td>
             <td>
               <md-input-container class="example-full-width">
-                <input mdInput type="number" [(ngModel)]="PRIMER_MAX_TM_INPUT" id="PRIMER_MAX_TM" name="PRIMER_MAX_TM" placeholder="Max">
+                <input mdInput type="number" [(ngModel)]="p3Service.params['PRIMER_MAX_TM']['value']" id="PRIMER_MAX_TM" name="PRIMER_MAX_TM" placeholder="Max">
               </md-input-container>
             </td>
           </tr>
@@ -128,7 +128,7 @@
       </td>
       <td colspan="2">
         <md-input-container class="max-diff-tm-input">
-          <input mdInput type="number" [(ngModel)]="PRIMER_PAIR_MAX_DIFF_TM_INPUT" id="PRIMER_PAIR_MAX_DIFF_TM" name="PRIMER_PAIR_MAX_DIFF_TM">
+          <input mdInput type="number" [(ngModel)]="p3Service.params['PRIMER_PAIR_MAX_DIFF_TM']['value']" id="PRIMER_PAIR_MAX_DIFF_TM" name="PRIMER_PAIR_MAX_DIFF_TM">
         </md-input-container>
       </td>
     </tr>
@@ -137,8 +137,8 @@
         <label for="PRIMER_SALT_CORRECTIONS">Salt Correction Formula</label>
       </td>
       <td colspan="2">
-        <md-select [(ngModel)]="PRIMER_SALT_CORRECTIONS_INPUT" name="option" class="salt-corrections-select">
-          <md-option *ngFor="let option of PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS" [value]="option.value">
+        <md-select [(ngModel)]="p3Service.params['PRIMER_SALT_CORRECTIONS']['value']" name="option" class="salt-corrections-select">
+          <md-option *ngFor="let option of p3Service.PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS" [value]="option.value">
             {{option.viewValue}}
           </md-option>
         </md-select>
@@ -149,8 +149,8 @@
         <label for="PRIMER_TM_FORMULA">Table of thermodynamic parameters</label>
       </td>
       <td colspan="2">
-        <md-select [(ngModel)]="PRIMER_TM_FORMULA_INPUT" name="option" class="tm-formula-select">
-          <md-option *ngFor="let option of PRIMER_TM_FORMULA_INPUT_OPTIONS" [value]="option.value">
+        <md-select [(ngModel)]="p3Service.params['PRIMER_TM_FORMULA']['value']" name="option" class="tm-formula-select">
+          <md-option *ngFor="let option of p3Service.PRIMER_TM_FORMULA_INPUT_OPTIONS" [value]="option.value">
             {{option.viewValue}}
           </md-option>
         </md-select>
