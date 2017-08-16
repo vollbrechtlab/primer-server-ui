@@ -14,11 +14,12 @@
     <!-- Form type is input text -->
     <td *ngIf="p.form_type == 'input_text'">
       <label for="{{p.name}}">
-        {{p.name}} ({{p.type}}) 
-      </label>
-      <button md-icon-button (click)="showDescription(p.description)" class="help-button">
+        {{p.name}} ({{p.type}})
+        <button md-icon-button (click)="showDescription(p.description)" class="help-button">
         <md-icon>help</md-icon>
       </button>
+      </label>
+      
     </td>
     <td *ngIf="p.form_type == 'input_text'">
       <input type="text" pInputText placeholder="{{p.default_value}}" id="{{p.name}}" (ngModelChange)="onInputTextChange($event)"> 
