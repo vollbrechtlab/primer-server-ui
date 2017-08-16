@@ -23,14 +23,8 @@ export class AdditionalParamComponent {
   ) { }
 
   ngOnInit(){
-    let testInitialData = {
-      "name": "SEQUENCE_ID",
-      "description": "Short description of the sequence. It is used as an identifier \nthat is reproduced in the output to enable users to identify the \nsource of the chosen primers.\n\nThis tag must be present if P3_FILE_FLAG is non-zero.",
-      "type": "string",
-      "default_value": "",
-      "setting_type": "additional",
-      "form_type": "input_text"
-    };
+    let testInitialData = this.p3Service.params['SEQUENCE_ID'];
+    testInitialData['name'] = 'SEQUENCE_ID';
     this.selectedParams = [];
     this.selectedParams.push(testInitialData);
   }
@@ -40,8 +34,22 @@ export class AdditionalParamComponent {
     this.filteredParamsMultiple = this.filterParam(query, this.p3Service.params);
   }
   
-  filterParam(query, params: any):any[] {
+  /**
+   * Filter the parameters based on the input query
+   * Example:
+   *     query = 'b'
+   *     params = {
+   *       'baka': { 'description':'uzai' },
+   *       'kuso': { 'description':'kusai' }
+   *     }
+   *     output = [ {'name':'baka', 'description':'uzai'} ]
+   * @param {string} query The query to filter data
+   * @param {any} params dictionary of params to filter from
+   * @returns {any[]}
+   */
+  filterParam(query:string, params:any):any[] {
     let filtered : any[] = [];
+    // get key names of the params dictionary
     let param_names = Object.keys(params);
     for(let i = 0; i < param_names.length; i++) {
       let param_name = param_names[i];
@@ -58,6 +66,10 @@ export class AdditionalParamComponent {
     console.log(event);
   }
 
+  /**
+   * Show the description dialog
+   * @param {string} description The description to show
+   */
   showDescription(description: string){
     this.descriptionDialogService.description = description;
     this.dialog.open(DescriptionDialogComponent);

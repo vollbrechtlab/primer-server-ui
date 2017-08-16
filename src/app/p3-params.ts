@@ -1,3 +1,4 @@
+/** Class that stores all primer3 parameter data. */
 export class P3Params {
   data =   {
     "SEQUENCE_ID": {
