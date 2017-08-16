@@ -111,5 +111,6 @@ for tag in soup.find_all("h3"):
 		pass
 
 # save as json
-with open('p3-params.json', 'w') as fp:
-    json.dump(params, fp)
+with open("p3-params.ts", "w") as fp:
+	datastr = "/** Class that stores all primer3 parameter data. */\nexport class P3Params {\n  data = " + json.dumps(params) + ";\n}"
+	fp.write(datastr)
