@@ -17,33 +17,39 @@
   <table class="settings_table">
     <tr>
       <td>
-        <div>
-          <md-checkbox [(ngModel)]="PRIMER_PICK_LEFT_PRIMER_INPUT" name="PRIMER_PICK_LEFT_PRIMER" align="end">Pick Left Primer</md-checkbox>
-        </div> &nbsp;
-        <div *ngIf="!PRIMER_PICK_LEFT_PRIMER_INPUT">
-          <md-input-container class="pick-condition-input">
-            <input mdInput type="text" [(ngModel)]="SEQUENCE_PRIMER_INPUT" name="SEQUENCE_PRIMER" placeholder="Use this left primer">
-          </md-input-container>
+        <div class="pick-option-container">
+          <div>
+            <md-checkbox [(ngModel)]="PRIMER_PICK_LEFT_PRIMER_INPUT" name="PRIMER_PICK_LEFT_PRIMER" align="end">Pick Left Primer</md-checkbox>
+          </div> &nbsp;
+          <div *ngIf="!PRIMER_PICK_LEFT_PRIMER_INPUT">
+            <md-input-container class="pick-condition-input">
+              <input mdInput type="text" [(ngModel)]="SEQUENCE_PRIMER_INPUT" name="SEQUENCE_PRIMER" placeholder="Use this left primer">
+            </md-input-container>
+          </div>
         </div>
       </td>
       <td>
-        <div>
-          <md-checkbox [(ngModel)]="PRIMER_PICK_INTERNAL_OLIGO_INPUT" name="PRIMER_PICK_INTERNAL_OLIGO" align="end">Pick Internal Oligo</md-checkbox>
-        </div> &nbsp;
-        <div *ngIf="!PRIMER_PICK_INTERNAL_OLIGO_INPUT">
-          <md-input-container class="pick-condition-input">
-            <input mdInput type="text" [(ngModel)]="SEQUENCE_INTERNAL_OLIGO_INPUT" name="SEQUENCE_INTERNAL_OLIGO" placeholder="Use this internal oligo">
-          </md-input-container>
+        <div class="pick-option-container">
+          <div>
+            <md-checkbox [(ngModel)]="PRIMER_PICK_INTERNAL_OLIGO_INPUT" name="PRIMER_PICK_INTERNAL_OLIGO" align="end">Pick Internal Oligo</md-checkbox>
+          </div> &nbsp;
+          <div *ngIf="!PRIMER_PICK_INTERNAL_OLIGO_INPUT">
+            <md-input-container class="pick-condition-input">
+              <input mdInput type="text" [(ngModel)]="SEQUENCE_INTERNAL_OLIGO_INPUT" name="SEQUENCE_INTERNAL_OLIGO" placeholder="Use this internal oligo">
+            </md-input-container>
+          </div>
         </div>
       </td>
       <td>
-        <div>
-          <md-checkbox [(ngModel)]="PRIMER_PICK_RIGHT_PRIMER_INPUT" name="PRIMER_PICK_RIGHT_PRIMER" align="end">Pick Right Primer</md-checkbox>
-        </div> &nbsp;
-        <div *ngIf="!PRIMER_PICK_RIGHT_PRIMER_INPUT">
-          <md-input-container class="pick-condition-input">
-            <input mdInput type="text" [(ngModel)]="SEQUENCE_PRIMER_REVCOMP_INPUT" name="SEQUENCE_PRIMER_REVCOMP" placeholder="Use this right primer">
-          </md-input-container>
+        <div class="pick-option-container">
+          <div>
+            <md-checkbox [(ngModel)]="PRIMER_PICK_RIGHT_PRIMER_INPUT" name="PRIMER_PICK_RIGHT_PRIMER" align="end">Pick Right Primer</md-checkbox>
+          </div> &nbsp;
+          <div *ngIf="!PRIMER_PICK_RIGHT_PRIMER_INPUT">
+            <md-input-container class="pick-condition-input">
+              <input mdInput type="text" [(ngModel)]="SEQUENCE_PRIMER_REVCOMP_INPUT" name="SEQUENCE_PRIMER_REVCOMP" placeholder="Use this right primer">
+            </md-input-container>
+          </div>
         </div>
       </td>
     </tr>
