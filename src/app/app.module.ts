@@ -11,11 +11,14 @@ import { AppComponent } from './app.component';
 import { Primer3Service } from './primer3.service';
 import { P3DataSharingService } from './p3-data-sharing.service';
 import { P3Service } from './p3.service';
+import { DescriptionDialogService } from './description-dialog/description-dialog.service';
 import { AdditionalParamComponent } from './additional-param/additional-param.component';
 import { SequenceSettingsComponent } from './sequence-settings/sequence-settings.component';
 import { SpecificityCheckingComponent } from './specificity-checking/specificity-checking.component';
 import { SubmitAreaComponent } from './submit-area/submit-area.component';
 import { ResultAreaComponent } from './result-area/result-area.component';
+
+import { DescriptionDialogComponent } from './description-dialog/description-dialog.component';
 
 
 @NgModule({
@@ -25,7 +28,8 @@ import { ResultAreaComponent } from './result-area/result-area.component';
     SequenceSettingsComponent,
     SpecificityCheckingComponent,
     SubmitAreaComponent,
-    ResultAreaComponent
+    ResultAreaComponent,
+    DescriptionDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,11 @@ import { ResultAreaComponent } from './result-area/result-area.component';
   providers: [
     Primer3Service,
     P3DataSharingService,
-    P3Service
+    P3Service,
+    DescriptionDialogService
+  ],
+  entryComponents: [
+    DescriptionDialogComponent
   ],
   bootstrap: [AppComponent]
 })

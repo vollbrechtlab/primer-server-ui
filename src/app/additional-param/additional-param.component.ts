@@ -1,6 +1,9 @@
 import {Component} from '@angular/core';
+import {MdDialog} from '@angular/material';
 
 import {P3Service} from '../p3.service';
+import { DescriptionDialogComponent } from '../description-dialog/description-dialog.component';
+import { DescriptionDialogService } from '../description-dialog/description-dialog.service';
 
 @Component({
   selector: 'app-additional-param',
@@ -13,9 +16,23 @@ export class AdditionalParamComponent {
   filteredParamsMultiple: any[];
   displayDescription = false;
 
-  constructor(private p3Service: P3Service) { }
+  constructor(
+    public dialog: MdDialog,
+    private p3Service: P3Service,
+    private descriptionDialogService: DescriptionDialogService
+  ) { }
 
   ngOnInit(){
+    let testInitialData = {
+      "name": "SEQUENCE_ID",
+      "description": "Short description of the sequence. It is used as an identifier \nthat is reproduced in the output to enable users to identify the \nsource of the chosen primers.\n\nThis tag must be present if P3_FILE_FLAG is non-zero.",
+      "type": "string",
+      "default_value": "",
+      "setting_type": "additional",
+      "form_type": "input_text"
+    };
+    this.selectedParams = [];
+    this.selectedParams.push(testInitialData);
   }
   
   filterParamMultiple(event) {
@@ -41,8 +58,10 @@ export class AdditionalParamComponent {
     console.log(event);
   }
 
-  showDescription(){
-    this.displayDescription = true;
+  showDescription(description: string){
+    this.descriptionDialogService.description = description;
+    this.dialog.open(DescriptionDialogComponent);
   }
         
 }
+
