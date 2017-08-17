@@ -12,6 +12,8 @@ import { Primer3Service } from './primer3.service';
 import { P3DataSharingService } from './p3-data-sharing.service';
 import { P3Service } from './p3.service';
 import { DescriptionDialogService } from './description-dialog/description-dialog.service';
+import { SettingFormValidationService } from './setting-form-validation.service';
+
 import { AdditionalParamComponent } from './additional-param/additional-param.component';
 import { SequenceSettingsComponent } from './sequence-settings/sequence-settings.component';
 import { SpecificityCheckingComponent } from './specificity-checking/specificity-checking.component';
@@ -44,7 +46,8 @@ import { DescriptionDialogComponent } from './description-dialog/description-dia
     Primer3Service,
     P3DataSharingService,
     P3Service,
-    DescriptionDialogService
+    DescriptionDialogService,
+    SettingFormValidationService
   ],
   entryComponents: [
     DescriptionDialogComponent
