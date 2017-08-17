@@ -1,161 +1,75 @@
-<!-- sequence template input -->
-<form class="example-form">
+<form [formGroup]="settingForm" class="example-form">
+  <!-- sequence template input -->
   <md-input-container class="example-full-width">
-    <textarea mdInput [(ngModel)]="SEQUENCE_TEMPLATE_INPUT" (ngModelChange)="calcParam()" name="SEQUENCE_TEMPLATE_INPUT" rows="5" placeholder="Paste sequence template here" autofocus></textarea>
+    <textarea mdInput formControlName="SEQUENCE_TEMPLATE_INPUT" id="SEQUENCE_TEMPLATE_INPUT" 
+              rows="5" placeholder="Paste sequence template here" autofocus></textarea>
     <md-hint align="end">Length: {{sequence_length}}, GC Content: {{gc_content}}%</md-hint>
-
   </md-input-container>
-</form>
-<md-error *ngIf="!isSequenceOk">
-  Wrong Sequence: Paste correct sequence
-</md-error>
 
+  <md-error *ngIf="settingForm.get('SEQUENCE_TEMPLATE_INPUT').hasError('invalidSequence')">
+    Invalid Sequence. 
+    Wrong base code of '{{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidCode}}'
+    at {{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidPos}}
+  </md-error>
 
-<!-- Settings -->
-<h3>Settings</h3>
-<form class="example-form">
+  <!-- Settings -->
+  <h3>Settings</h3>
   <table class="settings_table">
     <tr>
       <td>
-        <div class="pick-option-container">
-          <div>
-            <md-checkbox [(ngModel)]="p3Service.params['PRIMER_PICK_LEFT_PRIMER']['value']" name="PRIMER_PICK_LEFT_PRIMER" align="end">Pick Left Primer</md-checkbox>
-          </div> &nbsp;
-          <div *ngIf="!p3Service.params['PRIMER_PICK_LEFT_PRIMER']['value']">
-            <md-input-container class="pick-condition-input">
-              <input mdInput type="text" [(ngModel)]="p3Service.params['SEQUENCE_PRIMER']['value']" name="SEQUENCE_PRIMER" placeholder="Use this left primer">
-            </md-input-container>
-          </div>
-        </div>
-      </td>
-      <td>
-        <div class="pick-option-container">
-          <div>
-            <md-checkbox [(ngModel)]="p3Service.params['PRIMER_PICK_INTERNAL_OLIGO']['value']" name="PRIMER_PICK_INTERNAL_OLIGO" align="end">Pick Internal Oligo</md-checkbox>
-          </div> &nbsp;
-          <div *ngIf="!p3Service.params['PRIMER_PICK_INTERNAL_OLIGO']['value']">
-            <md-input-container class="pick-condition-input">
-              <input mdInput type="text" [(ngModel)]="p3Service.params['SEQUENCE_INTERNAL_OLIGO']['value']" name="SEQUENCE_INTERNAL_OLIGO" placeholder="Use this internal oligo">
-            </md-input-container>
-          </div>
-        </div>
-      </td>
-      <td>
-        <div class="pick-option-container">
-          <div>
-            <md-checkbox [(ngModel)]="p3Service.params['PRIMER_PICK_RIGHT_PRIMER']['value']" name="PRIMER_PICK_RIGHT_PRIMER" align="end">Pick Right Primer</md-checkbox>
-          </div> &nbsp;
-          <div *ngIf="!p3Service.params['PRIMER_PICK_RIGHT_PRIMER']['value']">
-            <md-input-container class="pick-condition-input">
-              <input mdInput type="text" [(ngModel)]="p3Service.params['SEQUENCE_PRIMER_REVCOMP']['value']" name="SEQUENCE_PRIMER_REVCOMP" placeholder="Use this right primer">
-            </md-input-container>
-          </div>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="PRIMER_PRODUCT_SIZE_MIN">Product Size</label>
-      </td>
-      <td colspan="2">
-        <table>
-          <tr>
-            <td>
-              <md-input-container class="example-full-width">
-                <input mdInput type="number" [(ngModel)]="PRIMER_PRODUCT_SIZE_MIN_INPUT" id="PRIMER_PRODUCT_SIZE_MIN" name="PRIMER_PRODUCT_SIZE_MIN" placeholder="Min">
-              </md-input-container>
-            </td>
-            <td>
-              <md-input-container class="example-full-width">
-                <input mdInput type="number" [(ngModel)]="PRIMER_PRODUCT_SIZE_MAX_INPUT" id="PRIMER_PRODUCT_SIZE_MAX" name="PRIMER_PRODUCT_SIZE_MAX" placeholder="Max">
-              </md-input-container>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="SEQUENCE_TARGET">Targets</label>
-      </td>
-      <td colspan="2">
-        <md-input-container class="example-full-width">
-          <input mdInput type="text" [(ngModel)]="SEQUENCE_TARGET_INPUT" id="SEQUENCE_TARGET" name="SEQUENCE_TARGET">
-          <md-hint>&lt;start&gt;-&lt;length&gt;  e.g. 37-21 60-10</md-hint>
-        </md-input-container>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="SEQUENCE_EXCLUDED_REGION">Excluded Regions</label>
-      </td>
-      <td colspan="2">
-        <md-input-container class="example-full-width">
-          <input mdInput type="text" [(ngModel)]="SEQUENCE_EXCLUDED_REGION_INPUT" id="SEQUENCE_EXCLUDED_REGION" name="SEQUENCE_EXCLUDED_REGION">
-          <md-hint>&lt;start&gt;-&lt;length&gt;  e.g. 37-21 60-10</md-hint>
-        </md-input-container>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="PRIMER_MIN_TM">Primer Melting Temp (Tm)</label>
-      </td>
-      <td colspan="2">
-        <table>
-          <tr>
-            <td>
-              <md-input-container class="example-full-width">
-                <input mdInput type="number" [(ngModel)]="p3Service.params['PRIMER_MIN_TM']['value']" id="PRIMER_MIN_TM" name="PRIMER_MIN_TM" placeholder="Min">
-              </md-input-container>
-            </td>
-            <td>
-              <md-input-container class="example-full-width">
-                <input mdInput type="number" [(ngModel)]="p3Service.params['PRIMER_OPT_TM']['value']" id="PRIMER_OPT_TM" name="PRIMER_OPT_TM" placeholder="Opt">
-              </md-input-container>
-            </td>
-            <td>
-              <md-input-container class="example-full-width">
-                <input mdInput type="number" [(ngModel)]="p3Service.params['PRIMER_MAX_TM']['value']" id="PRIMER_MAX_TM" name="PRIMER_MAX_TM" placeholder="Max">
-              </md-input-container>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="PRIMER_PAIR_MAX_DIFF_TM">Max Tm Difference</label>
-      </td>
-      <td colspan="2">
-        <md-input-container class="max-diff-tm-input">
-          <input mdInput type="number" [(ngModel)]="p3Service.params['PRIMER_PAIR_MAX_DIFF_TM']['value']" id="PRIMER_PAIR_MAX_DIFF_TM" name="PRIMER_PAIR_MAX_DIFF_TM">
-        </md-input-container>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="PRIMER_SALT_CORRECTIONS">Salt Correction Formula</label>
-      </td>
-      <td colspan="2">
-        <md-select [(ngModel)]="p3Service.params['PRIMER_SALT_CORRECTIONS']['value']" name="option" class="salt-corrections-select">
-          <md-option *ngFor="let option of p3Service.PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS" [value]="option.value">
-            {{option.viewValue}}
-          </md-option>
-        </md-select>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="PRIMER_TM_FORMULA">Table of thermodynamic parameters</label>
-      </td>
-      <td colspan="2">
-        <md-select [(ngModel)]="p3Service.params['PRIMER_TM_FORMULA']['value']" name="option" class="tm-formula-select">
-          <md-option *ngFor="let option of p3Service.PRIMER_TM_FORMULA_INPUT_OPTIONS" [value]="option.value">
-            {{option.viewValue}}
-          </md-option>
-        </md-select>
-      </td>
-    </tr>
 
+        <div class="pick-option-container">
+          <div>
+            <md-checkbox formControlName="PRIMER_PICK_LEFT_PRIMER" align="end">Pick Left Primer</md-checkbox>
+          </div> &nbsp;
+          <div *ngIf="!settingForm.get('PRIMER_PICK_LEFT_PRIMER').value">
+            <md-input-container class="pick-condition-input">
+              <input mdInput type="text" formControlName="SEQUENCE_PRIMER" placeholder="Use this left primer">
+            </md-input-container>
+            <md-error *ngIf="settingForm.get('SEQUENCE_PRIMER').hasError('invalidSequence')">
+              Invalid Sequence. 
+              Wrong base code of '{{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidCode}}'
+              at {{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidPos}}
+            </md-error>
+          </div>
+        </div>
+      </td>
+
+      <td>
+        <div class="pick-option-container">
+          <div>
+            <md-checkbox formControlName="PRIMER_PICK_INTERNAL_OLIGO" align="end">Pick Internal Oligo</md-checkbox>
+          </div> &nbsp;
+          <div *ngIf="!settingForm.get('PRIMER_PICK_INTERNAL_OLIGO').value">
+            <md-input-container class="pick-condition-input">
+              <input mdInput type="text" formControlName="SEQUENCE_INTERNAL_OLIGO" placeholder="Use this internal oligo">
+            </md-input-container>
+            <md-error *ngIf="settingForm.get('SEQUENCE_INTERNAL_OLIGO').hasError('invalidSequence')">
+              Invalid Sequence. 
+              Wrong base code of '{{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidCode}}'
+              at {{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidPos}}
+            </md-error>
+          </div>
+        </div>
+      </td>
+
+      <td>
+        <div class="pick-option-container">
+          <div>
+            <md-checkbox formControlName="PRIMER_PICK_RIGHT_PRIMER" align="end">Pick Right Primer</md-checkbox>
+          </div> &nbsp;
+          <div *ngIf="!settingForm.get('PRIMER_PICK_RIGHT_PRIMER').value">
+            <md-input-container class="pick-condition-input">
+              <input mdInput type="text" formControlName="SEQUENCE_PRIMER_REVCOMP" placeholder="Use this right primer">
+            </md-input-container>
+            <md-error *ngIf="settingForm.get('SEQUENCE_PRIMER_REVCOMP').hasError('invalidSequence')">
+              Invalid Sequence. 
+              Wrong base code of '{{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidCode}}'
+              at {{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidPos}}
+            </md-error>
+          </div>
+        </div>
+      </td>
+    </tr>
   </table>
 </form>

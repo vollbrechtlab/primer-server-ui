@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {P3Params} from './p3-params';
 
+/** Shares all the variables, some basic functions **/
 @Injectable()
 export class P3Service {
   params = {};
@@ -25,7 +26,7 @@ export class P3Service {
   }
 
   convertRangelistToArr(rangelist: string){
-    var arr = [];
+    let arr = [];
     for(let i = 0; i < rangelist.length; i++){
       
     }
