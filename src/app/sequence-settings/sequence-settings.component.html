@@ -28,8 +28,8 @@
             </md-input-container>
             <md-error *ngIf="settingForm.get('SEQUENCE_PRIMER').hasError('invalidSequence')">
               Invalid Sequence. 
-              Wrong base code of '{{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidCode}}'
-              at {{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidPos}}
+              Wrong base code of '{{settingForm.get('SEQUENCE_PRIMER').getError('invalidSequence').invalidCode}}'
+              at {{settingForm.get('SEQUENCE_PRIMER').getError('invalidSequence').invalidPos}}
             </md-error>
           </div>
         </div>
@@ -46,8 +46,8 @@
             </md-input-container>
             <md-error *ngIf="settingForm.get('SEQUENCE_INTERNAL_OLIGO').hasError('invalidSequence')">
               Invalid Sequence. 
-              Wrong base code of '{{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidCode}}'
-              at {{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidPos}}
+              Wrong base code of '{{settingForm.get('SEQUENCE_INTERNAL_OLIGO').getError('invalidSequence').invalidCode}}'
+              at {{settingForm.get('SEQUENCE_INTERNAL_OLIGO').getError('invalidSequence').invalidPos}}
             </md-error>
           </div>
         </div>
@@ -64,12 +64,13 @@
             </md-input-container>
             <md-error *ngIf="settingForm.get('SEQUENCE_PRIMER_REVCOMP').hasError('invalidSequence')">
               Invalid Sequence. 
-              Wrong base code of '{{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidCode}}'
-              at {{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidPos}}
+              Wrong base code of '{{settingForm.get('SEQUENCE_PRIMER_REVCOMP').getError('invalidSequence').invalidCode}}'
+              at {{settingForm.get('SEQUENCE_PRIMER_REVCOMP').getError('invalidSequence').invalidPos}}
             </md-error>
           </div>
         </div>
       </td>
+      
     </tr>
   </table>
 </form>

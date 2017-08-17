@@ -13,7 +13,6 @@ export class SequenceSettingsComponent implements OnInit {
   /* Sequence template input */
   sequence_length = 0;
   gc_content = 0;
-  isSequenceOk = true;
   settingForm: FormGroup;
 
   constructor(
