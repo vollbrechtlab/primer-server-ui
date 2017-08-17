@@ -57,14 +57,4 @@ export class SettingFormValidationService {
       return {'invalidSequence': message};
     };
   }
-
-  pickOptionsValidator(): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} => {
-      let message = {};
-      if(control.get('PRIMER_PICK_LEFT_PRIMER')){
-
-      }
-      return message;
-    };
-  }
 }
