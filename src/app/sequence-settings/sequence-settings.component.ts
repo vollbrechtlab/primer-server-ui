@@ -10,9 +10,7 @@ import { SettingFormValidationService } from '../setting-form-validation.service
   styleUrls: ['./sequence-settings.component.css']
 })
 export class SequenceSettingsComponent implements OnInit {
-  /* Sequence template input */
-  sequence_length = 0;
-  gc_content = 0;
+
   settingForm: FormGroup;
 
   constructor(
@@ -32,8 +30,21 @@ export class SequenceSettingsComponent implements OnInit {
       PRIMER_PICK_INTERNAL_OLIGO: [false],
       SEQUENCE_INTERNAL_OLIGO: ['', this.sfvService.nucleotideSequenceValidator()],
       PRIMER_PICK_RIGHT_PRIMER: [true],
-      SEQUENCE_PRIMER_REVCOMP: ['', this.sfvService.nucleotideSequenceValidator()]
+      SEQUENCE_PRIMER_REVCOMP: ['', this.sfvService.nucleotideSequenceValidator()],
+      PRIMER_PRODUCT_SIZE_MIN: [null],
+      PRIMER_PRODUCT_SIZE_MAX: [null],
+      SEQUENCE_TARGET: ['', this.sfvService.targetRegionValidator()],
+      SEQUENCE_EXCLUDED_REGION: [''],
+      PRIMER_MIN_TM: [57],
+      PRIMER_OPT_TM: [60],
+      PRIMER_MAX_TM: [63],
+      PRIMER_PAIR_MAX_DIFF_TM: [3],
+      PRIMER_SALT_CORRECTIONS: [1],
+      PRIMER_TM_FORMULA: [1],
     });
+
+    this.sfvService.settingForm = this.settingForm;
+
   }
 
 }
