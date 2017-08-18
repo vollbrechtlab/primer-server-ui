@@ -31,12 +31,15 @@ export class P3Service {
     ];
   }
 
-  convertRangelistToArr(rangelist: string){
+  convertStrListToArr(strList: string){
     let arr = [];
-    for(let i = 0; i < rangelist.length; i++){
-      
+    let splitted = strList.split(" ");
+    for(let i = 0; i < splitted.length; i++){
+      let interval = splitted[i].split("-");
+      let start:number = parseInt(interval[0]);
+      let length:number = parseInt(interval[1]);
+      arr.push([start, length]);
     }
-    arr.push([]);
     return arr;
   }
 

@@ -1,8 +1,6 @@
 import {Component} from '@angular/core';
-import {MdDialog} from '@angular/material';
 
 import {P3Service} from '../p3.service';
-import { DescriptionDialogComponent } from '../description-dialog/description-dialog.component';
 import { DescriptionDialogService } from '../description-dialog/description-dialog.service';
 
 @Component({
@@ -17,9 +15,8 @@ export class AdditionalParamComponent {
   displayDescription = false;
 
   constructor(
-    private dialog: MdDialog,
     private p3Service: P3Service,
-    private descriptionDialogService: DescriptionDialogService
+    public dDialogService: DescriptionDialogService
   ) { }
 
   ngOnInit(){
@@ -68,13 +65,4 @@ export class AdditionalParamComponent {
     console.log(event);
   }
 
-  /**
-   * Show the description dialog
-   * @param {string} description The description to show
-   */
-  showDescription(description: string){
-    this.descriptionDialogService.description = description;
-    this.dialog.open(DescriptionDialogComponent);
-  }
-        
 }
