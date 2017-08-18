@@ -17,7 +17,7 @@ export class AdditionalParamComponent {
   displayDescription = false;
 
   constructor(
-    public dialog: MdDialog,
+    private dialog: MdDialog,
     private p3Service: P3Service,
     private descriptionDialogService: DescriptionDialogService
   ) { }
@@ -78,4 +78,3 @@ export class AdditionalParamComponent {
   }
         
 }
-

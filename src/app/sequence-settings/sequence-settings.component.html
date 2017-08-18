@@ -37,6 +37,9 @@
             <md-input-container class="pick-condition-input">
               <input mdInput type="text" formControlName="SEQUENCE_PRIMER" placeholder="Use this left primer">
             </md-input-container>
+            <button md-icon-button (click)="showDescription('SEQUENCE_PRIMER')" class="help-button">
+              <md-icon>help</md-icon>
+            </button>
             <md-error *ngIf="settingForm.get('SEQUENCE_PRIMER').hasError('invalidSequence')">
               Invalid Sequence. 
               Wrong base code of '{{settingForm.get('SEQUENCE_PRIMER').getError('invalidSequence').invalidCode}}'
@@ -55,6 +58,9 @@
             <md-input-container class="pick-condition-input">
               <input mdInput type="text" formControlName="SEQUENCE_INTERNAL_OLIGO" placeholder="Use this internal oligo">
             </md-input-container>
+            <button md-icon-button (click)="showDescription('SEQUENCE_INTERNAL_OLIGO')" class="help-button">
+              <md-icon>help</md-icon>
+            </button>
             <md-error *ngIf="settingForm.get('SEQUENCE_INTERNAL_OLIGO').hasError('invalidSequence')">
               Invalid Sequence. 
               Wrong base code of '{{settingForm.get('SEQUENCE_INTERNAL_OLIGO').getError('invalidSequence').invalidCode}}'
@@ -73,6 +79,9 @@
             <md-input-container class="pick-condition-input">
               <input mdInput type="text" formControlName="SEQUENCE_PRIMER_REVCOMP" placeholder="Use this right primer">
             </md-input-container>
+            <button md-icon-button (click)="showDescription('SEQUENCE_PRIMER_REVCOMP')" class="help-button">
+              <md-icon>help</md-icon>
+            </button>
             <md-error *ngIf="settingForm.get('SEQUENCE_PRIMER_REVCOMP').hasError('invalidSequence')">
               Invalid Sequence. 
               Wrong base code of '{{settingForm.get('SEQUENCE_PRIMER_REVCOMP').getError('invalidSequence').invalidCode}}'
@@ -87,6 +96,9 @@
     <tr>
       <td>
         <label for="PRIMER_PRODUCT_SIZE_MIN">Product Size</label>
+        <button md-icon-button (click)="showDescription('PRIMER_PRODUCT_SIZE_RANGE')" class="help-button">
+          <md-icon>help</md-icon>
+        </button>
       </td>
       <td colspan="2">
         <table>
@@ -108,6 +120,9 @@
     <tr>
       <td>
         <label for="SEQUENCE_TARGET">Targets</label>
+        <button md-icon-button (click)="showDescription('SEQUENCE_TARGET')" class="help-button">
+          <md-icon>help</md-icon>
+        </button>
       </td>
       <td colspan="2">
         <md-input-container class="example-full-width">
@@ -119,6 +134,9 @@
     <tr>
       <td>
         <label for="SEQUENCE_EXCLUDED_REGION">Excluded Regions</label>
+        <button md-icon-button (click)="showDescription('SEQUENCE_EXCLUDED_REGION')" class="help-button">
+          <md-icon>help</md-icon>
+        </button>
       </td>
       <td colspan="2">
         <md-input-container class="example-full-width">
@@ -131,6 +149,9 @@
     <tr>
       <td>
         <label for="PRIMER_MIN_TM">Primer Melting Temp (Tm)</label>
+        <button md-icon-button (click)="showDescription('PRIMER_MIN_TM')" class="help-button">
+          <md-icon>help</md-icon>
+        </button>
       </td>
       <td colspan="2">
         <table>
@@ -157,6 +178,9 @@
     <tr>
       <td>
         <label for="PRIMER_PAIR_MAX_DIFF_TM">Max Tm Difference</label>
+        <button md-icon-button (click)="showDescription('PRIMER_PAIR_MAX_DIFF_TM')" class="help-button">
+          <md-icon>help</md-icon>
+        </button>
       </td>
       <td colspan="2">
         <md-input-container class="max-diff-tm-input">
@@ -167,6 +191,9 @@
     <tr>
       <td>
         <label for="PRIMER_SALT_CORRECTIONS">Salt Correction Formula</label>
+        <button md-icon-button (click)="showDescription('PRIMER_SALT_CORRECTIONS')" class="help-button">
+          <md-icon>help</md-icon>
+        </button>
       </td>
       <td colspan="2">
         <md-select formControlName="PRIMER_SALT_CORRECTIONS" class="salt-corrections-select">
@@ -179,6 +206,9 @@
     <tr>
       <td>
         <label for="PRIMER_TM_FORMULA">Table of thermodynamic parameters</label>
+        <button md-icon-button (click)="showDescription('PRIMER_TM_FORMULA')" class="help-button">
+          <md-icon>help</md-icon>
+        </button>
       </td>
       <td colspan="2">
         <md-select formControlName="PRIMER_TM_FORMULA" class="tm-formula-select">
@@ -192,4 +222,3 @@
   </table>
 </form>
 
-{{this.p3Service.p3Input.SEQUENCE_TEMPLATE}}

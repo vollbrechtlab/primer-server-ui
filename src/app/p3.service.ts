@@ -8,7 +8,7 @@ export class P3Service {
   params = {};
   p3Input: P3Input;
 
-  gc_content: number;
+  gc_content = 0;
 
   PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS: Array<{}>;
   PRIMER_TM_FORMULA_INPUT_OPTIONS: Array<{}>;
