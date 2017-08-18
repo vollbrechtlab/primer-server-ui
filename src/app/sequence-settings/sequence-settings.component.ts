@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidatorFn } from '@angular/forms';
-import {MdDialog} from '@angular/material';
 
 import { P3Service } from '../p3.service';
 import { SettingFormValidationService } from '../setting-form-validation.service';
-import { DescriptionDialogComponent } from '../description-dialog/description-dialog.component';
 import { DescriptionDialogService } from '../description-dialog/description-dialog.service';
 
 @Component({
@@ -17,11 +15,10 @@ export class SequenceSettingsComponent implements OnInit {
   settingForm: FormGroup;
 
   constructor(
-    private dialog: MdDialog,
     private fb: FormBuilder,
     public p3Service: P3Service,
     private sfvService: SettingFormValidationService,
-    private descriptionDialogService: DescriptionDialogService
+    public dDialogService: DescriptionDialogService
   ) { }
 
   ngOnInit() {
@@ -58,15 +55,6 @@ export class SequenceSettingsComponent implements OnInit {
     this.settingForm.controls['PRIMER_PRODUCT_SIZE_MIN'].markAsTouched();
     this.settingForm.controls['PRIMER_PRODUCT_SIZE_MAX'].markAsTouched();
 
-  }
-
-  /**
-   * Show the description dialog
-   * @param {string} paramName Parameter name of the description to show
-   */
-  showDescription(paramName: string){
-    this.descriptionDialogService.description = this.p3Service.params[paramName].description;
-    this.dialog.open(DescriptionDialogComponent);
   }
 
 }

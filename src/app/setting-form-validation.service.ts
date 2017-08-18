@@ -8,8 +8,8 @@ import { P3Service } from './p3.service';
 export class SettingFormValidationService {
   normalBaseCodes = ['A','C','G','T','N','a','c','g','t','n'];
   ambiguousBaseCodes = ['A','C','G','T','N','a','c','g','t','n', 
-                                'R','Y','W','S','M','K','B','H','D','V',
-                                'r','y','w','s','m','k','b','h','d','v'];
+                        'R','Y','W','S','M','K','B','H','D','V',
+                        'r','y','w','s','m','k','b','h','d','v'];
   sequenceTemplateCodes = ['A','C','G','T','N','a','c','g','t','n', '[',']','<','>'];
 
   settingForm: FormGroup;
@@ -149,8 +149,20 @@ export class SettingFormValidationService {
     };
   }
 
-  private checkIntervalList(intervalList: string){
+  private checkIntervalListArr(arr: Array<Array<number>>){
+    for(let i = 0; i < arr.length; i++){
+      let start:number = arr[i][0];
+      let length:number = arr[i][1];
+      if(start < 0 || length < 0 || start + length > this.p3Service.p3Input.SEQUENCE_TEMPLATE.length){
+        return {};
+      }
+    }
     return null;
+  }
+
+  private checkIntervalList(intervalList: string){
+    let arr = this.p3Service.convertStrListToArr(intervalList);
+    return this.checkIntervalListArr(arr);
   }
 
   intervalListValidator(): ValidatorFn {
@@ -162,8 +174,23 @@ export class SettingFormValidationService {
 
   targetRegionValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
-      let message = this.checkIntervalList(control.value);
+      let arr = this.p3Service.convertStrListToArr(control.value);
+      let message = this.checkIntervalListArr(arr);
+      // if there is no error in the interval list
+      if(message == null){
+        // add it to the shared param
+        this.p3Service.p3Input.SEQUENCE_TARGET = arr;
+        // update the sequence template input
+        if(arr.length != 0){
+          try{
+            this.settingForm.patchValue({SEQUENCE_TEMPLATE_INPUT:'afa'});
+          } catch(e){
 
+          }
+        }
+
+        
+      }
       return {'invalidIntervalList': message};
     };
   }
@@ -174,6 +201,7 @@ export class SettingFormValidationService {
           control.value > this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]){
         return {'invalidMin': true};
       }
+      this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] = control.value;
       return {'invalidMin': false};
     };
   }
@@ -184,6 +212,7 @@ export class SettingFormValidationService {
          control.value > this.p3Service.p3Input.SEQUENCE_TEMPLATE.length){
         return {'invalidMax': true};
       }
+      this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = control.value;
       return {'invalidMax': false};
     };
   }

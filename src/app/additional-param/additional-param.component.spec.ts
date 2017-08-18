@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdditionalParamComponent } from './additional-param.component';
+import { PrimengModule } from '../primeng/primeng.module';
 
 describe('AdditionalParamComponent', () => {
   let component: AdditionalParamComponent;
@@ -8,6 +9,7 @@ describe('AdditionalParamComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [PrimengModule],
       declarations: [ AdditionalParamComponent ]
     })
     .compileComponents();

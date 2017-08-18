@@ -16,7 +16,7 @@
     <td *ngIf="p.form_type == 'input_text' || p.form_type == 'input_number'">
       <label for="{{p.name}}">
         {{p.name}} ({{p.type}})
-        <button md-icon-button (click)="showDescription(p.description)" class="help-button">
+        <button md-icon-button (click)="dDialogService.showDescription(p.name)" class="help-button">
           <md-icon>help</md-icon>
         </button>
       </label>
@@ -33,7 +33,7 @@
     <!-- Form type is checkbox -->
     <td title="{{p.description}}" *ngIf="p.form_type == 'checkbox'">
       <md-checkbox align="right">{{p.name}}</md-checkbox>
-      <button md-icon-button (click)="showDescription(p.description)" class="help-button">
+      <button md-icon-button (click)="dDialogService.showDescription(p.name)" class="help-button">
         <md-icon>help</md-icon>
       </button>
     </td>
