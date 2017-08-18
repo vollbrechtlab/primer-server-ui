@@ -111,8 +111,7 @@ for tag in soup.find_all("h3"):
 
 			params[param_name] = { "description":param_description, 
 								   "type":param_type,
-								   "default_value":param_default_val, 
-								   "value":param_default_val, 
+								   "default_value":param_default_val,
 								   "setting_type":setting_type, 
 								   "form_type":form_type }
 	except:
