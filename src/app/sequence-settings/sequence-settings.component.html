@@ -11,17 +11,19 @@
     <md-hint align="end">
       Length: {{p3Service.p3Input.SEQUENCE_TEMPLATE.length}}, GC Content: {{p3Service.gc_content}}%
     </md-hint>
+
+    <!-- Sequence template error messages -->
+    <md-error *ngIf="settingForm.get('SEQUENCE_TEMPLATE_INPUT').hasError('invalidSequence')">
+      Invalid Sequence. 
+      Wrong base code of '{{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidCode}}'
+      at {{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidPos}}
+    </md-error>
+    <md-error *ngIf="settingForm.get('SEQUENCE_TEMPLATE_INPUT').hasError('invalidRegions')">
+      Input the correct regionss.
+    </md-error>
   </md-input-container>
 
-  <!-- Sequence template error messages -->
-  <md-error *ngIf="settingForm.get('SEQUENCE_TEMPLATE_INPUT').hasError('invalidSequence')">
-    Invalid Sequence. 
-    Wrong base code of '{{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidCode}}'
-    at {{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidPos}}
-  </md-error>
-  <md-error *ngIf="settingForm.get('SEQUENCE_TEMPLATE_INPUT').hasError('invalidRegions')">
-    Input the correct regionss.
-  </md-error>
+
 
   <!-- Settings -->
   <h3>Settings</h3>
@@ -36,15 +38,18 @@
           <div *ngIf="!settingForm.get('PRIMER_PICK_LEFT_PRIMER').value">
             <md-input-container class="pick-condition-input">
               <input mdInput type="text" formControlName="SEQUENCE_PRIMER" placeholder="Use this left primer">
+              <!-- error message -->
+              <md-error *ngIf="settingForm.get('SEQUENCE_PRIMER').hasError('invalidSequence')" style="size: 2px">
+                <span style="font-size: 10px;">
+                  Invalid Sequence. 
+                  Wrong base code of '{{settingForm.get('SEQUENCE_PRIMER').getError('invalidSequence').invalidCode}}'
+                  at {{settingForm.get('SEQUENCE_PRIMER').getError('invalidSequence').invalidPos}}
+                </span>
+              </md-error>
             </md-input-container>
             <button md-icon-button (click)="showDescription('SEQUENCE_PRIMER')" class="help-button">
               <md-icon>help</md-icon>
             </button>
-            <md-error *ngIf="settingForm.get('SEQUENCE_PRIMER').hasError('invalidSequence')">
-              Invalid Sequence. 
-              Wrong base code of '{{settingForm.get('SEQUENCE_PRIMER').getError('invalidSequence').invalidCode}}'
-              at {{settingForm.get('SEQUENCE_PRIMER').getError('invalidSequence').invalidPos}}
-            </md-error>
           </div>
         </div>
       </td>
@@ -57,15 +62,15 @@
           <div *ngIf="!settingForm.get('PRIMER_PICK_INTERNAL_OLIGO').value">
             <md-input-container class="pick-condition-input">
               <input mdInput type="text" formControlName="SEQUENCE_INTERNAL_OLIGO" placeholder="Use this internal oligo">
+              <md-error *ngIf="settingForm.get('SEQUENCE_INTERNAL_OLIGO').hasError('invalidSequence')">
+                Invalid Sequence. 
+                Wrong base code of '{{settingForm.get('SEQUENCE_INTERNAL_OLIGO').getError('invalidSequence').invalidCode}}'
+                at {{settingForm.get('SEQUENCE_INTERNAL_OLIGO').getError('invalidSequence').invalidPos}}
+              </md-error>
             </md-input-container>
             <button md-icon-button (click)="showDescription('SEQUENCE_INTERNAL_OLIGO')" class="help-button">
               <md-icon>help</md-icon>
             </button>
-            <md-error *ngIf="settingForm.get('SEQUENCE_INTERNAL_OLIGO').hasError('invalidSequence')">
-              Invalid Sequence. 
-              Wrong base code of '{{settingForm.get('SEQUENCE_INTERNAL_OLIGO').getError('invalidSequence').invalidCode}}'
-              at {{settingForm.get('SEQUENCE_INTERNAL_OLIGO').getError('invalidSequence').invalidPos}}
-            </md-error>
           </div>
         </div>
       </td>
@@ -78,15 +83,15 @@
           <div *ngIf="!settingForm.get('PRIMER_PICK_RIGHT_PRIMER').value">
             <md-input-container class="pick-condition-input">
               <input mdInput type="text" formControlName="SEQUENCE_PRIMER_REVCOMP" placeholder="Use this right primer">
+              <md-error *ngIf="settingForm.get('SEQUENCE_PRIMER_REVCOMP').hasError('invalidSequence')">
+                Invalid Sequence. 
+                Wrong base code of '{{settingForm.get('SEQUENCE_PRIMER_REVCOMP').getError('invalidSequence').invalidCode}}'
+                at {{settingForm.get('SEQUENCE_PRIMER_REVCOMP').getError('invalidSequence').invalidPos}}
+              </md-error>  
             </md-input-container>
             <button md-icon-button (click)="showDescription('SEQUENCE_PRIMER_REVCOMP')" class="help-button">
               <md-icon>help</md-icon>
             </button>
-            <md-error *ngIf="settingForm.get('SEQUENCE_PRIMER_REVCOMP').hasError('invalidSequence')">
-              Invalid Sequence. 
-              Wrong base code of '{{settingForm.get('SEQUENCE_PRIMER_REVCOMP').getError('invalidSequence').invalidCode}}'
-              at {{settingForm.get('SEQUENCE_PRIMER_REVCOMP').getError('invalidSequence').invalidPos}}
-            </md-error>
           </div>
         </div>
       </td>

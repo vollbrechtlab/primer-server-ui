@@ -50,6 +50,12 @@ export class SequenceSettingsComponent implements OnInit {
 
     this.sfvService.settingForm = this.settingForm;
 
+    // To show the error for the first time
+    this.settingForm.controls['SEQUENCE_TEMPLATE_INPUT'].markAsTouched();
+    this.settingForm.controls['SEQUENCE_PRIMER'].markAsTouched();
+    this.settingForm.controls['SEQUENCE_INTERNAL_OLIGO'].markAsTouched();
+    this.settingForm.controls['SEQUENCE_PRIMER_REVCOMP'].markAsTouched();
+
   }
 
   /**

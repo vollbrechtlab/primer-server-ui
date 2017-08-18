@@ -36,7 +36,7 @@ export class SettingFormValidationService {
 
   sequenceTemplateValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
-      let sequence = control.value;
+      let sequence = control.value.replace(/\n/g, '');
       
       // check if the sequence is ok
       let message = this.checkNucleotideSequence(sequence, this.sequenceTemplateCodes);
