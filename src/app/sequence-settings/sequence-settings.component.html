@@ -1,15 +1,26 @@
 <form [formGroup]="settingForm" class="example-form">
   <!-- sequence template input -->
   <md-input-container class="example-full-width">
-    <textarea mdInput formControlName="SEQUENCE_TEMPLATE_INPUT" id="SEQUENCE_TEMPLATE_INPUT" 
-              rows="5" placeholder="Paste sequence template here" autofocus></textarea>
-    <md-hint align="end">Length: {{sequence_length}}, GC Content: {{gc_content}}%</md-hint>
+    <textarea mdInput 
+              formControlName="SEQUENCE_TEMPLATE_INPUT" 
+              id="SEQUENCE_TEMPLATE_INPUT" 
+              rows="5" 
+              placeholder="Paste sequence template here" 
+              autofocus>            
+    </textarea>
+    <md-hint align="end">
+      Length: {{p3Service.p3Input.SEQUENCE_TEMPLATE.length}}, GC Content: {{p3Service.gc_content}}%
+    </md-hint>
   </md-input-container>
 
+  <!-- Sequence template error messages -->
   <md-error *ngIf="settingForm.get('SEQUENCE_TEMPLATE_INPUT').hasError('invalidSequence')">
     Invalid Sequence. 
     Wrong base code of '{{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidCode}}'
     at {{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidPos}}
+  </md-error>
+  <md-error *ngIf="settingForm.get('SEQUENCE_TEMPLATE_INPUT').hasError('invalidRegions')">
+    Input the correct regionss.
   </md-error>
 
   <!-- Settings -->
@@ -72,5 +83,113 @@
       </td>
       
     </tr>
+
+    <tr>
+      <td>
+        <label for="PRIMER_PRODUCT_SIZE_MIN">Product Size</label>
+      </td>
+      <td colspan="2">
+        <table>
+          <tr>
+            <td>
+              <md-input-container class="example-full-width">
+                <input mdInput type="number" id="PRIMER_PRODUCT_SIZE_MIN" formControlName="PRIMER_PRODUCT_SIZE_MIN" placeholder="Min">
+              </md-input-container>
+            </td>
+            <td>
+              <md-input-container class="example-full-width">
+                <input mdInput type="number" id="PRIMER_PRODUCT_SIZE_MAX" formControlName="PRIMER_PRODUCT_SIZE_MAX" placeholder="Max">
+              </md-input-container>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="SEQUENCE_TARGET">Targets</label>
+      </td>
+      <td colspan="2">
+        <md-input-container class="example-full-width">
+          <input mdInput type="text" id="SEQUENCE_TARGET" formControlName="SEQUENCE_TARGET">
+          <md-hint>&lt;start&gt;-&lt;length&gt;  e.g. 37-21 60-10</md-hint>
+        </md-input-container>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="SEQUENCE_EXCLUDED_REGION">Excluded Regions</label>
+      </td>
+      <td colspan="2">
+        <md-input-container class="example-full-width">
+          <input mdInput type="text" id="SEQUENCE_EXCLUDED_REGION" formControlName="SEQUENCE_EXCLUDED_REGION">
+          <md-hint>&lt;start&gt;-&lt;length&gt;  e.g. 37-21 60-10</md-hint>
+        </md-input-container>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <label for="PRIMER_MIN_TM">Primer Melting Temp (Tm)</label>
+      </td>
+      <td colspan="2">
+        <table>
+          <tr>
+            <td>
+              <md-input-container class="example-full-width">
+                <input mdInput type="number" id="PRIMER_MIN_TM" formControlName="PRIMER_MIN_TM" placeholder="Min">
+              </md-input-container>
+            </td>
+            <td>
+              <md-input-container class="example-full-width">
+                <input mdInput type="number" id="PRIMER_OPT_TM" formControlName="PRIMER_OPT_TM" placeholder="Opt">
+              </md-input-container>
+            </td>
+            <td>
+              <md-input-container class="example-full-width">
+                <input mdInput type="number" id="PRIMER_MAX_TM" formControlName="PRIMER_MAX_TM" placeholder="Max">
+              </md-input-container>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="PRIMER_PAIR_MAX_DIFF_TM">Max Tm Difference</label>
+      </td>
+      <td colspan="2">
+        <md-input-container class="max-diff-tm-input">
+          <input mdInput type="number" id="PRIMER_PAIR_MAX_DIFF_TM" formControlName="PRIMER_PAIR_MAX_DIFF_TM">
+        </md-input-container>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="PRIMER_SALT_CORRECTIONS">Salt Correction Formula</label>
+      </td>
+      <td colspan="2">
+        <md-select formControlName="PRIMER_SALT_CORRECTIONS" class="salt-corrections-select">
+          <md-option *ngFor="let option of p3Service.PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS" [value]="option.value">
+            {{option.viewValue}}
+          </md-option>
+        </md-select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="PRIMER_TM_FORMULA">Table of thermodynamic parameters</label>
+      </td>
+      <td colspan="2">
+        <md-select formControlName="PRIMER_TM_FORMULA" class="tm-formula-select">
+          <md-option *ngFor="let option of p3Service.PRIMER_TM_FORMULA_INPUT_OPTIONS" [value]="option.value">
+            {{option.viewValue}}
+          </md-option>
+        </md-select>
+      </td>
+    </tr>
+
   </table>
 </form>
+
+{{this.p3Service.p3Input.SEQUENCE_TEMPLATE}}

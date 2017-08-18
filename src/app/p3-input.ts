@@ -9,7 +9,7 @@ export class P3Input {
   SEQUENCE_PRIMER_REVCOMP: string;
   PRIMER_PRODUCT_SIZE_RANGE: Array<Array<number>>;
   SEQUENCE_TARGET: Array<Array<number>>;
-  SEQUENCE_INTERNAL_EXCLUDED_REGION: Array<Array<number>>;
+  SEQUENCE_EXCLUDED_REGION: Array<Array<number>>;
   PRIMER_MIN_TM: number;
   PRIMER_OPT_TM: number;
   PRIMER_MAX_TM: number;
@@ -18,8 +18,8 @@ export class P3Input {
   PRIMER_TM_FORMULA: number;
 
   /* Advanced Parameters */
-  SEQUENCE_EXCLUDED_REGION: Array<number>;
-  SEQUENCE_INCLUDED_REGION: Array<number>;
+  SEQUENCE_INTERNAL_EXCLUDED_REGION: Array<Array<number>>;
+  SEQUENCE_INCLUDED_REGION: Array<Array<number>>;
   SEQUENCE_FORCE_LEFT_END: number;
   SEQUENCE_QUALITY: Array<number>;
   SEQUENCE_FORCE_LEFT_START: number;  
