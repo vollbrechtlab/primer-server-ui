@@ -36,8 +36,8 @@ export class SequenceSettingsComponent implements OnInit {
       SEQUENCE_INTERNAL_OLIGO: ['', this.sfvService.nucleotideSequenceValidator()],
       PRIMER_PICK_RIGHT_PRIMER: [true],
       SEQUENCE_PRIMER_REVCOMP: ['', this.sfvService.nucleotideSequenceValidator()],
-      PRIMER_PRODUCT_SIZE_MIN: [null],
-      PRIMER_PRODUCT_SIZE_MAX: [null],
+      PRIMER_PRODUCT_SIZE_MIN: [null, this.sfvService.productSizeMinValidator()],
+      PRIMER_PRODUCT_SIZE_MAX: [null, this.sfvService.productSizeMaxValidator()],
       SEQUENCE_TARGET: ['', this.sfvService.targetRegionValidator()],
       SEQUENCE_EXCLUDED_REGION: [''],
       PRIMER_MIN_TM: [57],
@@ -55,6 +55,8 @@ export class SequenceSettingsComponent implements OnInit {
     this.settingForm.controls['SEQUENCE_PRIMER'].markAsTouched();
     this.settingForm.controls['SEQUENCE_INTERNAL_OLIGO'].markAsTouched();
     this.settingForm.controls['SEQUENCE_PRIMER_REVCOMP'].markAsTouched();
+    this.settingForm.controls['PRIMER_PRODUCT_SIZE_MIN'].markAsTouched();
+    this.settingForm.controls['PRIMER_PRODUCT_SIZE_MAX'].markAsTouched();
 
   }
 
