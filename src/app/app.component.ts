@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   /* General */
   title = 'Primer Server';
-  version = "2.0.3";  
+  version = "2.0.4";  
 
   constructor(){
 
