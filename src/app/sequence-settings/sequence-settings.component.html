@@ -111,11 +111,17 @@
             <td>
               <md-input-container class="example-full-width">
                 <input mdInput type="number" id="PRIMER_PRODUCT_SIZE_MIN" formControlName="PRIMER_PRODUCT_SIZE_MIN" placeholder="Min">
+                <md-error *ngIf="settingForm.get('PRIMER_PRODUCT_SIZE_MIN').hasError('invalidMin')">
+                  Invalid min. 
+                </md-error>  
               </md-input-container>
             </td>
             <td>
               <md-input-container class="example-full-width">
                 <input mdInput type="number" id="PRIMER_PRODUCT_SIZE_MAX" formControlName="PRIMER_PRODUCT_SIZE_MAX" placeholder="Max">
+                <md-error *ngIf="settingForm.get('PRIMER_PRODUCT_SIZE_MAX').hasError('invalidMax')">
+                  Invalid max. 
+                </md-error>  
               </md-input-container>
             </td>
           </tr>

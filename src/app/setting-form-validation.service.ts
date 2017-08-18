@@ -164,11 +164,27 @@ export class SettingFormValidationService {
     return (control: AbstractControl): {[key: string]: any} => {
       let message = this.checkIntervalList(control.value);
 
-
-        
-
       return {'invalidIntervalList': message};
-      
+    };
+  }
+
+  productSizeMinValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if( control.value < 0 || 
+          control.value > this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]){
+        return {'invalidMin': true};
+      }
+      return {'invalidMin': false};
+    };
+  }
+
+  productSizeMaxValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if(control.value < this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] || 
+         control.value > this.p3Service.p3Input.SEQUENCE_TEMPLATE.length){
+        return {'invalidMax': true};
+      }
+      return {'invalidMax': false};
     };
   }
 }
