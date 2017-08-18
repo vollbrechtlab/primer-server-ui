@@ -15,7 +15,7 @@ export class SequenceSettingsComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private p3Service: P3Service,
+    public p3Service: P3Service,
     private sfvService: SettingFormValidationService
   ) { }
 

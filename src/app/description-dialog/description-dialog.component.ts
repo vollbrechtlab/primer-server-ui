@@ -14,5 +14,5 @@ import { DescriptionDialogService } from './description-dialog.service';
 export class DescriptionDialogComponent {
 
     constructor(public dialogRef: MdDialogRef<DescriptionDialogComponent>,
-                private descriptionDialogService: DescriptionDialogService) { }
+                public descriptionDialogService: DescriptionDialogService) { }
 }
