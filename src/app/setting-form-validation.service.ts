@@ -153,6 +153,7 @@ export class SettingFormValidationService {
     for(let i = 0; i < arr.length; i++){
       let start:number = arr[i][0];
       let length:number = arr[i][1];
+      console.log(start + ", " + length)
       if(start < 0 || length < 0 || start + length > this.p3Service.p3Input.SEQUENCE_TEMPLATE.length){
         return {};
       }
@@ -177,20 +178,34 @@ export class SettingFormValidationService {
       let arr = this.p3Service.convertStrListToArr(control.value);
       let message = this.checkIntervalListArr(arr);
       // if there is no error in the interval list
-      if(message == null){
-        // add it to the shared param
-        this.p3Service.p3Input.SEQUENCE_TARGET = arr;
+      /*
+      if(message === null){
+        console.log(arr)
         // update the sequence template input
-        if(arr.length != 0){
+        if(arr.length > 0){
+          
           try{
-            this.settingForm.patchValue({SEQUENCE_TEMPLATE_INPUT:'afa'});
+            let numInserted = 0;
+            let sequence = this.p3Service.p3Input.SEQUENCE_TEMPLATE;
+            for(let i = 0; i < 1; i++){
+              let start = arr[i][0];
+              let length = arr[i][1];
+              sequence = sequence.substr(0, start) + "[" + 
+                         sequence.substr(start, start+length) + "]" + 
+                         sequence.substr(start+length);
+              console.log(sequence)
+            }
+            this.settingForm.patchValue({SEQUENCE_TEMPLATE_INPUT:sequence});
           } catch(e){
 
           }
         }
 
+        // add it to the shared param
+        this.p3Service.p3Input.SEQUENCE_TARGET = arr;
         
       }
+      */
       return {'invalidIntervalList': message};
     };
   }
@@ -214,6 +229,12 @@ export class SettingFormValidationService {
       }
       this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = control.value;
       return {'invalidMax': false};
+    };
+  }
+
+  maxTmValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      return {'invalidMax': null};
     };
   }
 }
