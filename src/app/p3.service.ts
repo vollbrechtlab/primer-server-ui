@@ -31,19 +31,31 @@ export class P3Service {
     ];
   }
 
-  convertStrListToArr(strList: string){
+  /**
+   * Convert the string interval list to array of array of ints
+   * @param {string} strList interval list string
+   * @returns {Array}
+   */
+  convertStrListToArr(strList: string): Array<Array<number>> {
     let arr = [];
     let splitted = strList.split(" ");
     for(let i = 0; i < splitted.length; i++){
-      let interval = splitted[i].split("-");
-      let start:number = parseInt(interval[0]);
-      let length:number = parseInt(interval[1]);
-      arr.push([start, length]);
+      if(splitted[i].length >= 3){
+        let interval = splitted[i].split("-");
+        let start:number = parseInt(interval[0]);
+        let length:number = parseInt(interval[1]);
+        arr.push([start, length]);
+      } 
     }
     return arr;
   }
 
-  convertArrToStrList(arr: Array<Array<number>>){
+  /**
+   * Convert the array of array of ints to the string interval list
+   * @param {Array} arr Array of array of ints
+   * @returns {string}
+   */
+  convertArrToStrList(arr: Array<Array<number>>): string{
     let strList = "";
     for(let i = 0; i < arr.length; i++){
       strList += arr[i][0] + "-" + arr[i][1] + " ";
@@ -51,6 +63,9 @@ export class P3Service {
     return strList;
   }
 
+  /**
+   * Calculate the GC content based on the SEQUENCE_TEMPLATE
+   */
   calcGcContent() {
     if(this.p3Input.SEQUENCE_TEMPLATE.length == 0){
       return 0;
@@ -64,6 +79,9 @@ export class P3Service {
     this.gc_content = Math.round(numGc/this.p3Input.SEQUENCE_TEMPLATE.length*100);
   }
 
+  /**
+   * Calculate the product size based on the SEQUENCE_TEMPLATE
+   */
   calcProdSize() {
     this.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] = Math.round(this.p3Input.SEQUENCE_TEMPLATE.length/3);
     this.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = this.p3Input.SEQUENCE_TEMPLATE.length;
