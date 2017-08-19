@@ -23,6 +23,13 @@
     </md-error>
   </md-input-container>
 
+              <div ng2FileDrop
+                 [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                 (fileOver)="fileOverBase($event)"
+                 class="well my-drop-zone">
+                Base drop zone
+            </div>
+
 
 
   <!-- Settings -->

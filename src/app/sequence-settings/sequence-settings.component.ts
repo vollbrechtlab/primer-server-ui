@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidatorFn } from '@angular/forms';
 
+import { FileUploader } from 'ng2-file-upload';
+
 import { P3Service } from '../p3.service';
 import { SettingFormValidationService } from '../setting-form-validation.service';
 import { DescriptionDialogService } from '../description-dialog/description-dialog.service';
