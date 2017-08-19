@@ -16,6 +16,8 @@ export class SequenceSettingsComponent implements OnInit {
 
   settingForm: FormGroup;
 
+  private fileReader = new FileReader();
+
   constructor(
     private fb: FormBuilder,
     public p3Service: P3Service,
@@ -57,6 +59,40 @@ export class SequenceSettingsComponent implements OnInit {
     this.settingForm.controls['PRIMER_PRODUCT_SIZE_MIN'].markAsTouched();
     this.settingForm.controls['PRIMER_PRODUCT_SIZE_MAX'].markAsTouched();
 
+  }
+
+  // read fa file
+  fileChange(event) {
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+      let file: File = fileList[0];
+      
+      this.fileReader.readAsText(file);
+      this.fileReader.onloadend = this.loadFileContent.bind(this);
+    }
+  }
+
+  loadFileContent(e){
+    let fileContent = this.fileReader.result;
+
+    let sequenceData = "";
+    let splitted = fileContent.split('\n');
+    let readSeqNum = 0;
+    for(let i = 0; i < splitted.length; i++){
+      if(splitted[i].includes('>')){
+        readSeqNum++;
+        i++;
+      }
+      if(readSeqNum == 1){
+        sequenceData += splitted[i];
+      }
+      if(readSeqNum > 1){
+        break;
+      }
+    }
+    console.log(sequenceData)
+
+    this.settingForm.patchValue({SEQUENCE_TEMPLATE_INPUT: sequenceData});
   }
 
 }
