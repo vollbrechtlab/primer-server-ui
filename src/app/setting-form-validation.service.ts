@@ -28,21 +28,27 @@ export class SettingFormValidationService {
         } 
       }
       if(!isThisBaseOk) {
-        return {invalidPos: i, invalidCode: sequence[i]};
+        return {'invalidSequence': {'invalidPos': i, 'invalidCode': sequence[i]}};
       }
     }
     return null;
   }
 
+  /**
+   * Validates the sequance template input
+   */
   sequenceTemplateValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
+      if(control.value == ''){
+        return null;
+      }
       let sequence = control.value.replace(/\n/g, '');
       
       // check if the sequence is ok
       let message = this.checkNucleotideSequence(sequence, this.sequenceTemplateCodes);
       if(message != null){
         this.p3Service.params['SEQUENCE_TEMPLATE']['value'] = sequence;
-        return {'invalidSequence': message, 'invalidRegionCodes':null};
+        return message;
       }
 
       // check if the regions codes are ok
@@ -72,7 +78,7 @@ export class SettingFormValidationService {
             currentTargetRegion++;
             numTargetRegionsEnds++;
           } catch(e) { // invalid target regions
-            return { 'invalidSequence': null, 'invalidRegions': true };
+            return {'invalidRegions': true };
           }
         }
 
@@ -89,19 +95,19 @@ export class SettingFormValidationService {
             currentExcludedRegion++;
             numExcludedRegionsEnds++;
           } catch(e) { // invalid excluded regions
-            return { 'invalidSequence': null, 'invalidRegions': true };
+            return { 'invalidRegions': true };
           }
         }
       }
 
       // invalid target regions
       if(numTargetRegionsStarts != numTargetRegionsEnds){
-        return { 'invalidSequence': null, 'invalidRegions': true };
+        return { 'invalidRegions': true };
       }
 
       // invalid excluded regions
       if(numExcludedRegionsStarts != numExcludedRegionsEnds){
-        return { 'invalidSequence': null, 'invalidRegions': true };
+        return { 'invalidRegions': true };
       }
 
       // share the sequence temmpate
@@ -131,21 +137,21 @@ export class SettingFormValidationService {
 
       }
 
-      return { 'invalidSequence': null, 'invalidRegions': false};
+      return null;
     };
   }
 
   nucleotideSequenceValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
       let message = this.checkNucleotideSequence(control.value, this.normalBaseCodes);
-      return {'invalidSequence': message};
+      return message;
     };
   }
 
   ambiguousNucleotideSequenceValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
       let message = this.checkNucleotideSequence(control.value, this.ambiguousBaseCodes);
-      return {'invalidSequence': message};
+      return message;
     };
   }
 
@@ -177,6 +183,7 @@ export class SettingFormValidationService {
     return (control: AbstractControl): {[key: string]: any} => {
       let arr = this.p3Service.convertStrListToArr(control.value);
       let message = this.checkIntervalListArr(arr);
+      
       // if there is no error in the interval list
       /*
       if(message === null){
@@ -217,7 +224,7 @@ export class SettingFormValidationService {
         return {'invalidMin': true};
       }
       this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] = control.value;
-      return {'invalidMin': false};
+      return null;
     };
   }
 
@@ -228,13 +235,13 @@ export class SettingFormValidationService {
         return {'invalidMax': true};
       }
       this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = control.value;
-      return {'invalidMax': false};
+      return null;
     };
   }
 
   maxTmValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
-      return {'invalidMax': null};
+      return null;
     };
   }
 }
