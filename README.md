@@ -20,7 +20,7 @@ curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
 sudo yum -y install nodejs gcc-c++ make
 ```
 
-### Install Angular 4
+### Install Angular 4 cli
 
 ```shell
 sudo npm install -g @angular/cli
