@@ -18,6 +18,8 @@ export class P3Service {
     this.params = p3ParamsObject.data;
     this.p3Input = new P3Input();
 
+    this.p3Input.SEQUENCE_TEMPLATE = '';
+
     this.p3Input.PRIMER_PRODUCT_SIZE_RANGE = [[]];
 
     this.PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS = [

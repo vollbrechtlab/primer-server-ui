@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 
 import { FileUploader } from 'ng2-file-upload';
+
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/map';
 
 import { P3Service } from '../p3.service';
 import { SettingFormValidationService } from '../setting-form-validation.service';
@@ -27,10 +30,7 @@ export class SequenceSettingsComponent implements OnInit {
 
   ngOnInit() {
     this.settingForm = this.fb.group({
-      SEQUENCE_TEMPLATE_INPUT: ['', [
-        Validators.required,
-        this.sfvService.sequenceTemplateValidator()
-      ]],
+      SEQUENCE_TEMPLATE_INPUT: ['', this.sfvService.sequenceTemplateValidator()],
       PRIMER_PICK_LEFT_PRIMER: [true],
       SEQUENCE_PRIMER: ['', this.sfvService.nucleotideSequenceValidator()],
       PRIMER_PICK_INTERNAL_OLIGO: [false],
@@ -59,6 +59,37 @@ export class SequenceSettingsComponent implements OnInit {
     this.settingForm.controls['PRIMER_PRODUCT_SIZE_MIN'].markAsTouched();
     this.settingForm.controls['PRIMER_PRODUCT_SIZE_MAX'].markAsTouched();
 
+/*
+    this.settingForm.controls['SEQUENCE_TEMPLATE_INPUT'].valueChanges
+      .debounceTime(500)
+      .subscribe(data => {
+        console.log('disable targets input')
+        this.settingForm.controls['SEQUENCE_TARGET'].disable(); 
+      });
+*/
+    this.settingForm.controls['SEQUENCE_TEMPLATE_INPUT'].statusChanges
+      .debounceTime(500)
+      .subscribe(data => {
+        console.log(this.getFormValidationErrors())
+        //console.log('status:', this.settingForm.controls['SEQUENCE_TEMPLATE_INPUT'].status)
+        //console.log('enable targets input')
+        //this.settingForm.controls['SEQUENCE_TARGET'].enable(); 
+      });
+
+
+  }
+
+
+  getFormValidationErrors() {
+  Object.keys(this.settingForm.controls).forEach(key => {
+
+  const controlErrors: ValidationErrors = this.settingForm.get(key).errors;
+  if (controlErrors != null) {
+        Object.keys(controlErrors).forEach(keyError => {
+          console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
+        });
+      }
+    });
   }
 
   // read fa file
