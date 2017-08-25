@@ -58,6 +58,14 @@ export class SequenceSettingsComponent implements OnInit {
     this.settingForm.controls['SEQUENCE_PRIMER_REVCOMP'].markAsTouched();
     this.settingForm.controls['PRIMER_PRODUCT_SIZE_MIN'].markAsTouched();
     this.settingForm.controls['PRIMER_PRODUCT_SIZE_MAX'].markAsTouched();
+    this.settingForm.controls['SEQUENCE_TARGET'].markAsTouched();
+    this.settingForm.controls['SEQUENCE_EXCLUDED_REGION'].markAsTouched();
+    this.settingForm.controls['PRIMER_MIN_TM'].markAsTouched();
+    this.settingForm.controls['PRIMER_OPT_TM'].markAsTouched();
+    this.settingForm.controls['PRIMER_MAX_TM'].markAsTouched();
+    this.settingForm.controls['PRIMER_PAIR_MAX_DIFF_TM'].markAsTouched();
+    this.settingForm.controls['PRIMER_SALT_CORRECTIONS'].markAsTouched();
+    this.settingForm.controls['PRIMER_TM_FORMULA'].markAsTouched();
 
 /*
     this.settingForm.controls['SEQUENCE_TEMPLATE_INPUT'].valueChanges
@@ -67,7 +75,7 @@ export class SequenceSettingsComponent implements OnInit {
         this.settingForm.controls['SEQUENCE_TARGET'].disable(); 
       });
 */
-    this.settingForm.controls['SEQUENCE_TEMPLATE_INPUT'].statusChanges
+    this.settingForm.controls['SEQUENCE_TEMPLATE_INPUT'].valueChanges
       .debounceTime(500)
       .subscribe(data => {
         console.log(this.getFormValidationErrors())
