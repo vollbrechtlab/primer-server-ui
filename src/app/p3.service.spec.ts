@@ -12,4 +12,12 @@ describe('P3Service', () => {
   it('should be created', inject([P3Service], (service: P3Service) => {
     expect(service).toBeTruthy();
   }));
+
+  it('should return empty', inject([P3Service], (service: P3Service) => {
+    expect(service.convertArrToStrList(null)).toEqual('');
+  }));
+
+  it('should return null', inject([P3Service], (service: P3Service) => {
+    expect(service.convertStrListToArr(null)).toEqual(null);
+  }));
 });

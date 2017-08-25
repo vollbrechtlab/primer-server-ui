@@ -13,6 +13,8 @@ export class P3Service {
   PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS: Array<{}>;
   PRIMER_TM_FORMULA_INPUT_OPTIONS: Array<{}>;
 
+  strListPatt: RegExp;
+
   constructor() {
     let p3ParamsObject = new P3Params();
     this.params = p3ParamsObject.data;
@@ -31,23 +33,36 @@ export class P3Service {
       {value: 0, viewValue: 'Breslauer et al. 1986'},
       {value: 1, viewValue: 'SantaLucia 1998'}
     ];
+
+    this.strListPatt = new RegExp("[0-9]-[0-9]");
   }
 
   /**
    * Convert the string interval list to array of array of ints
    * @param {string} strList interval list string
-   * @returns {Array}
+   * @returns {Array.Array.number}
    */
   convertStrListToArr(strList: string): Array<Array<number>> {
+    if(strList == null){ // null string list
+      return null;
+    }
+    if(strList == ''){ // empty string list
+      return [];
+    }
+    
     let arr = [];
     let splitted = strList.split(" ");
     for(let i = 0; i < splitted.length; i++){
-      if(splitted[i].length >= 3){
-        let interval = splitted[i].split("-");
-        let start:number = parseInt(interval[0]);
-        let length:number = parseInt(interval[1]);
-        arr.push([start, length]);
-      } 
+      if(splitted[i] != ''){
+        if(this.strListPatt.test(splitted[i])){
+          let interval = splitted[i].split("-");
+          let start:number = parseInt(interval[0]);
+          let length:number = parseInt(interval[1]);
+          arr.push([start, length]);
+        } else {
+          return null;
+        }
+      }
     }
     return arr;
   }
@@ -58,9 +73,19 @@ export class P3Service {
    * @returns {string}
    */
   convertArrToStrList(arr: Array<Array<number>>): string{
+    if(arr == null){
+      return null;
+    }
+    if(arr.length == 0){
+      return '';
+    }
     let strList = "";
     for(let i = 0; i < arr.length; i++){
-      strList += arr[i][0] + "-" + arr[i][1] + " ";
+      if(arr[i].length == 2){
+        strList += arr[i][0] + "-" + arr[i][1] + " ";
+      } else {
+        return null;
+      }
     }
     return strList;
   }

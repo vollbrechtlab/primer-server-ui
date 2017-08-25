@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormBuilder, 
+         FormGroup, 
+         Validators, 
+         FormControl, 
+         AbstractControl, 
+         ValidatorFn } from '@angular/forms';
 
 import { P3Service } from './p3.service';
 
@@ -10,12 +15,22 @@ export class SettingFormValidationService {
   ambiguousBaseCodes = ['A','C','G','T','N','a','c','g','t','n', 
                         'R','Y','W','S','M','K','B','H','D','V',
                         'r','y','w','s','m','k','b','h','d','v'];
-  sequenceTemplateCodes = ['A','C','G','T','N','a','c','g','t','n', '[',']','<','>'];
+  sequenceTemplateCodes = ['A','C','G','T','N','a','c','g','t','n', 
+                           '[',']','<','>'];
+
+  //normalBaseCodes = new RegExp('ACGTNacgtn');
+  //ambiguousBaseCodes = new RegExp('ACGTNacgtnRYWSMKBHDVrywsmkbhdv');
+  //sequenceTemplateCodes = new RegExp('ACGTNacgtn[]<>');
 
   settingForm: FormGroup;
 
   constructor(private p3Service: P3Service) { }
 
+  /**
+   * Validates the nucleotide sequence string.
+   * @param {string} sequence The sequence string to be checked
+   * @param {Array.string} acceptedBaseCodes the codes that can be used in the sequence string
+   */
   private checkNucleotideSequence(sequence: string, acceptedBaseCodes): any {
     for(var i = 0; i < sequence.length; i++)
     {
@@ -28,7 +43,10 @@ export class SettingFormValidationService {
         } 
       }
       if(!isThisBaseOk) {
-        return {'invalidSequence': {'invalidPos': i, 'invalidCode': sequence[i]}};
+        return {'invalidSequence': {
+                  'invalidPos': i, 
+                  'invalidCode': sequence[i]
+               }};
       }
     }
     return null;
@@ -39,6 +57,9 @@ export class SettingFormValidationService {
    */
   sequenceTemplateValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
       if(control.value == ''){
         return null;
       }
@@ -64,7 +85,10 @@ export class SettingFormValidationService {
 
       for(let i = 0; i < sequence.length; i++) 
       {
-        let numTotalRegionCodes = numTargetRegionsStarts + numTargetRegionsEnds + numExcludedRegionsStarts + numExcludedRegionsEnds;
+        let numTotalRegionCodes = numTargetRegionsStarts + 
+                                  numTargetRegionsEnds + 
+                                  numExcludedRegionsStarts + 
+                                  numExcludedRegionsEnds;
         // check the excluded regions
         if(sequence[i] == '[')
         {
@@ -114,35 +138,32 @@ export class SettingFormValidationService {
       this.p3Service.p3Input.SEQUENCE_TEMPLATE = sequence.replace(/\[|\]|\<|\>/g, '');
 
       // share the regions
+      console.log(targetRegions)
       this.p3Service.p3Input.SEQUENCE_TARGET = targetRegions;
       this.p3Service.p3Input.SEQUENCE_EXCLUDED_REGION = excludedRegions;
 
       // update the regions in the form
-      try{
-        this.settingForm.patchValue({SEQUENCE_TARGET: this.p3Service.convertArrToStrList(targetRegions)});
-        this.settingForm.patchValue({SEQUENCE_EXCLUDED_REGION: this.p3Service.convertArrToStrList(excludedRegions)});
-      } catch(e){
-
-      }
+      this.settingForm.patchValue({SEQUENCE_TARGET: this.p3Service.convertArrToStrList(targetRegions)});
+      this.settingForm.patchValue({SEQUENCE_EXCLUDED_REGION: this.p3Service.convertArrToStrList(excludedRegions)});
 
       // update the gc content
       this.p3Service.calcGcContent();
 
       // update the product size
       this.p3Service.calcProdSize();
-      try{
-        this.settingForm.patchValue({PRIMER_PRODUCT_SIZE_MIN: this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0]});
-        this.settingForm.patchValue({PRIMER_PRODUCT_SIZE_MAX: this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]});
-      } catch(e){
+      this.settingForm.patchValue({PRIMER_PRODUCT_SIZE_MIN: this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0]});
+      this.settingForm.patchValue({PRIMER_PRODUCT_SIZE_MAX: this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]});
 
-      }
-
+      // returning null means no error
       return null;
     };
   }
 
   nucleotideSequenceValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
       let message = this.checkNucleotideSequence(control.value, this.normalBaseCodes);
       return message;
     };
@@ -150,18 +171,23 @@ export class SettingFormValidationService {
 
   ambiguousNucleotideSequenceValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
       let message = this.checkNucleotideSequence(control.value, this.ambiguousBaseCodes);
       return message;
     };
   }
 
   private checkIntervalListArr(arr: Array<Array<number>>){
+    if(arr == null){
+      return {'invalidIntervalList': true};
+    }
     for(let i = 0; i < arr.length; i++){
       let start:number = arr[i][0];
       let length:number = arr[i][1];
-      console.log(start + ", " + length)
       if(start < 0 || length < 0 || start + length > this.p3Service.p3Input.SEQUENCE_TEMPLATE.length){
-        return {};
+        return {'invalidIntervalList': true};
       }
     }
     return null;
@@ -174,20 +200,24 @@ export class SettingFormValidationService {
 
   intervalListValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
       let message = this.checkIntervalList(control.value);
-      return {'invalidIntervalList': message};
+      return message;
     };
   }
 
   targetRegionValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
       let arr = this.p3Service.convertStrListToArr(control.value);
       let message = this.checkIntervalListArr(arr);
       
       // if there is no error in the interval list
-      /*
       if(message === null){
-        console.log(arr)
         // update the sequence template input
         if(arr.length > 0){
           
@@ -200,9 +230,13 @@ export class SettingFormValidationService {
               sequence = sequence.substr(0, start) + "[" + 
                          sequence.substr(start, start+length) + "]" + 
                          sequence.substr(start+length);
-              console.log(sequence)
             }
+            // tempolariry remove the validator
+            let validator =  this.settingForm.controls['SEQUENCE_TEMPLATE_INPUT'].validator;
+            this.settingForm.controls['SEQUENCE_TEMPLATE_INPUT'].clearValidators();
             this.settingForm.patchValue({SEQUENCE_TEMPLATE_INPUT:sequence});
+            // recover the validator
+            this.settingForm.controls['SEQUENCE_TEMPLATE_INPUT'].setValidators(validator);
           } catch(e){
 
           }
@@ -212,13 +246,16 @@ export class SettingFormValidationService {
         this.p3Service.p3Input.SEQUENCE_TARGET = arr;
         
       }
-      */
-      return {'invalidIntervalList': message};
+      
+      return message;
     };
   }
 
   productSizeMinValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
       if( control.value < 0 || 
           control.value > this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]){
         return {'invalidMin': true};
@@ -230,6 +267,9 @@ export class SettingFormValidationService {
 
   productSizeMaxValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
       if(control.value < this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] || 
          control.value > this.p3Service.p3Input.SEQUENCE_TEMPLATE.length){
         return {'invalidMax': true};
@@ -241,7 +281,11 @@ export class SettingFormValidationService {
 
   maxTmValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
       return null;
     };
   }
+
 }
