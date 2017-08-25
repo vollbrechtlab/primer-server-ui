@@ -142,8 +142,12 @@ export class SettingFormValidationService {
       this.p3Service.p3Input.SEQUENCE_TARGET = targetRegions;
       this.p3Service.p3Input.SEQUENCE_EXCLUDED_REGION = excludedRegions;
 
-      // update the regions in the form
+      // update the target regions in the form
+      let validator =  this.settingForm.controls['SEQUENCE_TARGET'].validator; // tempolaralily remove validator
+      this.settingForm.controls['SEQUENCE_TARGET'].clearValidators();
       this.settingForm.patchValue({SEQUENCE_TARGET: this.p3Service.convertArrToStrList(targetRegions)});
+      this.settingForm.controls['SEQUENCE_TARGET'].setValidators(validator);// recover the validator
+      
       this.settingForm.patchValue({SEQUENCE_EXCLUDED_REGION: this.p3Service.convertArrToStrList(excludedRegions)});
 
       // update the gc content
@@ -289,3 +293,4 @@ export class SettingFormValidationService {
   }
 
 }
+
