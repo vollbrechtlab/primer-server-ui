@@ -158,8 +158,8 @@ export class SettingFormValidationService {
 
       // update the product size
       this.p3Service.calcProdSize();
-      this.settingForm.patchValue({PRIMER_PRODUCT_SIZE_MIN: this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0]});
-      this.settingForm.patchValue({PRIMER_PRODUCT_SIZE_MAX: this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]});
+      this.settingForm.get('PRIMER_PRODUCT_SIZE_RANGE').patchValue({PRIMER_PRODUCT_SIZE_MIN: this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0]});
+      this.settingForm.get('PRIMER_PRODUCT_SIZE_RANGE').patchValue({PRIMER_PRODUCT_SIZE_MAX: this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]});
 
       // returning null means no error
       return null;
@@ -265,30 +265,30 @@ export class SettingFormValidationService {
     };
   }
 
-  productSizeMinValidator(): ValidatorFn {
+  /**
+   * Validate the product size input
+   */
+  productSizeValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
       if(this.settingForm == null){
         return null;
       }
-      if( control.value < 0 || 
-          control.value > this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]){
-        return {'invalidMin': true};
+      let error = {};
+      if( control.value['PRIMER_PRODUCT_SIZE_MIN'] < 0 || 
+          control.value['PRIMER_PRODUCT_SIZE_MIN'] > this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]){
+        error['invalidMin'] = true;
       }
-      this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] = control.value;
-      return null;
-    };
-  }
-
-  productSizeMaxValidator(): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} => {
-      if(this.settingForm == null){
-        return null;
+      if( control.value['PRIMER_PRODUCT_SIZE_MAX'] < this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] || 
+          control.value['PRIMER_PRODUCT_SIZE_MAX'] > this.p3Service.p3Input.SEQUENCE_TEMPLATE.length){
+        error['invalidMax'] = true;
       }
-      if(control.value < this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] || 
-         control.value > this.p3Service.p3Input.SEQUENCE_TEMPLATE.length){
-        return {'invalidMax': true};
+      console.log(error)
+      if(Object.keys(error).length > 0){
+        return error;
       }
-      this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = control.value;
+      // share the variables
+      this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] = control.value['PRIMER_PRODUCT_SIZE_MIN'];
+      this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = control.value['PRIMER_PRODUCT_SIZE_MAX'];
       return null;
     };
   }

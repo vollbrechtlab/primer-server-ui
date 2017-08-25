@@ -99,12 +99,13 @@
       
     </tr>
 
-    <tr>
+    <tr formGroupName="PRIMER_PRODUCT_SIZE_RANGE">
       <td>
         <label for="PRIMER_PRODUCT_SIZE_MIN">Product Size</label>
         <button md-icon-button (click)="dDialogService.showDescription('PRIMER_PRODUCT_SIZE_RANGE')" class="help-button">
           <md-icon>help</md-icon>
         </button>
+        <div *ngIf="settingForm.get('PRIMER_PRODUCT_SIZE_RANGE').hasError('invalidMin')">wtf</div>
       </td>
       <td colspan="2">
         <table>
@@ -112,7 +113,7 @@
             <td>
               <md-input-container class="example-full-width">
                 <input mdInput type="number" id="PRIMER_PRODUCT_SIZE_MIN" formControlName="PRIMER_PRODUCT_SIZE_MIN" placeholder="Min">
-                <md-error *ngIf="settingForm.get('PRIMER_PRODUCT_SIZE_MIN').hasError('invalidMin')">
+                <md-error *ngIf="settingForm.get('PRIMER_PRODUCT_SIZE_RANGE').hasError('invalidMin')">
                   Invalid min. 
                 </md-error>  
               </md-input-container>
@@ -120,7 +121,7 @@
             <td>
               <md-input-container class="example-full-width">
                 <input mdInput type="number" id="PRIMER_PRODUCT_SIZE_MAX" formControlName="PRIMER_PRODUCT_SIZE_MAX" placeholder="Max">
-                <md-error *ngIf="settingForm.get('PRIMER_PRODUCT_SIZE_MAX').hasError('invalidMax')">
+                <md-error *ngIf="settingForm.get('PRIMER_PRODUCT_SIZE_RANGE').hasError('invalidMax')">
                   Invalid max. 
                 </md-error>  
               </md-input-container>
