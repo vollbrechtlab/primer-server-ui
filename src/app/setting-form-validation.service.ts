@@ -138,18 +138,21 @@ export class SettingFormValidationService {
       this.p3Service.p3Input.SEQUENCE_TEMPLATE = sequence.replace(/\[|\]|\<|\>/g, '');
 
       // share the regions
-      console.log(targetRegions)
       this.p3Service.p3Input.SEQUENCE_TARGET = targetRegions;
       this.p3Service.p3Input.SEQUENCE_EXCLUDED_REGION = excludedRegions;
 
       // update the target regions in the form
-      let validator =  this.settingForm.controls['SEQUENCE_TARGET'].validator; // tempolaralily remove validator
+      let validator = this.settingForm.controls['SEQUENCE_TARGET'].validator; // tempolaralily remove validator
       this.settingForm.controls['SEQUENCE_TARGET'].clearValidators();
       this.settingForm.patchValue({SEQUENCE_TARGET: this.p3Service.convertArrToStrList(targetRegions)});
       this.settingForm.controls['SEQUENCE_TARGET'].setValidators(validator);// recover the validator
-      
-      this.settingForm.patchValue({SEQUENCE_EXCLUDED_REGION: this.p3Service.convertArrToStrList(excludedRegions)});
 
+      // update the excluded regions in the form
+      validator = this.settingForm.controls['SEQUENCE_EXCLUDED_REGION'].validator; // tempolaralily remove validator
+      this.settingForm.controls['SEQUENCE_EXCLUDED_REGION'].clearValidators();
+      this.settingForm.patchValue({SEQUENCE_EXCLUDED_REGION: this.p3Service.convertArrToStrList(excludedRegions)});
+      this.settingForm.controls['SEQUENCE_EXCLUDED_REGION'].setValidators(validator);// recover the validator
+      
       // update the gc content
       this.p3Service.calcGcContent();
 
@@ -212,7 +215,7 @@ export class SettingFormValidationService {
     };
   }
 
-  targetRegionValidator(): ValidatorFn {
+  sequenceRegionValidator(type: string): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
       if(this.settingForm == null){
         return null;
@@ -231,9 +234,16 @@ export class SettingFormValidationService {
             for(let i = 0; i < arr.length; i++){
               let start = arr[i][0];
               let length = arr[i][1];
-              sequence = sequence.substr(0, start) + "[" + 
-                         sequence.substr(start, length) + "]" + 
-                         sequence.substr(start+length);
+              if(type == 'SEQUENCE_TARGET'){
+                sequence = sequence.substr(0, start) + "[" + 
+                           sequence.substr(start, length) + "]" + 
+                           sequence.substr(start+length);
+              } else {
+                sequence = sequence.substr(0, start) + "<" + 
+                           sequence.substr(start, length) + ">" + 
+                           sequence.substr(start+length);
+              }
+
             }
             // tempolariry remove the validator
             let validator =  this.settingForm.controls['SEQUENCE_TEMPLATE_INPUT'].validator;
