@@ -224,11 +224,11 @@ export class SettingFormValidationService {
           try{
             let numInserted = 0;
             let sequence = this.p3Service.p3Input.SEQUENCE_TEMPLATE;
-            for(let i = 0; i < 1; i++){
+            for(let i = 0; i < arr.length; i++){
               let start = arr[i][0];
               let length = arr[i][1];
               sequence = sequence.substr(0, start) + "[" + 
-                         sequence.substr(start, start+length) + "]" + 
+                         sequence.substr(start, length) + "]" + 
                          sequence.substr(start+length);
             }
             // tempolariry remove the validator
