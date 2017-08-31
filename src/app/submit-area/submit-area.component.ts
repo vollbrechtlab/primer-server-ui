@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 
 import { Primer3Service } from '../primer3.service';
-import { P3DataSharingService } from '../p3-data-sharing.service';
+import { P3Service } from '../p3.service';
 
 @Component({
   selector: 'app-submit-area',
@@ -14,7 +14,7 @@ export class SubmitAreaComponent implements OnInit {
 
   constructor(
     private primer3Service: Primer3Service,
-    private p3DataSharingSerice: P3DataSharingService
+    private p3Serice: P3Service
   ) { }
 
   ngOnInit() {
@@ -38,7 +38,6 @@ export class SubmitAreaComponent implements OnInit {
   }
   validateResult(p3Result){
     console.log(p3Result);
-    this.p3DataSharingSerice.changeP3Result(p3Result);
 
   }
 

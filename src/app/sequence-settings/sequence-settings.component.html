@@ -105,7 +105,7 @@
         <button md-icon-button (click)="dDialogService.showDescription('PRIMER_PRODUCT_SIZE_RANGE')" class="help-button">
           <md-icon>help</md-icon>
         </button>
-        <div *ngIf="settingForm.get('PRIMER_PRODUCT_SIZE_RANGE').hasError('invalidMin')">wtf</div>
+        <md-error *ngIf="settingForm.get('PRIMER_PRODUCT_SIZE_RANGE').hasError('invalidMin')">wtf</md-error>
       </td>
       <td colspan="2">
         <table>
