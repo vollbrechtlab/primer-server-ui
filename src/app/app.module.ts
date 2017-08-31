@@ -21,6 +21,8 @@ import { ResultAreaComponent } from './result-area/result-area.component';
 
 import { DescriptionDialogComponent } from './description-dialog/description-dialog.component';
 
+import { ChartsModule } from 'ng2-charts';
+import { SqBarChartComponent } from './sq-bar-chart/sq-bar-chart.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { DescriptionDialogComponent } from './description-dialog/description-dia
     SpecificityCheckingComponent,
     SubmitAreaComponent,
     ResultAreaComponent,
-    DescriptionDialogComponent
+    DescriptionDialogComponent,
+    SqBarChartComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { DescriptionDialogComponent } from './description-dialog/description-dia
     AngularMaterialModule,
     PrimengModule,
     ReactiveFormsModule,
+    ChartsModule
   ],
   providers: [
     Primer3Service,

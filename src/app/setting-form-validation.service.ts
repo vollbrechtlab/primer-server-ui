@@ -24,6 +24,7 @@ export class SettingFormValidationService {
 
   settingForm: FormGroup;
 
+
   constructor(private p3Service: P3Service) { }
 
   /**
@@ -302,6 +303,16 @@ export class SettingFormValidationService {
       }
       this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = control.value;
       return null;
+    };
+  }
+
+  primerMeltingTempMinValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      //if(this.settingForm == null){
+      //  return null;
+      //}
+      //if()
+      return {'invalidMin': true};
     };
   }
 

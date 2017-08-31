@@ -23,7 +23,10 @@
     </md-error>
   </md-input-container>
 
-  <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".fa, .fasta">
+  <label>
+    Upload Fasta file (Only the first sequence will be used) 
+    <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".fa, .fasta">
+  </label>
 
 
   <!-- Settings -->
@@ -157,6 +160,9 @@
         <md-input-container class="example-full-width">
           <input mdInput type="text" id="SEQUENCE_EXCLUDED_REGION" formControlName="SEQUENCE_EXCLUDED_REGION">
           <md-hint>&lt;start&gt;-&lt;length&gt;  e.g. 37-21 60-10</md-hint>
+          <md-error *ngIf="settingForm.get('SEQUENCE_EXCLUDED_REGION').hasError('invalidIntervalList')">
+            Invalid excluded regions
+          </md-error>  
         </md-input-container>
       </td>
     </tr>
@@ -174,6 +180,9 @@
             <td>
               <md-input-container class="example-full-width">
                 <input mdInput type="number" id="PRIMER_MIN_TM" formControlName="PRIMER_MIN_TM" placeholder="Min">
+                <md-error *ngIf="settingForm.get('PRIMER_MIN_TM').hasError('invalidMin')">
+                  Invalid min
+                </md-error>  
               </md-input-container>
             </td>
             <td>
