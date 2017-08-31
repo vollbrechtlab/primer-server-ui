@@ -159,8 +159,8 @@ export class SettingFormValidationService {
 
       // update the product size
       this.p3Service.calcProdSize();
-      this.settingForm.get('PRIMER_PRODUCT_SIZE_RANGE').patchValue({PRIMER_PRODUCT_SIZE_MIN: this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0]});
-      this.settingForm.get('PRIMER_PRODUCT_SIZE_RANGE').patchValue({PRIMER_PRODUCT_SIZE_MAX: this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]});
+      this.settingForm.patchValue({PRIMER_PRODUCT_SIZE_MIN: this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0]});
+      this.settingForm.patchValue({PRIMER_PRODUCT_SIZE_MAX: this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]});
 
       // returning null means no error
       return null;
@@ -272,29 +272,35 @@ export class SettingFormValidationService {
   }
 
   /**
-   * Validate the product size input
+   * Validate the product size min input
    */
-  productSizeValidator(): ValidatorFn {
+  productSizeMinValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
       if(this.settingForm == null){
         return null;
       }
-      let error = {};
-      if( control.value['PRIMER_PRODUCT_SIZE_MIN'] < 0 || 
-          control.value['PRIMER_PRODUCT_SIZE_MIN'] > this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]){
-        error['invalidMin'] = true;
+      if( control.value < 0 || 
+          control.value > this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]){
+        return {'invalidMin': true};
       }
-      if( control.value['PRIMER_PRODUCT_SIZE_MAX'] < this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] || 
-          control.value['PRIMER_PRODUCT_SIZE_MAX'] > this.p3Service.p3Input.SEQUENCE_TEMPLATE.length){
-        error['invalidMax'] = true;
+      this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] = control.value;
+      return null;
+    };
+  }
+
+  /**
+   * Validate the product size max input
+   */
+  productSizeMaxValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
       }
-      console.log(error)
-      if(Object.keys(error).length > 0){
-        return error;
+      if(control.value < this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] || 
+         control.value > this.p3Service.p3Input.SEQUENCE_TEMPLATE.length){
+        return {'invalidMax': true};
       }
-      // share the variables
-      this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] = control.value['PRIMER_PRODUCT_SIZE_MIN'];
-      this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = control.value['PRIMER_PRODUCT_SIZE_MAX'];
+      this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = control.value;
       return null;
     };
   }
