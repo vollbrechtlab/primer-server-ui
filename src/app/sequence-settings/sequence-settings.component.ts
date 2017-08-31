@@ -37,9 +37,8 @@ export class SequenceSettingsComponent implements OnInit {
       SEQUENCE_INTERNAL_OLIGO: ['', this.sfvService.nucleotideSequenceValidator()],
       PRIMER_PICK_RIGHT_PRIMER: [true],
       SEQUENCE_PRIMER_REVCOMP: ['', this.sfvService.nucleotideSequenceValidator()],
-      PRIMER_PRODUCT_SIZE_RANGE: this.fb.group({
-        PRIMER_PRODUCT_SIZE_MIN: [null], PRIMER_PRODUCT_SIZE_MAX: [null],
-      }, {'validator':this.sfvService.productSizeValidator()}),
+      PRIMER_PRODUCT_SIZE_MIN: [null, this.sfvService.productSizeMinValidator()],
+      PRIMER_PRODUCT_SIZE_MAX: [null, this.sfvService.productSizeMaxValidator()],
       SEQUENCE_TARGET: ['', this.sfvService.sequenceRegionValidator('SEQUENCE_TARGET')],
       SEQUENCE_EXCLUDED_REGION: ['', this.sfvService.sequenceRegionValidator('SEQUENCE_EXCLUDED_REGION')],
       PRIMER_MIN_TM: [57],
@@ -57,8 +56,8 @@ export class SequenceSettingsComponent implements OnInit {
     this.settingForm.controls['SEQUENCE_PRIMER'].markAsTouched();
     this.settingForm.controls['SEQUENCE_INTERNAL_OLIGO'].markAsTouched();
     this.settingForm.controls['SEQUENCE_PRIMER_REVCOMP'].markAsTouched();
-    this.settingForm.get('PRIMER_PRODUCT_SIZE_RANGE').get('PRIMER_PRODUCT_SIZE_MIN').markAsTouched();
-    this.settingForm.get('PRIMER_PRODUCT_SIZE_RANGE').get('PRIMER_PRODUCT_SIZE_MAX').markAsTouched();
+    this.settingForm.controls['PRIMER_PRODUCT_SIZE_MIN'].markAsTouched();
+    this.settingForm.controls['PRIMER_PRODUCT_SIZE_MAX'].markAsTouched();
     this.settingForm.controls['SEQUENCE_TARGET'].markAsTouched();
     this.settingForm.controls['SEQUENCE_EXCLUDED_REGION'].markAsTouched();
     this.settingForm.controls['PRIMER_MIN_TM'].markAsTouched();
@@ -67,29 +66,6 @@ export class SequenceSettingsComponent implements OnInit {
     this.settingForm.controls['PRIMER_PAIR_MAX_DIFF_TM'].markAsTouched();
     this.settingForm.controls['PRIMER_SALT_CORRECTIONS'].markAsTouched();
     this.settingForm.controls['PRIMER_TM_FORMULA'].markAsTouched();
-
-
-
-/*
-    this.settingForm.controls['SEQUENCE_TEMPLATE_INPUT'].valueChanges
-      .debounceTime(500)
-      .subscribe(data => {
-        console.log('disable targets input')
-        this.settingForm.controls['SEQUENCE_TARGET'].disable(); 
-      });
-*/
-    this.settingForm.controls['SEQUENCE_TEMPLATE_INPUT'].valueChanges
-      .debounceTime(500)
-      .subscribe(data => {
-        //console.log(this.getFormValidationErrors())
-        //console.log('status:', this.settingForm.controls['SEQUENCE_TEMPLATE_INPUT'].status)
-        //console.log('enable targets input')
-        //this.settingForm.controls['SEQUENCE_TARGET'].enable(); 
-
-        console.log(this.settingForm.get('PRIMER_PRODUCT_SIZE_RANGE').hasError('invalidMin'));
-      });
-
-
   }
 
 
