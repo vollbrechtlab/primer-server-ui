@@ -18,7 +18,7 @@ export class SqBarChartComponent {
       }]
     }
   };
-  public barChartLabels:string[] = ['Sequence'];
+  public barChartLabels:string[] = ['Sequence1', "Sequence2"];
   public barChartType:string = 'horizontalBar';
   public barChartLegend:boolean = true;
  
@@ -30,9 +30,9 @@ export class SqBarChartComponent {
   ];
 
   public chartColors: any[] = [
-  { 
-    backgroundColor:["#FF7360", "#6FC8CE", "#FAFFF2", "#FFFCC4", "#B9E8E0"] 
-  }];
+    {backgroundColor:"red"},
+    {backgroundColor:"grey"}
+  ];
  
   // events
   public chartClicked(e:any):void {
