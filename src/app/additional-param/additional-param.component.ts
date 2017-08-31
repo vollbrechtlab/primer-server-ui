@@ -61,6 +61,9 @@ export class AdditionalParamComponent {
     return filtered;
   }
 
+  /**
+   * When the input is changed
+   */
   onInputTextChange(event){
     console.log(event);
   }

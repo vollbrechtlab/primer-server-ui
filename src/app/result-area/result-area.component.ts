@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { P3DataSharingService } from '../p3-data-sharing.service';
+import { P3Service } from '../p3.service';
 
 @Component({
   selector: 'app-result-area',
@@ -14,12 +14,9 @@ export class ResultAreaComponent implements OnInit {
   subscription: Subscription;
 
   constructor(
-    private p3DataSharingSerice: P3DataSharingService
+    private p3DataSharingSerice: P3Service
   ) { 
-    this.subscription = this.p3DataSharingSerice.getP3Result()
-      .subscribe(result => { 
-        this.p3Result = result; 
-    });
+
   }
 
   ngOnInit() {

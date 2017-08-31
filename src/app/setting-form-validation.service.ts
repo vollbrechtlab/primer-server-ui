@@ -27,11 +27,12 @@ export class SettingFormValidationService {
   constructor(private p3Service: P3Service) { }
 
   /**
-   * Validates the nucleotide sequence string.
+   * Check the nucleotide sequence string.
    * @param {string} sequence The sequence string to be checked
-   * @param {Array.string} acceptedBaseCodes the codes that can be used in the sequence string
+   * @param {Array.<string>} acceptedBaseCodes the codes that can be used in the sequence string
+   * @returns {?Object}
    */
-  private checkNucleotideSequence(sequence: string, acceptedBaseCodes): any {
+  checkNucleotideSequence(sequence: string, acceptedBaseCodes): any {
     for(var i = 0; i < sequence.length; i++)
     {
       let isThisBaseOk = false;
@@ -186,7 +187,12 @@ export class SettingFormValidationService {
     };
   }
 
-  private checkIntervalListArr(arr: Array<Array<number>>){
+  /**
+   * Check the interval list array
+   * @param {Array.Array.number} arr Interval list
+   * @returns {Object} 
+   */
+  checkIntervalListArr(arr: Array<Array<number>>): {[key: string]: any} {
     if(arr == null){
       return {'invalidIntervalList': true};
     }
@@ -200,7 +206,7 @@ export class SettingFormValidationService {
     return null;
   }
 
-  private checkIntervalList(intervalList: string){
+  checkIntervalList(intervalList: string){
     let arr = this.p3Service.convertStrListToArr(intervalList);
     return this.checkIntervalListArr(arr);
   }
