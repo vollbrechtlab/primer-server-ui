@@ -51,7 +51,7 @@ export class SqBarChartComponent implements OnInit {
   // events
   public chartClicked(e:any):void {
     console.log(e);
-    this.createSqChartData();
+    this.createSqChartData("AAAAAAAAAAAGGGGGGGGGCCCCAAAA", [[0, 3],[9, 5]], [[10, 5]]);
   }
  
   public chartHovered(e:any):void {
@@ -61,42 +61,39 @@ export class SqBarChartComponent implements OnInit {
   /*
    * Create the sequence chart data
    */
-  public createSqChartData():void {
-    var sequence_template = "AAAAAAAAAAAGGGGGGGGGCCCCAAAA";
-    var targets = [[0, 3],[9, 5]];
-    var excluded_regions = [[10, 5]];
+  public createSqChartData(sequence_template:string, targets:Array<Array<number>>, excluded_regions:Array<Array<number>>):void {
 
-    let data = [];
-    for(let i = 0; i < targets.length; i++){
-      data.push({data: [targets[i][1]], label: 'Target', backgroundColor: "grey"});
-    }
-    
-    //let clone = JSON.parse(JSON.stringify(this.barChartData));
-    //console.log(clone);
-
-    //clone = data;
-    //setTimeout(() => {
-      //this.barChartLabels.length = 0;
-    //  this.barChartLabels.push("afafafa");
-    //  console.log(this.barChartLabels);
-    //}, 500);
-    
-
-    //console.log(this.barChartData)
-
-    //this.barChartData = data;
-
-    //console.log(this.chart.chart.config.data.labels)
-    //this.chart.chart.config.data.labels = ["afa", "afa"];
     this.barChartData.length = 0;
     this.chartColors.length = 0;
-    this.barChartData.push({data: [65], label: 'Excluded'});
-    this.chartColors.push({backgroundColor:"red"});
+
+
+    for(let i = 0; i < targets.length; i++){
+      if(i == 0){
+        if(targets[i][0] == 0){
+          this.barChartData.push({data: [targets[i][1]], label: 'Target'});
+          this.chartColors.push({backgroundColor: "green"});
+        } else {
+          this.barChartData.push({data: [targets[i][1]], label: 'Normal'});
+          this.chartColors.push({backgroundColor: "grey"});
+          this.barChartData.push({data: [targets[i][1]], label: 'Target'});
+          this.chartColors.push({backgroundColor: "green"});
+        }
+      } else {
+        if(targets[i-1][0]+targets[i-1][1] == targets[i][0]){
+          this.barChartData.push({data: [targets[i][1]], label: 'Target'});
+          this.chartColors.push({backgroundColor: "green"});
+        } else {
+          this.barChartData.push({data: [targets[i][1]], label: 'Normal'});
+          this.chartColors.push({backgroundColor: "grey"});
+          this.barChartData.push({data: [targets[i][1]], label: 'Target'});
+          this.chartColors.push({backgroundColor: "green"});
+        }
+      }
+    }
+
+    console.log(this.barChartData)
     this.updateChart();
 
-    //clone = JSON.parse(JSON.stringify(this.chartColors));
-    //clone[0].data = data;
-    //this.chartColors = clone;
   }
 
   public updateChart(){
