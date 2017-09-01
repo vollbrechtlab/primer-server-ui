@@ -68,26 +68,38 @@ export class SqBarChartComponent implements OnInit {
 
     let data = [];
     for(let i = 0; i < targets.length; i++){
-      data.push({data: [targets[i][1]], label: 'Target'});
+      data.push({data: [targets[i][1]], label: 'Target', backgroundColor: "grey"});
     }
     
     //let clone = JSON.parse(JSON.stringify(this.barChartData));
     //console.log(clone);
 
     //clone = data;
-    //this.barChartData.length = 0;
-    this.barChartData = [
-      {data: [65], label: 'Excluded'},
-      {data: [28], label: 'Target'},
-      {data: [50], label: 'Normal'},
-      {data: [17], label: 'Excluded'}
-    ];
+    //setTimeout(() => {
+      //this.barChartLabels.length = 0;
+    //  this.barChartLabels.push("afafafa");
+    //  console.log(this.barChartLabels);
+    //}, 500);
+    
+
     //console.log(this.barChartData)
 
-    this.chart.ngOnChanges({} as SimpleChanges);
+    //this.barChartData = data;
+
+    //console.log(this.chart.chart.config.data.labels)
+    //this.chart.chart.config.data.labels = ["afa", "afa"];
+    this.barChartData.length = 0;
+    this.chartColors.length = 0;
+    this.barChartData.push({data: [65], label: 'Excluded'});
+    this.chartColors.push({backgroundColor:"red"});
+    this.updateChart();
 
     //clone = JSON.parse(JSON.stringify(this.chartColors));
     //clone[0].data = data;
     //this.chartColors = clone;
+  }
+
+  public updateChart(){
+    this.chart.ngOnChanges({});
   }
 }
