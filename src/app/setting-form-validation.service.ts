@@ -263,7 +263,12 @@ export class SettingFormValidationService {
         }
 
         // add it to the shared param
-        this.p3Service.p3Input.SEQUENCE_TARGET = arr;
+        if(type == 'SEQUENCE_TARGET'){
+          this.p3Service.p3Input.SEQUENCE_TARGET = arr;
+        } else {
+          this.p3Service.p3Input.SEQUENCE_EXCLUDED_REGION = arr;
+        }
+        
         
       }
       
