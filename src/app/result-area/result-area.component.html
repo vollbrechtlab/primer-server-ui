@@ -18,9 +18,11 @@
   <div *ngIf="taskResult.status == 'ok'">
 
   	<div><svg viewBox="0 0 600 200" style="max-width: 1000px; max-height: 333px;">  
+      <!-- <polygon points="0,0 0,10 10,10 10,0" fill="yellow"></polygon> -->
+
   	  <polygon points="50,0 50,7 600,7 600,0" fill="grey"></polygon>
       <g *ngFor="let points of excludedRegionPoints; let i = index" [attr.data-index]="i">
-        <polygon [attr.points]="points" fill="red"></polygon>
+        <polygon [attr.points]="points" fill="yellow"></polygon>
       </g>
       <g *ngFor="let points of targetRegionPoints; let i = index" [attr.data-index]="i">
         <polygon [attr.points]="points" fill="green"></polygon>
@@ -41,9 +43,13 @@
 
     <div *ngFor="let pair of taskResult.result.pairs; let i = index" [attr.data-index]="i">
       <br><b>Pair {{i}}</b>:<br>
-      Product Size: {{pair.PRODUCT_SIZE}} &nbsp; ANY: {{pair.COMPL_ANY_TH}} &nbsp;Product Size: {{pair.COMPL_END_TH}}<br>
-      Left Primer : Start: {{pair.PRIMER_LEFT.START}} &nbsp; Length: {{pair.PRIMER_LEFT.LENGTH}} &nbsp; Tm: {{pair.PRIMER_LEFT.TM}} GC: {{pair.PRIMER_LEFT.GC_PERCENT}} &nbsp; Any: {{pair.PRIMER_LEFT.SELF_ANY_TH}} &nbsp; END: {{pair.PRIMER_LEFT.SELF_END_TH}} <br>
-      Right Primer: Start: {{pair.PRIMER_RIGHT.START}} &nbsp; Length: {{pair.PRIMER_RIGHT.LENGTH}} &nbsp; Tm: {{pair.PRIMER_RIGHT.TM}} GC: {{pair.PRIMER_RIGHT.GC_PERCENT}} &nbsp; Any: {{pair.PRIMER_RIGHT.SELF_ANY_TH}} &nbsp; END: {{pair.PRIMER_RIGHT.SELF_END_TH}}  
+      Product Size: {{pair.PRODUCT_SIZE}} &nbsp; Any: {{pair.COMPL_ANY_TH}} &nbsp;End: {{pair.COMPL_END_TH}}<br>
+      Left Primer : <br>
+      Sequence: {{pair.PRIMER_LEFT.SEQUENCE}}<br>
+      Start: {{pair.PRIMER_LEFT.START}} &nbsp; Length: {{pair.PRIMER_LEFT.LENGTH}} &nbsp; Tm: {{pair.PRIMER_LEFT.TM}} GC: {{pair.PRIMER_LEFT.GC_PERCENT}} &nbsp; Any: {{pair.PRIMER_LEFT.SELF_ANY_TH}} &nbsp; END: {{pair.PRIMER_LEFT.SELF_END_TH}} <br>
+      Right Primer: <br>
+      Sequence: {{pair.PRIMER_RIGHT.SEQUENCE}}<br>
+      Start: {{pair.PRIMER_RIGHT.START}} &nbsp; Length: {{pair.PRIMER_RIGHT.LENGTH}} &nbsp; Tm: {{pair.PRIMER_RIGHT.TM}} GC: {{pair.PRIMER_RIGHT.GC_PERCENT}} &nbsp; Any: {{pair.PRIMER_RIGHT.SELF_ANY_TH}} &nbsp; END: {{pair.PRIMER_RIGHT.SELF_END_TH}}  
     </div>
 
   </div>
