@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 
+import { FileUploader } from 'ng2-file-upload';
+
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
 

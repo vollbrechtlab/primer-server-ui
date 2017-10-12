@@ -24,7 +24,6 @@ export class SettingFormValidationService {
 
   settingForm: FormGroup;
 
-
   constructor(private p3Service: P3Service) { }
 
   /**
@@ -264,7 +263,12 @@ export class SettingFormValidationService {
         }
 
         // add it to the shared param
-        this.p3Service.p3Input.SEQUENCE_TARGET = arr;
+        if(type == 'SEQUENCE_TARGET'){
+          this.p3Service.p3Input.SEQUENCE_TARGET = arr;
+        } else {
+          this.p3Service.p3Input.SEQUENCE_EXCLUDED_REGION = arr;
+        }
+        
         
       }
       
@@ -303,16 +307,6 @@ export class SettingFormValidationService {
       }
       this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = control.value;
       return null;
-    };
-  }
-
-  primerMeltingTempMinValidator(): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} => {
-      //if(this.settingForm == null){
-      //  return null;
-      //}
-      //if()
-      return {'invalidMin': true};
     };
   }
 

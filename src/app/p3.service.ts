@@ -8,12 +8,16 @@ export class P3Service {
   params = {};
   p3Input: P3Input;
 
+  resultUrl: string;
+
   gc_content = 0;
 
   PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS: Array<{}>;
   PRIMER_TM_FORMULA_INPUT_OPTIONS: Array<{}>;
 
   strListPatt: RegExp;
+
+  p3Result: any;
 
   constructor() {
     let p3ParamsObject = new P3Params();
