@@ -9,7 +9,8 @@
   </tr>
 </table>
 
-<br><br><br>
+<br><br>
+<div id="canvasc"></div>
 
 <div *ngIf="taskResult">
   <div *ngIf="taskResult.status == 'error'">
@@ -17,33 +18,17 @@
   </div>
   <div *ngIf="taskResult.status == 'ok'">
 
-  	<div><svg viewBox="0 0 600 200" style="max-width: 1000px; max-height: 333px;">  
-  	  <polygon points="50,0 50,7 600,7 600,0" fill="grey"></polygon>
-      <g *ngFor="let points of excludedRegionPoints; let i = index" [attr.data-index]="i">
-        <polygon [attr.points]="points" fill="red"></polygon>
-      </g>
-      <g *ngFor="let points of targetRegionPoints; let i = index" [attr.data-index]="i">
-        <polygon [attr.points]="points" fill="green"></polygon>
-      </g>
-      <g *ngFor="let idx of seqIdx; let i = index" [attr.data-index]="i">
-        <text [attr.x]="i*dispInterval+50" y="15" fill="black" font-size="10">{{idx}}</text>    
-      </g>
-  	  
-  	  <text x="580" y="15" fill="black" font-size="10">{{seqLen}}</text>
-
-      <g *ngFor="let pair of taskResult.result.pairs; let i = index" [attr.data-index]="i">
-    	  <text x="0" [attr.y]="40+35*i" fill="black" font-size="10">Pair {{i}}</text>
-    	  <polygon [attr.points]="leftPrimerPoints[i]" fill="red"></polygon>
-        <polygon [attr.points]="rightPrimerPoints[i]" fill="blue"></polygon>       
-      </g>
-
-  	</svg></div>
-
     <div *ngFor="let pair of taskResult.result.pairs; let i = index" [attr.data-index]="i">
-      <br><b>Pair {{i}}</b>:<br>
-      Product Size: {{pair.PRODUCT_SIZE}} &nbsp; ANY: {{pair.COMPL_ANY_TH}} &nbsp;Product Size: {{pair.COMPL_END_TH}}<br>
-      Left Primer : Start: {{pair.PRIMER_LEFT.START}} &nbsp; Length: {{pair.PRIMER_LEFT.LENGTH}} &nbsp; Tm: {{pair.PRIMER_LEFT.TM}} GC: {{pair.PRIMER_LEFT.GC_PERCENT}} &nbsp; Any: {{pair.PRIMER_LEFT.SELF_ANY_TH}} &nbsp; END: {{pair.PRIMER_LEFT.SELF_END_TH}} <br>
-      Right Primer: Start: {{pair.PRIMER_RIGHT.START}} &nbsp; Length: {{pair.PRIMER_RIGHT.LENGTH}} &nbsp; Tm: {{pair.PRIMER_RIGHT.TM}} GC: {{pair.PRIMER_RIGHT.GC_PERCENT}} &nbsp; Any: {{pair.PRIMER_RIGHT.SELF_ANY_TH}} &nbsp; END: {{pair.PRIMER_RIGHT.SELF_END_TH}}  
+      <a [attr.name]="i"><br><b>Pair {{i+1}}</b>:<br></a>
+      Product Size: {{pair.PRODUCT_SIZE}} &nbsp; Any: {{pair.COMPL_ANY_TH}} &nbsp;End: {{pair.COMPL_END_TH}}<br>
+      <font color="red">Left Primer :</font> <br>
+      Sequence: {{pair.PRIMER_LEFT.SEQUENCE}}<br>
+      Start: {{pair.PRIMER_LEFT.START}} &nbsp; Length: {{pair.PRIMER_LEFT.LENGTH}} &nbsp; Tm: {{pair.PRIMER_LEFT.TM}} <br>
+      GC: {{pair.PRIMER_LEFT.GC_PERCENT}} &nbsp; Any: {{pair.PRIMER_LEFT.SELF_ANY_TH}} &nbsp; END: {{pair.PRIMER_LEFT.SELF_END_TH}} <br>
+      <font color="blue">Right Primer: </font><br>
+      Sequence: {{pair.PRIMER_RIGHT.SEQUENCE}}<br>
+      Start: {{pair.PRIMER_RIGHT.START}} &nbsp; Length: {{pair.PRIMER_RIGHT.LENGTH}} &nbsp; Tm: {{pair.PRIMER_RIGHT.TM}} <br>
+      GC: {{pair.PRIMER_RIGHT.GC_PERCENT}} &nbsp; Any: {{pair.PRIMER_RIGHT.SELF_ANY_TH}} &nbsp; END: {{pair.PRIMER_RIGHT.SELF_END_TH}}  
     </div>
 
   </div>
