@@ -1,6 +1,6 @@
-# PrimerServer
+# Primer Server UI
 
-Primer3 Web UI written in Angular 4 with Angular Material
+Primer3 Web UI written in Angular 4 with Angular Material.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.7.
 
