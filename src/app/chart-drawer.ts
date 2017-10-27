@@ -185,10 +185,11 @@ export class ChartDrawer{
       let length = this.inputData.SEQUENCE_TARGET[i][1]/this.max*this.primerChartW+this.primerChartX;
       let targetBar = this.paper.rect(start, this.regionY, length, this.primerH);
       targetBar.attr({fill: 'rgba(0, 255, 0, 0.4)', stroke: '#ddd', 'stroke-width': 1});
-
+    }
+    for(let i = 0; i < this.inputData.SEQUENCE_EXCLUDED_REGION.length; i++){
       // excluded region
-      start = this.inputData.SEQUENCE_EXCLUDED_REGION[i][0]/this.max*this.primerChartW+this.primerChartX;
-      length = this.inputData.SEQUENCE_EXCLUDED_REGION[i][1]/this.max*this.primerChartW+this.primerChartX;
+      let start = this.inputData.SEQUENCE_EXCLUDED_REGION[i][0]/this.max*this.primerChartW+this.primerChartX;
+      let length = this.inputData.SEQUENCE_EXCLUDED_REGION[i][1]/this.max*this.primerChartW+this.primerChartX;
       let excludedBar = this.paper.rect(start, this.regionY, length, this.primerH);
       excludedBar.attr({fill: 'rgba(255, 0, 0, 0.4)', stroke: '#ddd', 'stroke-width': 1});
     }

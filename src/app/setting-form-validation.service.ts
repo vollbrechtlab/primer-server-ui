@@ -16,7 +16,7 @@ export class SettingFormValidationService {
                         'R','Y','W','S','M','K','B','H','D','V',
                         'r','y','w','s','m','k','b','h','d','v'];
   sequenceTemplateCodes = ['A','C','G','T','N','a','c','g','t','n', 
-                           '[',']','<','>'];
+                           '[',']','(',')'];
 
   //normalBaseCodes = new RegExp('ACGTNacgtn');
   //ambiguousBaseCodes = new RegExp('ACGTNacgtnRYWSMKBHDVrywsmkbhdv');
@@ -95,7 +95,8 @@ export class SettingFormValidationService {
       var sequence = this.fastaCleaner(control.value);
       //console.log(sequence);
 
-      //let sequence = control.value.replace(/\n/g, '');
+      sequence = control.value.replace(/\n/g, '');
+      sequence = control.value.replace(/\s/g, '');
       
       // check if the sequence is ok
       let message = this.checkNucleotideSequence(sequence, this.sequenceTemplateCodes);
@@ -139,12 +140,12 @@ export class SettingFormValidationService {
         }
 
         // check the excluded regions
-        if(sequence[i] == '<')
+        if(sequence[i] == '(')
         {
           excludedRegions.push([i-numTotalRegionCodes]);
           numExcludedRegionsStarts++;
         } 
-        else if(sequence[i] == '>') 
+        else if(sequence[i] == ')') 
         {
           try {
             excludedRegions[currentExcludedRegion].push(i-excludedRegions[currentExcludedRegion][0]-numTotalRegionCodes);
@@ -167,7 +168,7 @@ export class SettingFormValidationService {
       }
 
       // share the sequence temmpate
-      this.p3Service.p3Input.SEQUENCE_TEMPLATE = sequence.replace(/\[|\]|\<|\>/g, '');
+      this.p3Service.p3Input.SEQUENCE_TEMPLATE = sequence.replace(/\[|\]|\(|\)/g, '');
 
       // share the regions
       this.p3Service.p3Input.SEQUENCE_TARGET = targetRegions;

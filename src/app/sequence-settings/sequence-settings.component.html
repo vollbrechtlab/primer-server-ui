@@ -139,7 +139,7 @@
       <td colspan="2">
         <md-input-container class="example-full-width">
           <input mdInput type="text" id="SEQUENCE_TARGET" formControlName="SEQUENCE_TARGET">
-          <md-hint>&lt;start&gt;-&lt;length&gt;  e.g. 37-21 60-10</md-hint>
+          <md-hint>&lt;start&gt;-&lt;length&gt;  e.g. 37-21 60-10 or surround with [] in sequence template</md-hint>
           <md-error *ngIf="settingForm.get('SEQUENCE_TARGET').hasError('invalidIntervalList')">
             Invalid targets
           </md-error>  
@@ -156,7 +156,10 @@
       <td colspan="2">
         <md-input-container class="example-full-width">
           <input mdInput type="text" id="SEQUENCE_EXCLUDED_REGION" formControlName="SEQUENCE_EXCLUDED_REGION">
-          <md-hint>&lt;start&gt;-&lt;length&gt;  e.g. 37-21 60-10</md-hint>
+          <md-hint>&lt;start&gt;-&lt;length&gt;  e.g. 37-21 60-10 or surround with () in sequence template</md-hint>
+          <md-error *ngIf="settingForm.get('SEQUENCE_EXCLUDED_REGION').hasError('invalidIntervalList')">
+            Invalid targets
+          </md-error>  
         </md-input-container>
       </td>
     </tr>
