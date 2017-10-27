@@ -47,7 +47,11 @@ export class ResultAreaComponent implements OnInit {
 
     console.log(this.task)
 
-    this.primerServerService.addTask(this.task).subscribe(data => {
+    this.addTask(this.task);
+  }
+
+  addTask(task){
+    this.primerServerService.addTask(task).subscribe(data => {
       if(data.status == 'ok'){
         console.log(data);
         this.loadResult(data.result_url);
@@ -62,16 +66,11 @@ export class ResultAreaComponent implements OnInit {
 
   // submit using test data
   testSubmit(){
-    console.log(this.task)
-
     this.task = {"input_data": {"PRIMER_PICK_LEFT_PRIMER": true, "PRIMER_EXPLAIN_FLAG": true, "PRIMER_TASK": "generic", "SEQUENCE_TEMPLATE": "ACAAGATGCCATTGTCCCCCGGCCTCCTGCTGCTGCTGCTCTCCGGGGCCACGGCCACCGCTGCCCTGCCCCTGGAGGGTGGCCCCACCGGCCGAGACAGCGAGCATATGCAGGAAGCGGCAGGAATAAGGAAAAGCAGCCTCCTGACTTTCCTCGCTTGGTGGTTTGAGTGGACCTCCCAGGCCAGTGCCGGGCCCCTCATAGGAGAGGAAGCTCGGGAGGTGGCCAGGCGGCAGGAAGGCGCACCCCCCCAGCAATCCGCGCGCCGGGACAGAATGCCCTGCAGGAACTTCTTCTGGAAGACCTTCTCCTCCTGCAAATAAAACCTCACCCATGAATGCTCACGCAAGTTTAATTACAGACCTGAA", "PRIMER_MAX_NS_ACCEPTED": 1, "PRIMER_PRODUCT_SIZE_RANGE": [75, 100], "PRIMER_PICK_RIGHT_PRIMER": true, "PRIMER_MAX_SIZE": 21, "SEQUENCE_EXCLUDED_REGION": [[90, 50]], "SEQUENCE_TARGET": [[100, 50]], "SEQUENCE_ID": "example", "PRIMER_MIN_SIZE": 15, "PRIMER_OPT_SIZE": 18}, "format": "better"};
 
-    this.primerServerService.addTask(this.task).subscribe(data => {
-      if(data.status == 'ok'){
-        console.log(data);
-        this.loadResult(data.result_url);
-      }
-    });
+    console.log(this.task)
+
+    this.addTask(this.task);
   }
 
   // reset the form

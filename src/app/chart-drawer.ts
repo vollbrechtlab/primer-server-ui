@@ -13,8 +13,14 @@ export class ChartDrawer{
   seqChartW:number;
   seqChartH:number;
   seqChartB:number;
+  seqY:number;
+  seqH:number;
+  regionY:number;
+  regionH:number;
   primerChartX:number;
   primerChartY:number;
+  primerChartW:number;
+  primerChartH:number;
   primerH:number;
 
   seqLen:number;
@@ -39,8 +45,14 @@ export class ChartDrawer{
     this.seqChartW = this.w-30,
     this.seqChartH = 40,
     this.seqChartB = this.seqChartY+this.seqChartH,
+    this.seqY = this.seqChartY+this.seqChartH*0.25,
+    this.seqH = this.seqChartH/4,
+    this.regionY = this.seqChartY+this.seqChartH*0.50,
+    this.regionH = this.seqH,
     this.primerChartX = this.seqChartX,
     this.primerChartY = this.seqChartB+40,
+    this.primerChartW = this.seqChartW,
+    this.primerChartH = this.seqH,
     this.primerH = 10;
   }
 
@@ -156,9 +168,30 @@ export class ChartDrawer{
     var seqLenPix = this.seqLen/(this.tickSize*this.numTicks)*this.seqChartW;
 
     // draw sequence bar
-    var seqBar = this.paper.rect(this.seqChartX, this.seqChartY+this.seqChartH*0.25, seqLenPix, this.seqChartH/4);
+    var seqBar = this.paper.rect(this.seqChartX, this.seqChartY+this.seqChartH*0.25, seqLenPix, this.seqH);
 
     seqBar.attr({fill: 'grey', stroke: '#ddd', 'stroke-width': 1});
+
+    this.drawSeqRegions();
+  }
+
+  // draw target regions and excluded regions
+  drawSeqRegions(){
+    console.log(this.inputData.SEQUENCE_EXCLUDED_REGION)
+    console.log(this.inputData.SEQUENCE_TARGET)
+    for(let i = 0; i < this.inputData.SEQUENCE_TARGET.length; i++){
+      // target region
+      let start = this.inputData.SEQUENCE_TARGET[i][0]/this.max*this.primerChartW+this.primerChartX;
+      let length = this.inputData.SEQUENCE_TARGET[i][1]/this.max*this.primerChartW+this.primerChartX;
+      let targetBar = this.paper.rect(start, this.regionY, length, this.primerH);
+      targetBar.attr({fill: 'rgba(0, 255, 0, 0.4)', stroke: '#ddd', 'stroke-width': 1});
+
+      // excluded region
+      start = this.inputData.SEQUENCE_EXCLUDED_REGION[i][0]/this.max*this.primerChartW+this.primerChartX;
+      length = this.inputData.SEQUENCE_EXCLUDED_REGION[i][1]/this.max*this.primerChartW+this.primerChartX;
+      let excludedBar = this.paper.rect(start, this.regionY, length, this.primerH);
+      excludedBar.attr({fill: 'rgba(255, 0, 0, 0.4)', stroke: '#ddd', 'stroke-width': 1});
+    }
   }
 
   // go to the primer discription
@@ -176,9 +209,9 @@ export class ChartDrawer{
       var pair = this.resultData.result.pairs[i];
       //console.log(i)
       //console.log(pair.PRIMER_LEFT.START, pair.PRIMER_LEFT.LENGTH);
-      var startL = pair.PRIMER_LEFT.START/this.max*this.seqChartW+this.seqChartX;
-      var lengthL = pair.PRIMER_LEFT.LENGTH/this.max*this.seqChartW+this.seqChartX;
-      var primerLBar = this.paper.rect(startL, this.primerChartY+i*20, lengthL, this.seqChartH/4);
+      var startL = pair.PRIMER_LEFT.START/this.max*this.primerChartW+this.primerChartX;
+      var lengthL = pair.PRIMER_LEFT.LENGTH/this.max*this.primerChartW+this.primerChartX;
+      var primerLBar = this.paper.rect(startL, this.primerChartY+i*20, lengthL, this.primerH);
       primerLBar.attr({fill: 'red', stroke: '#ddd', 'stroke-width': 1});
       primerLBar.attr({
         cursor: 'pointer'
@@ -195,9 +228,9 @@ export class ChartDrawer{
       // drawing right primer
       var pair = this.resultData.result.pairs[i];
       //console.log(pair.PRIMER_RIGHT.START, pair.PRIMER_RIGHT.LENGTH);
-      var startR = pair.PRIMER_RIGHT.START/this.max*this.seqChartW+this.seqChartX;
-      var lengthR = pair.PRIMER_RIGHT.LENGTH/this.max*this.seqChartW+this.seqChartX;
-      var primerRBar = this.paper.rect(startR, this.primerChartY+i*20, lengthR, this.seqChartH/4);
+      var startR = pair.PRIMER_RIGHT.START/this.max*this.primerChartW+this.primerChartX;
+      var lengthR = pair.PRIMER_RIGHT.LENGTH/this.max*this.primerChartW+this.primerChartX;
+      var primerRBar = this.paper.rect(startR, this.primerChartY+i*20, lengthR, this.primerH);
       primerRBar.attr({fill: 'blue', stroke: '#ddd', 'stroke-width': 1});
       primerRBar.attr({
         cursor: 'pointer'
