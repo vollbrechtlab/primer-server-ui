@@ -58,19 +58,24 @@ export class SettingFormValidationService {
     let newSeq = "";
     let splitted = seq.split('\n');
     let readSeqNum = 0;
+    let updated = false;
     for(let i = 0; i < splitted.length; i++){
       if(splitted[i].includes('>')){
         readSeqNum++;
         i++;
       }
       if(readSeqNum == 1){
+        updated = true;
         newSeq += splitted[i];
       }
       if(readSeqNum > 1){
         break;
       }
     }
-    return newSeq;
+    if(updated){
+      return newSeq;
+    }
+    return seq;
   }
 
   /**
@@ -88,7 +93,7 @@ export class SettingFormValidationService {
       }
       
       var sequence = this.fastaCleaner(control.value);
-      console.log(sequence);
+      //console.log(sequence);
 
       //let sequence = control.value.replace(/\n/g, '');
       
@@ -183,10 +188,12 @@ export class SettingFormValidationService {
       // update the gc content
       this.p3Service.calcGcContent();
 
+      /*
       // update the product size
       this.p3Service.calcProdSize();
       this.settingForm.patchValue({PRIMER_PRODUCT_SIZE_MIN: this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0]});
       this.settingForm.patchValue({PRIMER_PRODUCT_SIZE_MAX: this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]});
+      */
 
       // returning null means no error
       return null;
@@ -327,8 +334,7 @@ export class SettingFormValidationService {
       if(this.settingForm == null){
         return null;
       }
-      if(control.value < this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] || 
-         control.value > this.p3Service.p3Input.SEQUENCE_TEMPLATE.length){
+      if(control.value < this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0]){
         return {'invalidMax': true};
       }
       this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = control.value;

@@ -26,7 +26,7 @@ export class P3Service {
 
     this.p3Input.SEQUENCE_TEMPLATE = '';
 
-    this.p3Input.PRIMER_PRODUCT_SIZE_RANGE = [[]];
+    this.p3Input.PRIMER_PRODUCT_SIZE_RANGE = [[100, 300]];
 
     this.PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS = [
       {value: 0, viewValue: 'Schildkraut and Lifson 1965'},
