@@ -182,14 +182,14 @@ export class ChartDrawer{
     for(let i = 0; i < this.inputData.SEQUENCE_TARGET.length; i++){
       // target region
       let start = this.inputData.SEQUENCE_TARGET[i][0]/this.max*this.primerChartW+this.primerChartX;
-      let length = this.inputData.SEQUENCE_TARGET[i][1]/this.max*this.primerChartW+this.primerChartX;
+      let length = this.inputData.SEQUENCE_TARGET[i][1]/this.max*this.primerChartW;
       let targetBar = this.paper.rect(start, this.regionY, length, this.primerH);
       targetBar.attr({fill: 'rgba(0, 255, 0, 0.4)', stroke: '#ddd', 'stroke-width': 1});
     }
     for(let i = 0; i < this.inputData.SEQUENCE_EXCLUDED_REGION.length; i++){
       // excluded region
       let start = this.inputData.SEQUENCE_EXCLUDED_REGION[i][0]/this.max*this.primerChartW+this.primerChartX;
-      let length = this.inputData.SEQUENCE_EXCLUDED_REGION[i][1]/this.max*this.primerChartW+this.primerChartX;
+      let length = this.inputData.SEQUENCE_EXCLUDED_REGION[i][1]/this.max*this.primerChartW;
       let excludedBar = this.paper.rect(start, this.regionY, length, this.primerH);
       excludedBar.attr({fill: 'rgba(255, 0, 0, 0.4)', stroke: '#ddd', 'stroke-width': 1});
     }
@@ -211,7 +211,7 @@ export class ChartDrawer{
       //console.log(i)
       //console.log(pair.PRIMER_LEFT.START, pair.PRIMER_LEFT.LENGTH);
       var startL = pair.PRIMER_LEFT.START/this.max*this.primerChartW+this.primerChartX;
-      var lengthL = pair.PRIMER_LEFT.LENGTH/this.max*this.primerChartW+this.primerChartX;
+      var lengthL = pair.PRIMER_LEFT.LENGTH/this.max*this.primerChartW;
       var primerLBar = this.paper.rect(startL, this.primerChartY+i*20, lengthL, this.primerH);
       primerLBar.attr({fill: 'red', stroke: '#ddd', 'stroke-width': 1});
       primerLBar.attr({
@@ -230,7 +230,7 @@ export class ChartDrawer{
       var pair = this.resultData.result.pairs[i];
       //console.log(pair.PRIMER_RIGHT.START, pair.PRIMER_RIGHT.LENGTH);
       var startR = pair.PRIMER_RIGHT.START/this.max*this.primerChartW+this.primerChartX;
-      var lengthR = pair.PRIMER_RIGHT.LENGTH/this.max*this.primerChartW+this.primerChartX;
+      var lengthR = pair.PRIMER_RIGHT.LENGTH/this.max*this.primerChartW;
       var primerRBar = this.paper.rect(startR, this.primerChartY+i*20, lengthR, this.primerH);
       primerRBar.attr({fill: 'blue', stroke: '#ddd', 'stroke-width': 1});
       primerRBar.attr({
