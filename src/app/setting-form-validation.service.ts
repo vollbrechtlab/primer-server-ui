@@ -16,7 +16,7 @@ export class SettingFormValidationService {
                         'R','Y','W','S','M','K','B','H','D','V',
                         'r','y','w','s','m','k','b','h','d','v'];
   sequenceTemplateCodes = ['A','C','G','T','N','a','c','g','t','n', 
-                           '[',']','<','>'];
+                           '[',']','(',')'];
 
   //normalBaseCodes = new RegExp('ACGTNacgtn');
   //ambiguousBaseCodes = new RegExp('ACGTNacgtnRYWSMKBHDVrywsmkbhdv');
@@ -53,6 +53,31 @@ export class SettingFormValidationService {
     return null;
   }
 
+  // clean the input when it is a fasta format
+  fastaCleaner(seq) {
+    let newSeq = "";
+    let splitted = seq.split('\n');
+    let readSeqNum = 0;
+    let updated = false;
+    for(let i = 0; i < splitted.length; i++){
+      if(splitted[i].includes('>')){
+        readSeqNum++;
+        i++;
+      }
+      if(readSeqNum == 1){
+        updated = true;
+        newSeq += splitted[i];
+      }
+      if(readSeqNum > 1){
+        break;
+      }
+    }
+    if(updated){
+      return newSeq;
+    }
+    return seq;
+  }
+
   /**
    * Validates the sequance template input
    */
@@ -62,9 +87,16 @@ export class SettingFormValidationService {
         return null;
       }
       if(control.value == ''){
+        // empty
+        this.p3Service.params['SEQUENCE_TEMPLATE']['value'] = '';
         return null;
       }
-      let sequence = control.value.replace(/\n/g, '');
+      
+      var sequence = this.fastaCleaner(control.value);
+      //console.log(sequence);
+
+      sequence = control.value.replace(/\n/g, '');
+      sequence = control.value.replace(/\s/g, '');
       
       // check if the sequence is ok
       let message = this.checkNucleotideSequence(sequence, this.sequenceTemplateCodes);
@@ -108,12 +140,12 @@ export class SettingFormValidationService {
         }
 
         // check the excluded regions
-        if(sequence[i] == '<')
+        if(sequence[i] == '(')
         {
           excludedRegions.push([i-numTotalRegionCodes]);
           numExcludedRegionsStarts++;
         } 
-        else if(sequence[i] == '>') 
+        else if(sequence[i] == ')') 
         {
           try {
             excludedRegions[currentExcludedRegion].push(i-excludedRegions[currentExcludedRegion][0]-numTotalRegionCodes);
@@ -136,7 +168,7 @@ export class SettingFormValidationService {
       }
 
       // share the sequence temmpate
-      this.p3Service.p3Input.SEQUENCE_TEMPLATE = sequence.replace(/\[|\]|\<|\>/g, '');
+      this.p3Service.p3Input.SEQUENCE_TEMPLATE = sequence.replace(/\[|\]|\(|\)/g, '');
 
       // share the regions
       this.p3Service.p3Input.SEQUENCE_TARGET = targetRegions;
@@ -157,10 +189,12 @@ export class SettingFormValidationService {
       // update the gc content
       this.p3Service.calcGcContent();
 
+      /*
       // update the product size
       this.p3Service.calcProdSize();
       this.settingForm.patchValue({PRIMER_PRODUCT_SIZE_MIN: this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0]});
       this.settingForm.patchValue({PRIMER_PRODUCT_SIZE_MAX: this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]});
+      */
 
       // returning null means no error
       return null;
@@ -301,8 +335,7 @@ export class SettingFormValidationService {
       if(this.settingForm == null){
         return null;
       }
-      if(control.value < this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] || 
-         control.value > this.p3Service.p3Input.SEQUENCE_TEMPLATE.length){
+      if(control.value < this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0]){
         return {'invalidMax': true};
       }
       this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = control.value;
