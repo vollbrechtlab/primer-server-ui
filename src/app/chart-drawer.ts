@@ -54,6 +54,7 @@ export class ChartDrawer{
 
   // calculate and draw the chart
   draw(){
+    this.paper.clear();
     this.calcSeqTickSize();
     this.seqChartTickSize = this.seqChartW/this.numTicks; 
     this.drawSeqChart();
@@ -208,6 +209,10 @@ export class ChartDrawer{
         that.goToPrimerDisc(e.target.id);
       });
     }
+  }
+
+  clear(){
+    this.paper.clear();
   }
 
   
