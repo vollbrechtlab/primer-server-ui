@@ -16,6 +16,8 @@ export class ResultAreaComponent implements OnInit {
   taskResult: any;
   chartDrawer: any;
 
+  status: string;
+
   constructor(
     private p3Sevice: P3Service,
     private primerServerService: PrimerServerService,
@@ -35,6 +37,7 @@ export class ResultAreaComponent implements OnInit {
 
   }
 
+  // submit the input to the server
   submit(){
     console.log('submit');
 
@@ -44,34 +47,42 @@ export class ResultAreaComponent implements OnInit {
 
     console.log(this.task)
 
-    this.primerServerService.addTask(this.task).subscribe(data => {
+    this.addTask(this.task);
+  }
+
+  addTask(task){
+    this.primerServerService.addTask(task).subscribe(data => {
       if(data.status == 'ok'){
         console.log(data);
         this.loadResult(data.result_url);
+      } else {
+        console.log('error from server');
+        this.status = 'error';
+        this.taskResult = null;
+        this.chartDrawer.clear();
       }
     });
   }
-  testSubmit(){
-    console.log(this.task)
 
+  // submit using test data
+  testSubmit(){
     this.task = {"input_data": {"PRIMER_PICK_LEFT_PRIMER": true, "PRIMER_EXPLAIN_FLAG": true, "PRIMER_TASK": "generic", "SEQUENCE_TEMPLATE": "ACAAGATGCCATTGTCCCCCGGCCTCCTGCTGCTGCTGCTCTCCGGGGCCACGGCCACCGCTGCCCTGCCCCTGGAGGGTGGCCCCACCGGCCGAGACAGCGAGCATATGCAGGAAGCGGCAGGAATAAGGAAAAGCAGCCTCCTGACTTTCCTCGCTTGGTGGTTTGAGTGGACCTCCCAGGCCAGTGCCGGGCCCCTCATAGGAGAGGAAGCTCGGGAGGTGGCCAGGCGGCAGGAAGGCGCACCCCCCCAGCAATCCGCGCGCCGGGACAGAATGCCCTGCAGGAACTTCTTCTGGAAGACCTTCTCCTCCTGCAAATAAAACCTCACCCATGAATGCTCACGCAAGTTTAATTACAGACCTGAA", "PRIMER_MAX_NS_ACCEPTED": 1, "PRIMER_PRODUCT_SIZE_RANGE": [75, 100], "PRIMER_PICK_RIGHT_PRIMER": true, "PRIMER_MAX_SIZE": 21, "SEQUENCE_EXCLUDED_REGION": [[90, 50]], "SEQUENCE_TARGET": [[100, 50]], "SEQUENCE_ID": "example", "PRIMER_MIN_SIZE": 15, "PRIMER_OPT_SIZE": 18}, "format": "better"};
 
-    this.primerServerService.addTask(this.task).subscribe(data => {
-      if(data.status == 'ok'){
-        console.log(data);
-        this.loadResult(data.result_url);
-      }
-    });
+    console.log(this.task)
+
+    this.addTask(this.task);
   }
+
+  // reset the form
   reset(){
     console.log('reset');
   }
 
+  // load result from the server
   loadResult(url: string) {
     this.primerServerService.getResult(url).subscribe(data => {
       this.taskResult = data;//JSON.stringify(data, null, 4)
       console.log(data);
-
 
       if(data.status == 'ok'){
         this.chartDrawer.setInputData(this.task["input_data"]);
@@ -80,6 +91,12 @@ export class ResultAreaComponent implements OnInit {
         this.chartDrawer.primerDiscFunc = function(e){
           console.log(e)
         }
+        this.status = 'ok';
+      } else {
+        console.log('error from server');
+        this.status = 'error';
+        this.taskResult = null;
+        this.chartDrawer.clear();
       }
       
     });

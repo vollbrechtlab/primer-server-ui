@@ -11,6 +11,7 @@ export class P3Service {
   resultUrl: string;
 
   gc_content = 0;
+  length = 0;
 
   PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS: Array<{}>;
   PRIMER_TM_FORMULA_INPUT_OPTIONS: Array<{}>;
@@ -26,7 +27,7 @@ export class P3Service {
 
     this.p3Input.SEQUENCE_TEMPLATE = '';
 
-    this.p3Input.PRIMER_PRODUCT_SIZE_RANGE = [[]];
+    this.p3Input.PRIMER_PRODUCT_SIZE_RANGE = [[100, 300]];
 
     this.PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS = [
       {value: 0, viewValue: 'Schildkraut and Lifson 1965'},
@@ -99,7 +100,9 @@ export class P3Service {
    */
   calcGcContent() {
     if(this.p3Input.SEQUENCE_TEMPLATE.length == 0){
-      return 0;
+      this.length = 0;
+      this.gc_content = 0;
+      return;
     }
     var numGc = 0;
     for(var i = 0; i < this.p3Input.SEQUENCE_TEMPLATE.length; i++){
