@@ -16,6 +16,8 @@ export class ResultAreaComponent implements OnInit {
   taskResult: any;
   chartDrawer: any;
 
+  statusData: string[];
+
   constructor(
     private p3Sevice: P3Service,
     private primerServerService: PrimerServerService,
@@ -27,6 +29,11 @@ export class ResultAreaComponent implements OnInit {
   ngOnInit() {
     this.chartDrawer = new ChartDrawer('canvasc',500,200);
     
+    this.statusData = [];
+    this.statusData
+    this.statusData['status'] = null;
+    this.statusData['error'] = "Error occured!!";
+    this.statusData['ok'] = "ok!!!!";
     //this.testSubmit();
 
   }
@@ -35,6 +42,7 @@ export class ResultAreaComponent implements OnInit {
 
   }
 
+  // submit the input to the server
   submit(){
     console.log('submit');
 
@@ -48,9 +56,17 @@ export class ResultAreaComponent implements OnInit {
       if(data.status == 'ok'){
         console.log(data);
         this.loadResult(data.result_url);
+      } else {
+        console.log('error from server');
+        while (this.statusData.length) { this.statusData.pop(); }
+        this.statusData.push('error');
+        this.taskResult = null;
+        this.chartDrawer.clear();
       }
     });
   }
+
+  // submit using test data
   testSubmit(){
     console.log(this.task)
 
@@ -63,15 +79,17 @@ export class ResultAreaComponent implements OnInit {
       }
     });
   }
+
+  // reset the form
   reset(){
     console.log('reset');
   }
 
+  // load result from the server
   loadResult(url: string) {
     this.primerServerService.getResult(url).subscribe(data => {
       this.taskResult = data;//JSON.stringify(data, null, 4)
       console.log(data);
-
 
       if(data.status == 'ok'){
         this.chartDrawer.setInputData(this.task["input_data"]);
@@ -80,6 +98,14 @@ export class ResultAreaComponent implements OnInit {
         this.chartDrawer.primerDiscFunc = function(e){
           console.log(e)
         }
+        while (this.statusData.length) { this.statusData.pop(); }
+        this.statusData.push('ok');
+      } else {
+        console.log('error from server');
+        while (this.statusData.length) { this.statusData.pop(); }
+        this.statusData.push('error');
+        this.taskResult = null;
+        this.chartDrawer.clear();
       }
       
     });
