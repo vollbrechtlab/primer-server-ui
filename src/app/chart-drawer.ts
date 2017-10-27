@@ -163,7 +163,7 @@ export class ChartDrawer{
 
   // go to the primer discription
   goToPrimerDisc(i){
-    console.log(i);
+    //console.log(i);
     window.location.href = "#"+i[2];
   }
 
@@ -174,8 +174,8 @@ export class ChartDrawer{
     {
       // drawing left primer
       var pair = this.resultData.result.pairs[i];
-      console.log(i)
-      console.log(pair.PRIMER_LEFT.START, pair.PRIMER_LEFT.LENGTH);
+      //console.log(i)
+      //console.log(pair.PRIMER_LEFT.START, pair.PRIMER_LEFT.LENGTH);
       var startL = pair.PRIMER_LEFT.START/this.max*this.seqChartW+this.seqChartX;
       var lengthL = pair.PRIMER_LEFT.LENGTH/this.max*this.seqChartW+this.seqChartX;
       var primerLBar = this.paper.rect(startL, this.primerChartY+i*20, lengthL, this.seqChartH/4);
@@ -194,7 +194,7 @@ export class ChartDrawer{
 
       // drawing right primer
       var pair = this.resultData.result.pairs[i];
-      console.log(pair.PRIMER_RIGHT.START, pair.PRIMER_RIGHT.LENGTH);
+      //console.log(pair.PRIMER_RIGHT.START, pair.PRIMER_RIGHT.LENGTH);
       var startR = pair.PRIMER_RIGHT.START/this.max*this.seqChartW+this.seqChartX;
       var lengthR = pair.PRIMER_RIGHT.LENGTH/this.max*this.seqChartW+this.seqChartX;
       var primerRBar = this.paper.rect(startR, this.primerChartY+i*20, lengthR, this.seqChartH/4);

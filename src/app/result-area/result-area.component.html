@@ -9,16 +9,14 @@
   </tr>
 </table>
 
-<div *ngIf="statusData">
-  <div *ngFor="let s of statusData">
-    {{ s }}
-  </div>
+<div *ngIf="status">
+  {{ status }}
 </div>
 
 <br><br>
 <div id="canvasc"></div>
 
-<div *ngIf="statusMsg == 'ok' && taskResult">
+<div *ngIf="taskResult">
 
   <div *ngFor="let pair of taskResult.result.pairs; let i = index" [attr.data-index]="i">
     <a [attr.name]="i"><br><b>Pair {{i+1}}</b>:<br></a>

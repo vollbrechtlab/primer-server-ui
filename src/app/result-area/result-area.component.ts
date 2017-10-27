@@ -16,7 +16,7 @@ export class ResultAreaComponent implements OnInit {
   taskResult: any;
   chartDrawer: any;
 
-  statusData: string[];
+  status: string;
 
   constructor(
     private p3Sevice: P3Service,
@@ -29,11 +29,6 @@ export class ResultAreaComponent implements OnInit {
   ngOnInit() {
     this.chartDrawer = new ChartDrawer('canvasc',500,200);
     
-    this.statusData = [];
-    this.statusData
-    this.statusData['status'] = null;
-    this.statusData['error'] = "Error occured!!";
-    this.statusData['ok'] = "ok!!!!";
     //this.testSubmit();
 
   }
@@ -58,8 +53,7 @@ export class ResultAreaComponent implements OnInit {
         this.loadResult(data.result_url);
       } else {
         console.log('error from server');
-        while (this.statusData.length) { this.statusData.pop(); }
-        this.statusData.push('error');
+        this.status = 'error';
         this.taskResult = null;
         this.chartDrawer.clear();
       }
@@ -98,12 +92,10 @@ export class ResultAreaComponent implements OnInit {
         this.chartDrawer.primerDiscFunc = function(e){
           console.log(e)
         }
-        while (this.statusData.length) { this.statusData.pop(); }
-        this.statusData.push('ok');
+        this.status = 'ok';
       } else {
         console.log('error from server');
-        while (this.statusData.length) { this.statusData.pop(); }
-        this.statusData.push('error');
+        this.status = 'error';
         this.taskResult = null;
         this.chartDrawer.clear();
       }

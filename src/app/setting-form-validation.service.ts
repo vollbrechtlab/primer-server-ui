@@ -53,6 +53,26 @@ export class SettingFormValidationService {
     return null;
   }
 
+  // clean the input when it is a fasta format
+  fastaCleaner(seq) {
+    let newSeq = "";
+    let splitted = seq.split('\n');
+    let readSeqNum = 0;
+    for(let i = 0; i < splitted.length; i++){
+      if(splitted[i].includes('>')){
+        readSeqNum++;
+        i++;
+      }
+      if(readSeqNum == 1){
+        newSeq += splitted[i];
+      }
+      if(readSeqNum > 1){
+        break;
+      }
+    }
+    return newSeq;
+  }
+
   /**
    * Validates the sequance template input
    */
@@ -62,9 +82,15 @@ export class SettingFormValidationService {
         return null;
       }
       if(control.value == ''){
+        // empty
+        this.p3Service.params['SEQUENCE_TEMPLATE']['value'] = '';
         return null;
       }
-      let sequence = control.value.replace(/\n/g, '');
+      
+      var sequence = this.fastaCleaner(control.value);
+      console.log(sequence);
+
+      //let sequence = control.value.replace(/\n/g, '');
       
       // check if the sequence is ok
       let message = this.checkNucleotideSequence(sequence, this.sequenceTemplateCodes);
