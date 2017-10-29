@@ -45,8 +45,8 @@ export class SequenceSettingsComponent implements OnInit {
       PRIMER_OPT_TM: [60, this.sfvService.tmOptValidator()],
       PRIMER_MAX_TM: [63, this.sfvService.tmMaxValidator()],
       PRIMER_PAIR_MAX_DIFF_TM: [3, this.sfvService.tmDiffValidator()],
-      PRIMER_SALT_CORRECTIONS: [1],
-      PRIMER_TM_FORMULA: [1],
+      PRIMER_SALT_CORRECTIONS: [1, this.sfvService.saltCorrectionValidator()],
+      PRIMER_TM_FORMULA: [1, this.sfvService.thermoParamValidator()],
     });
 
     this.sfvService.settingForm = this.settingForm;

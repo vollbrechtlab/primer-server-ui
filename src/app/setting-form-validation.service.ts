@@ -377,12 +377,7 @@ export class SettingFormValidationService {
       if(this.settingForm == null){
         return null;
       }
-      this.p3Service.p3Input.PRIMER_MIN_TM = control.value;
-      console.log(this.p3Service.p3Input.PRIMER_OPT_TM - control.value)
-      if(Math.abs(this.p3Service.p3Input.PRIMER_OPT_TM - control.value) > this.p3Service.p3Input.PRIMER_PAIR_MAX_DIFF_TM){
-        return {'invalidTmMin':true};
-      }
-      
+      this.p3Service.p3Input.PRIMER_MIN_TM = control.value;      
       return null;
     };
   }
@@ -392,12 +387,7 @@ export class SettingFormValidationService {
       if(this.settingForm == null){
         return null;
       }
-      this.p3Service.p3Input.PRIMER_OPT_TM = control.value;
-      if(Math.abs(control.value - this.p3Service.p3Input.PRIMER_MIN_TM) > this.p3Service.p3Input.PRIMER_PAIR_MAX_DIFF_TM || 
-         Math.abs(this.p3Service.p3Input.PRIMER_MAX_TM - control.value) > this.p3Service.p3Input.PRIMER_PAIR_MAX_DIFF_TM){
-        return {'invalidTmMin':true};
-      }
-      
+      this.p3Service.p3Input.PRIMER_OPT_TM = control.value;     
       return null;
     };
   }
@@ -407,11 +397,7 @@ export class SettingFormValidationService {
       if(this.settingForm == null){
         return null;
       }
-      this.p3Service.p3Input.PRIMER_MAX_TM = control.value;
-      if(Math.abs(control.value - this.p3Service.p3Input.PRIMER_OPT_TM) > this.p3Service.p3Input.PRIMER_PAIR_MAX_DIFF_TM){
-        return {'invalidTmMin':true};
-      }
-      
+      this.p3Service.p3Input.PRIMER_MAX_TM = control.value;     
       return null;
     };
   }
@@ -422,6 +408,26 @@ export class SettingFormValidationService {
         return null;
       }
       this.p3Service.p3Input.PRIMER_PAIR_MAX_DIFF_TM = control.value;
+      return null;
+    };
+  }
+
+  saltCorrectionValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
+      this.p3Service.p3Input.PRIMER_SALT_CORRECTIONS = control.value;
+      return null;
+    };
+  }
+
+   thermoParamValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
+      this.p3Service.p3Input.PRIMER_TM_FORMULA = control.value;
       return null;
     };
   }
