@@ -31,22 +31,22 @@ export class SequenceSettingsComponent implements OnInit {
   ngOnInit() {
     this.settingForm = this.fb.group({
       SEQUENCE_TEMPLATE_INPUT: ['', this.sfvService.sequenceTemplateValidator()],
-      PRIMER_PICK_LEFT_PRIMER: [true],
+      PRIMER_PICK_LEFT_PRIMER: [true, this.sfvService.pickLeftPrimerValidator()],
       SEQUENCE_PRIMER: ['', this.sfvService.nucleotideSequenceValidator()],
-      PRIMER_PICK_INTERNAL_OLIGO: [false],
+      PRIMER_PICK_INTERNAL_OLIGO: [false, this.sfvService.pickInternalOligoValidator()],
       SEQUENCE_INTERNAL_OLIGO: ['', this.sfvService.nucleotideSequenceValidator()],
-      PRIMER_PICK_RIGHT_PRIMER: [true],
+      PRIMER_PICK_RIGHT_PRIMER: [true, this.sfvService.pickRightPrimerValidator()],
       SEQUENCE_PRIMER_REVCOMP: ['', this.sfvService.nucleotideSequenceValidator()],
       PRIMER_PRODUCT_SIZE_MIN: [100, this.sfvService.productSizeMinValidator()],
       PRIMER_PRODUCT_SIZE_MAX: [300, this.sfvService.productSizeMaxValidator()],
       SEQUENCE_TARGET: ['', this.sfvService.sequenceRegionValidator('SEQUENCE_TARGET')],
       SEQUENCE_EXCLUDED_REGION: ['', this.sfvService.sequenceRegionValidator('SEQUENCE_EXCLUDED_REGION')],
-      PRIMER_MIN_TM: [57],
-      PRIMER_OPT_TM: [60],
-      PRIMER_MAX_TM: [63],
-      PRIMER_PAIR_MAX_DIFF_TM: [3],
-      PRIMER_SALT_CORRECTIONS: [1],
-      PRIMER_TM_FORMULA: [1],
+      PRIMER_MIN_TM: [57, this.sfvService.tmMinValidator()],
+      PRIMER_OPT_TM: [60, this.sfvService.tmOptValidator()],
+      PRIMER_MAX_TM: [63, this.sfvService.tmMaxValidator()],
+      PRIMER_PAIR_MAX_DIFF_TM: [3, this.sfvService.tmDiffValidator()],
+      PRIMER_SALT_CORRECTIONS: [1, this.sfvService.saltCorrectionValidator()],
+      PRIMER_TM_FORMULA: [1, this.sfvService.thermoParamValidator()],
     });
 
     this.sfvService.settingForm = this.settingForm;
@@ -70,10 +70,10 @@ export class SequenceSettingsComponent implements OnInit {
 
 
   getFormValidationErrors() {
-  Object.keys(this.settingForm.controls).forEach(key => {
+    Object.keys(this.settingForm.controls).forEach(key => {
 
-  const controlErrors: ValidationErrors = this.settingForm.get(key).errors;
-  if (controlErrors != null) {
+      const controlErrors: ValidationErrors = this.settingForm.get(key).errors;
+      if (controlErrors != null) {
         Object.keys(controlErrors).forEach(keyError => {
           //console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
         });
@@ -95,24 +95,7 @@ export class SequenceSettingsComponent implements OnInit {
   loadFileContent(e){
     let fileContent = this.fileReader.result;
 
-    let sequenceData = "";
-    let splitted = fileContent.split('\n');
-    let readSeqNum = 0;
-    for(let i = 0; i < splitted.length; i++){
-      if(splitted[i].includes('>')){
-        readSeqNum++;
-        i++;
-      }
-      if(readSeqNum == 1){
-        sequenceData += splitted[i];
-      }
-      if(readSeqNum > 1){
-        break;
-      }
-    }
-    console.log(sequenceData)
-
-    this.settingForm.patchValue({SEQUENCE_TEMPLATE_INPUT: sequenceData});
+    this.settingForm.patchValue({SEQUENCE_TEMPLATE_INPUT: fileContent});
   }
 
 }
