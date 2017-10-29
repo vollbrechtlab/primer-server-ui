@@ -44,10 +44,11 @@ export class SettingFormValidationService {
         } 
       }
       if(!isThisBaseOk) {
-        return {'invalidSequence': {
-                  'invalidPos': i, 
-                  'invalidCode': sequence[i]
-               }};
+        return {
+          'invalidSequence': {
+          'invalidPos': i, 
+          'invalidCode': sequence[i]
+        }};
       }
     }
     return null;
@@ -88,20 +89,23 @@ export class SettingFormValidationService {
       }
       if(control.value == ''){
         // empty
-        this.p3Service.params['SEQUENCE_TEMPLATE']['value'] = '';
+        this.p3Service.p3Input.SEQUENCE_TEMPLATE = '';
         return null;
       }
       
       var sequence = this.fastaCleaner(control.value);
-      //console.log(sequence);
-
-      sequence = control.value.replace(/\n/g, '');
-      sequence = control.value.replace(/\s/g, '');
       
+
+      sequence = sequence.replace(/\n/g, '');
+      sequence = sequence.replace(/\s/g, '');
+      
+      console.log(sequence);
+
       // check if the sequence is ok
       let message = this.checkNucleotideSequence(sequence, this.sequenceTemplateCodes);
+      console.log(message)
       if(message != null){
-        this.p3Service.params['SEQUENCE_TEMPLATE']['value'] = sequence;
+        this.p3Service.p3Input.SEQUENCE_TEMPLATE = sequence;
         return message;
       }
 
@@ -279,8 +283,8 @@ export class SettingFormValidationService {
                            sequence.substr(start, length) + "]" + 
                            sequence.substr(start+length);
               } else {
-                sequence = sequence.substr(0, start) + "<" + 
-                           sequence.substr(start, length) + ">" + 
+                sequence = sequence.substr(0, start) + "(" + 
+                           sequence.substr(start, length) + ")" + 
                            sequence.substr(start+length);
               }
 
