@@ -206,42 +206,61 @@ export class ChartDrawer{
   drawPrimerChart(){
     for(var i = 0; i < this.resultData.result.pairs.length; i++)
     {
-      // drawing left primer
       var pair = this.resultData.result.pairs[i];
-      //console.log(i)
-      //console.log(pair.PRIMER_LEFT.START, pair.PRIMER_LEFT.LENGTH);
-      var startL = pair.PRIMER_LEFT.START/this.max*this.primerChartW+this.primerChartX;
-      var lengthL = pair.PRIMER_LEFT.LENGTH/this.max*this.primerChartW;
-      var primerLBar = this.paper.rect(startL, this.primerChartY+i*20, lengthL, this.primerH);
-      primerLBar.attr({fill: 'red', stroke: '#ddd', 'stroke-width': 1});
-      primerLBar.attr({
-        cursor: 'pointer'
-      });
-      primerLBar.node.id = "l "+i;
 
-      // setting mouse down event for the left primer
-      var that = this;
-      primerLBar.mousedown(function(e){
-        that.goToPrimerDisc(e.target.id);
-        this.primerDiscFunc;
-      });
+      // drawing left primer
+      if (pair.PRIMER_LEFT != undefined){
+        var startL = pair.PRIMER_LEFT.START/this.max*this.primerChartW+this.primerChartX;
+        var lengthL = pair.PRIMER_LEFT.LENGTH/this.max*this.primerChartW;
+        var primerLBar = this.paper.rect(startL, this.primerChartY+i*20, lengthL, this.primerH);
+        primerLBar.attr({fill: 'red', stroke: '#ddd', 'stroke-width': 1});
+        primerLBar.attr({
+          cursor: 'pointer'
+        });
+        primerLBar.node.id = "l "+i;
+
+        // setting mouse down event for the left primer
+        var that = this;
+        primerLBar.mousedown(function(e){
+          that.goToPrimerDisc(e.target.id);
+          this.primerDiscFunc;
+        });
+      }
+
 
       // drawing right primer
-      var pair = this.resultData.result.pairs[i];
-      //console.log(pair.PRIMER_RIGHT.START, pair.PRIMER_RIGHT.LENGTH);
-      var startR = pair.PRIMER_RIGHT.START/this.max*this.primerChartW+this.primerChartX;
-      var lengthR = pair.PRIMER_RIGHT.LENGTH/this.max*this.primerChartW;
-      var primerRBar = this.paper.rect(startR, this.primerChartY+i*20, lengthR, this.primerH);
-      primerRBar.attr({fill: 'blue', stroke: '#ddd', 'stroke-width': 1});
-      primerRBar.attr({
-        cursor: 'pointer'
-      });
-      primerRBar.node.id = "r "+i;
+      if (pair.PRIMER_RIGHT != undefined){
+        var startR = pair.PRIMER_RIGHT.START/this.max*this.primerChartW+this.primerChartX;
+        var lengthR = pair.PRIMER_RIGHT.LENGTH/this.max*this.primerChartW;
+        var primerRBar = this.paper.rect(startR, this.primerChartY+i*20, lengthR, this.primerH);
+        primerRBar.attr({fill: 'blue', stroke: '#ddd', 'stroke-width': 1});
+        primerRBar.attr({
+          cursor: 'pointer'
+        });
+        primerRBar.node.id = "r "+i;
 
-      // setting mouse down event for the left primer
-      primerRBar.mousedown(function(e){
-        that.goToPrimerDisc(e.target.id);
-      });
+        // setting mouse down event for the left primer
+        primerRBar.mousedown(function(e){
+          that.goToPrimerDisc(e.target.id);
+        });
+      }
+
+      // drawing internal oligo
+      if (pair.PRIMER_INTERNAL != undefined){
+        var startR = pair.PRIMER_INTERNAL.START/this.max*this.primerChartW+this.primerChartX;
+        var lengthR = pair.PRIMER_INTERNAL.LENGTH/this.max*this.primerChartW;
+        var primerRBar = this.paper.rect(startR, this.primerChartY+i*20, lengthR, this.primerH);
+        primerRBar.attr({fill: 'green', stroke: '#ddd', 'stroke-width': 1});
+        primerRBar.attr({
+          cursor: 'pointer'
+        });
+        primerRBar.node.id = "i "+i;
+
+        // setting mouse down event for the left primer
+        primerRBar.mousedown(function(e){
+          that.goToPrimerDisc(e.target.id);
+        });
+      }
     }
   }
 

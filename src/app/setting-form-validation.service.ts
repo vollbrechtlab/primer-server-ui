@@ -44,10 +44,11 @@ export class SettingFormValidationService {
         } 
       }
       if(!isThisBaseOk) {
-        return {'invalidSequence': {
-                  'invalidPos': i, 
-                  'invalidCode': sequence[i]
-               }};
+        return {
+          'invalidSequence': {
+          'invalidPos': i, 
+          'invalidCode': sequence[i]
+        }};
       }
     }
     return null;
@@ -88,20 +89,20 @@ export class SettingFormValidationService {
       }
       if(control.value == ''){
         // empty
-        this.p3Service.params['SEQUENCE_TEMPLATE']['value'] = '';
+        this.p3Service.p3Input.SEQUENCE_TEMPLATE = '';
         return null;
       }
       
       var sequence = this.fastaCleaner(control.value);
-      //console.log(sequence);
-
-      sequence = control.value.replace(/\n/g, '');
-      sequence = control.value.replace(/\s/g, '');
       
+
+      sequence = sequence.replace(/\n/g, '');
+      sequence = sequence.replace(/\s/g, '');
+     
       // check if the sequence is ok
       let message = this.checkNucleotideSequence(sequence, this.sequenceTemplateCodes);
       if(message != null){
-        this.p3Service.params['SEQUENCE_TEMPLATE']['value'] = sequence;
+        this.p3Service.p3Input.SEQUENCE_TEMPLATE = sequence;
         return message;
       }
 
@@ -201,6 +202,34 @@ export class SettingFormValidationService {
     };
   }
 
+  pickLeftPrimerValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
+      this.p3Service.p3Input.PRIMER_PICK_LEFT_PRIMER = control.value;
+      return null;
+    };
+  }
+  pickInternalOligoValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
+      this.p3Service.p3Input.PRIMER_PICK_INTERNAL_OLIGO = control.value;
+      return null;
+    };
+  }
+  pickRightPrimerValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
+      this.p3Service.p3Input.PRIMER_PICK_RIGHT_PRIMER = control.value;
+      return null;
+    };
+  }
+
   nucleotideSequenceValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
       if(this.settingForm == null){
@@ -279,8 +308,8 @@ export class SettingFormValidationService {
                            sequence.substr(start, length) + "]" + 
                            sequence.substr(start+length);
               } else {
-                sequence = sequence.substr(0, start) + "<" + 
-                           sequence.substr(start, length) + ">" + 
+                sequence = sequence.substr(0, start) + "(" + 
+                           sequence.substr(start, length) + ")" + 
                            sequence.substr(start+length);
               }
 
@@ -343,11 +372,62 @@ export class SettingFormValidationService {
     };
   }
 
-  maxTmValidator(): ValidatorFn {
+  tmMinValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
       if(this.settingForm == null){
         return null;
       }
+      this.p3Service.p3Input.PRIMER_MIN_TM = control.value;      
+      return null;
+    };
+  }
+
+  tmOptValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
+      this.p3Service.p3Input.PRIMER_OPT_TM = control.value;     
+      return null;
+    };
+  }
+
+  tmMaxValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
+      this.p3Service.p3Input.PRIMER_MAX_TM = control.value;     
+      return null;
+    };
+  }
+
+  tmDiffValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
+      this.p3Service.p3Input.PRIMER_PAIR_MAX_DIFF_TM = control.value;
+      return null;
+    };
+  }
+
+  saltCorrectionValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
+      this.p3Service.p3Input.PRIMER_SALT_CORRECTIONS = control.value;
+      return null;
+    };
+  }
+
+   thermoParamValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if(this.settingForm == null){
+        return null;
+      }
+      this.p3Service.p3Input.PRIMER_TM_FORMULA = control.value;
       return null;
     };
   }
