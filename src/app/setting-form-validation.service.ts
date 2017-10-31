@@ -24,6 +24,8 @@ export class SettingFormValidationService {
 
   settingForm: FormGroup;
 
+  status:string = 'ok';
+
   constructor(private p3Service: P3Service) { }
 
   /**
@@ -33,6 +35,9 @@ export class SettingFormValidationService {
    * @returns {?Object}
    */
   checkNucleotideSequence(sequence: string, acceptedBaseCodes): any {
+    if(sequence == null){
+      return null;
+    }
     for(var i = 0; i < sequence.length; i++)
     {
       let isThisBaseOk = false;
@@ -95,9 +100,14 @@ export class SettingFormValidationService {
       
       var sequence = this.fastaCleaner(control.value);
       
-
       sequence = sequence.replace(/\n/g, '');
       sequence = sequence.replace(/\s/g, '');
+
+      if(sequence.length > 5000){
+        return {
+          'tooLongSequence': true
+        };
+      }
      
       // check if the sequence is ok
       let message = this.checkNucleotideSequence(sequence, this.sequenceTemplateCodes);
@@ -208,6 +218,10 @@ export class SettingFormValidationService {
         return null;
       }
       this.p3Service.p3Input.PRIMER_PICK_LEFT_PRIMER = control.value;
+      console.log(control.value)
+      if(control.value){
+        this.settingForm.get('SEQUENCE_PRIMER').setValue(null);
+      }
       return null;
     };
   }
@@ -230,12 +244,16 @@ export class SettingFormValidationService {
     };
   }
 
-  nucleotideSequenceValidator(): ValidatorFn {
+  nucleotideSequenceValidator(name: string): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
       if(this.settingForm == null){
         return null;
       }
       let message = this.checkNucleotideSequence(control.value, this.normalBaseCodes);
+      // no error
+      if(message == null){
+        this.p3Service.p3Input[name] = control.value;
+      }
       return message;
     };
   }

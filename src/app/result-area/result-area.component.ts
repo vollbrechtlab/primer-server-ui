@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { Http } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 
+import { SettingFormValidationService } from '../setting-form-validation.service';
 import { P3Service } from '../p3.service';
 import { PrimerServerService } from '../primer-server.service';
 import { ChartDrawer } from '../chart-drawer';
@@ -21,7 +22,8 @@ export class ResultAreaComponent implements OnInit {
   constructor(
     private p3Sevice: P3Service,
     private primerServerService: PrimerServerService,
-    private elRef:ElementRef
+    private elRef:ElementRef,
+    private sfvService:SettingFormValidationService
   ) { 
     
   }

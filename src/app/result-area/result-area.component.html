@@ -1,7 +1,10 @@
 <table class="settings_table">
   <tr>
-    <td class="submit_button">
+    <td *ngIf="sfvService.status == 'ok'" class="submit_button">
       <button md-raised-button (click)="submit()">Submit</button>
+    </td>
+    <td *ngIf="sfvService.status != 'ok'" class="submit_button">
+      <button md-raised-button disabled (click)="submit()">Submit</button>
     </td>
     <td class="reset_button">
       <button md-raised-button (click)="reset()">Reset</button>  

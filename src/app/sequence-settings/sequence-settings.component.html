@@ -21,8 +21,12 @@
     <md-error *ngIf="settingForm.get('SEQUENCE_TEMPLATE_INPUT').hasError('invalidRegions')">
       Input the correct regions.
     </md-error>
+    <md-error *ngIf="settingForm.get('SEQUENCE_TEMPLATE_INPUT').hasError('tooLongSequence')">
+      The sequence has to be less than 5000 base pairs.
+    </md-error>
   </md-input-container>
 
+  <br>
   <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".fa, .fasta">
 
 
@@ -58,7 +62,7 @@
       <td>
         <div class="pick-option-container">
           <div>
-            <md-checkbox formControlName="PRIMER_PICK_INTERNAL_OLIGO" align="end">Pick Internal Oligo</md-checkbox>
+            <md-checkbox formControlName="PRIMER_PICK_INTERNAL_OLIGO" align="end">Pick Internal Oligo (optional)</md-checkbox>
           </div> &nbsp;
           <div *ngIf="!settingForm.get('PRIMER_PICK_INTERNAL_OLIGO').value">
             <md-input-container class="pick-condition-input">
