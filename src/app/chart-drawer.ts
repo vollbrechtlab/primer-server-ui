@@ -204,16 +204,18 @@ export class ChartDrawer{
 
   // draw the primer chart
   drawPrimerChart(){
-    for(var i = 0; i < this.resultData.result.pairs.length; i++)
+    for(let i = 0; i < this.resultData.result.pairs.length; i++)
     {
-      var pair = this.resultData.result.pairs[i];
+      let pair = this.resultData.result.pairs[i];
 
       // drawing left primer
       if (pair.PRIMER_LEFT != undefined){
-        var startL = pair.PRIMER_LEFT.START/this.max*this.primerChartW+this.primerChartX;
-        var lengthL = pair.PRIMER_LEFT.LENGTH/this.max*this.primerChartW;
-        var primerLBar = this.paper.rect(startL, this.primerChartY+i*20, lengthL, this.primerH);
-        primerLBar.attr({fill: 'red', stroke: '#ddd', 'stroke-width': 1});
+        let start = pair.PRIMER_LEFT.START/this.max*this.primerChartW+this.primerChartX;
+        let length = pair.PRIMER_LEFT.LENGTH/this.max*this.primerChartW;
+        //var primerLBar = this.paper.rect(startL, this.primerChartY+i*20, lengthL, this.primerH);
+        //let primerLBar = this.paper.path("M10,10L50,50M50,10L10,50");
+        let primerLBar = this.paper.path("M"+start+","+(this.primerChartY+i*20)+"L"+(start+length)+","+(this.primerChartY+i*20));
+        primerLBar.attr({stroke: 'red', 'stroke-width': 2, 'arrow-end': 'classic-wide-long'});
         primerLBar.attr({
           cursor: 'pointer'
         });
@@ -230,10 +232,10 @@ export class ChartDrawer{
 
       // drawing right primer
       if (pair.PRIMER_RIGHT != undefined){
-        var startR = pair.PRIMER_RIGHT.START/this.max*this.primerChartW+this.primerChartX;
-        var lengthR = pair.PRIMER_RIGHT.LENGTH/this.max*this.primerChartW;
-        var primerRBar = this.paper.rect(startR, this.primerChartY+i*20, lengthR, this.primerH);
-        primerRBar.attr({fill: 'blue', stroke: '#ddd', 'stroke-width': 1});
+        var start = pair.PRIMER_RIGHT.START/this.max*this.primerChartW+this.primerChartX;
+        var length = pair.PRIMER_RIGHT.LENGTH/this.max*this.primerChartW;
+        let primerRBar = this.paper.path("M"+start+","+(this.primerChartY+i*20)+"L"+(start+length)+","+(this.primerChartY+i*20));
+        primerRBar.attr({stroke: 'blue', 'stroke-width': 2, 'arrow-start': 'classic-wide-long'});
         primerRBar.attr({
           cursor: 'pointer'
         });
@@ -247,17 +249,17 @@ export class ChartDrawer{
 
       // drawing internal oligo
       if (pair.PRIMER_INTERNAL != undefined){
-        var startR = pair.PRIMER_INTERNAL.START/this.max*this.primerChartW+this.primerChartX;
-        var lengthR = pair.PRIMER_INTERNAL.LENGTH/this.max*this.primerChartW;
-        var primerRBar = this.paper.rect(startR, this.primerChartY+i*20, lengthR, this.primerH);
-        primerRBar.attr({fill: 'green', stroke: '#ddd', 'stroke-width': 1});
-        primerRBar.attr({
+        var start = pair.PRIMER_INTERNAL.START/this.max*this.primerChartW+this.primerChartX;
+        var length = pair.PRIMER_INTERNAL.LENGTH/this.max*this.primerChartW;
+        let bar = this.paper.path("M"+start+","+(this.primerChartY+i*20)+"L"+(start+length)+","+(this.primerChartY+i*20));
+        bar.attr({stroke: 'green', 'stroke-width': 2});
+        bar.attr({
           cursor: 'pointer'
         });
-        primerRBar.node.id = "i "+i;
+        bar.node.id = "i "+i;
 
         // setting mouse down event for the left primer
-        primerRBar.mousedown(function(e){
+        bar.mousedown(function(e){
           that.goToPrimerDisc(e.target.id);
         });
       }

@@ -13,7 +13,12 @@
 </table>
 
 <div *ngIf="status">
-  {{ status }}
+  <div *ngIf="status == 'ok'">
+    The result is successfully calculated.
+  </div>
+  <div *ngIf="status != 'ok'">
+    Error occured. Please check your input.
+  </div>
 </div>
 
 <br><br>
