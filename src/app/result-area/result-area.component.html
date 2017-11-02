@@ -14,7 +14,7 @@
 
 <div *ngIf="status">
   <div *ngIf="status == 'ok'">
-    The result is successfully calculated.
+    The result was successfully calculated.
   </div>
   <div *ngIf="status != 'ok'">
     Error occured. Please check your input.
@@ -27,10 +27,11 @@
 <div *ngIf="taskResult">
 
   <div *ngFor="let pair of taskResult.result.pairs; let i = index" [attr.data-index]="i">
+    <!--
     <a [attr.name]="i"><br><b>Pair {{i+1}}</b>:<br></a>
-    Product Size: {{pair.PRODUCT_SIZE}} &nbsp; Any: {{pair.COMPL_ANY_TH}} &nbsp;End: {{pair.COMPL_END_TH}}<br>
+    Product Size: {{pair.PRODUCT_SIZE}} &nbsp; Any: {{pair.COMPL_ANY_TH}} &nbsp; End: {{pair.COMPL_END_TH}}<br>
     <div *ngIf="pair.PRIMER_LEFT">
-      <font color="red">Left Primer :</font> <br>
+      <font color="red">Left Primer: </font> <br>
       Sequence: {{pair.PRIMER_LEFT.SEQUENCE}}<br>
       Start: {{pair.PRIMER_LEFT.START}} &nbsp; Length: {{pair.PRIMER_LEFT.LENGTH}} &nbsp; Tm: {{pair.PRIMER_LEFT.TM}} <br>
       GC: {{pair.PRIMER_LEFT.GC_PERCENT}} &nbsp; Any: {{pair.PRIMER_LEFT.SELF_ANY_TH}} &nbsp; END: {{pair.PRIMER_LEFT.SELF_END_TH}} <br>
@@ -48,5 +49,90 @@
       GC: {{pair.PRIMER_INTERNAL.GC_PERCENT}} &nbsp; Any: {{pair.PRIMER_INTERNAL.SELF_ANY_TH}} &nbsp; END: {{pair.PRIMER_INTERNAL.SELF_END_TH}}  
     </div>
   </div>
+-->
 
+  <a [attr.name]="i"><br><b>Pair {{i+1}}</b>:<br></a>
+  <table class="tg">
+    <tr>
+      <th *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">Product Size</th>
+      <th *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">Any th</th>
+      <th *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">End th</th>
+    </tr>
+    <tr>
+      <td *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">{{pair.PRODUCT_SIZE.toFixed(2)}}</td>
+      <td *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">{{pair.COMPL_ANY_TH.toFixed(2)}}</td>
+      <td *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">{{pair.COMPL_END_TH.toFixed(2)}}</td>
+    </tr>
+  </table>
+  <table class="tg">
+    <tr>
+      <th class="tg-yw4l"></th>
+      <th *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">Left Primer</th>
+      <th *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">Right Primer</th>
+      <th *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">Internal Oligo</th>
+    </tr>
+    <tr>
+      <td class="tg-yw4l">Sequence</td>
+      <td *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">{{pair.PRIMER_LEFT.SEQUENCE}}</td>
+      <td *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">{{pair.PRIMER_RIGHT.SEQUENCE}}</td>
+      <td *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">{{pair.PRIMER_INTERNAL.SEQUENCE}}</td>
+    </tr>
+    <tr>
+      <td class="tg-yw4l">Start</td>
+      <td *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">{{pair.PRIMER_LEFT.START}}</td>
+      <td *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">{{pair.PRIMER_RIGHT.START}}</td>
+      <td *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">{{pair.PRIMER_INTERNAL.START}}</td>
+    </tr>
+    <tr>
+      <td class="tg-yw4l">Length</td>
+      <td *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">{{pair.PRIMER_LEFT.LENGTH}}</td>
+      <td *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">{{pair.PRIMER_RIGHT.LENGTH}}</td>
+      <td *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">{{pair.PRIMER_INTERNAL.LENGTH}}</td>
+    </tr>
+    <tr>
+      <td class="tg-yw4l">Tm</td>
+      <td *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">{{pair.PRIMER_LEFT.TM.toFixed(2)}}</td>
+      <td *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">{{pair.PRIMER_RIGHT.TM.toFixed(2)}}</td>
+      <td *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">{{pair.PRIMER_INTERNAL.TM.toFixed(2)}}</td>
+    </tr>
+    <tr>
+      <td class="tg-yw4l">GC</td>
+      <td *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">{{pair.PRIMER_LEFT.GC_PERCENT.toFixed(2)}}</td>
+      <td *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">{{pair.PRIMER_RIGHT.GC_PERCENT.toFixed(2)}}</td>
+      <td *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">{{pair.PRIMER_INTERNAL.GC_PERCENT.toFixed(2)}}</td>
+    </tr>
+    <tr>
+      <td class="tg-yw4l">Any th</td>
+      <td *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">{{pair.PRIMER_LEFT.SELF_ANY_TH.toFixed(2)}}</td>
+      <td *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">{{pair.PRIMER_RIGHT.SELF_ANY_TH.toFixed(2)}}</td>
+      <td *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">{{pair.PRIMER_INTERNAL.SELF_ANY_TH.toFixed(2)}}</td>
+    </tr>
+    <tr>
+      <td class="tg-yw4l">End th</td>
+      <td *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">{{pair.PRIMER_LEFT.SELF_END_TH.toFixed(2)}}</td>
+      <td *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">{{pair.PRIMER_RIGHT.SELF_END_TH.toFixed(2)}}</td>
+      <td *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">{{pair.PRIMER_INTERNAL.SELF_END_TH.toFixed(2)}}</td>
+    </tr>
+  </table>
 </div>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+
+<!--
+      betterResult['pairs'][i]['PRIMER_LEFT'] = {}
+    betterResult['pairs'][i]['PRIMER_LEFT']['START'] = result['PRIMER_LEFT_{}'.format(i)][0]
+    betterResult['pairs'][i]['PRIMER_LEFT']['LENGTH'] = result['PRIMER_LEFT_{}'.format(i)][1]
+    betterResult['pairs'][i]['PRIMER_LEFT']['END_STABILITY'] = result['PRIMER_LEFT_{}_END_STABILITY'.format(i)]
+    betterResult['pairs'][i]['PRIMER_LEFT']['GC_PERCENT'] = result['PRIMER_LEFT_{}_GC_PERCENT'.format(i)]
+    betterResult['pairs'][i]['PRIMER_LEFT']['HAIRPIN_TH'] = result['PRIMER_LEFT_{}_HAIRPIN_TH'.format(i)]
+    betterResult['pairs'][i]['PRIMER_LEFT']['PENALTY'] = result['PRIMER_LEFT_{}_PENALTY'.format(i)]
+    betterResult['pairs'][i]['PRIMER_LEFT']['SELF_ANY_TH'] = result['PRIMER_LEFT_{}_SELF_ANY_TH'.format(i)]
+    betterResult['pairs'][i]['PRIMER_LEFT']['SELF_END_TH'] = result['PRIMER_LEFT_{}_SELF_END_TH'.format(i)]
+    betterResult['pairs'][i]['PRIMER_LEFT']['SEQUENCE'] = result['PRIMER_LEFT_{}_SEQUENCE'.format(i)]
+    betterResult['pairs'][i]['PRIMER_LEFT']['TM'] = result['PRIMER_LEFT_{}_TM'.format(i)]
+    -->
