@@ -215,7 +215,8 @@ export class ChartDrawer{
         //var primerLBar = this.paper.rect(startL, this.primerChartY+i*20, lengthL, this.primerH);
         //let primerLBar = this.paper.path("M10,10L50,50M50,10L10,50");
         let primerLBar = this.paper.path("M"+start+","+(this.primerChartY+i*20)+"L"+(start+length)+","+(this.primerChartY+i*20));
-        primerLBar.attr({stroke: 'red', 'stroke-width': 2, 'arrow-end': 'classic-wide-long'});
+        //console.log("M"+Math.round(start)+","+Math.round(this.primerChartY+i*20)+"L"+Math.round(start+length)+","+Math.round(this.primerChartY+i*20));
+        primerLBar.attr({stroke: 'red', 'stroke-width': 2, 'arrow-end': 'classic-midium-short'});
         primerLBar.attr({
           cursor: 'pointer'
         });
@@ -235,7 +236,7 @@ export class ChartDrawer{
         var start = pair.PRIMER_RIGHT.START/this.max*this.primerChartW+this.primerChartX;
         var length = pair.PRIMER_RIGHT.LENGTH/this.max*this.primerChartW;
         let primerRBar = this.paper.path("M"+start+","+(this.primerChartY+i*20)+"L"+(start+length)+","+(this.primerChartY+i*20));
-        primerRBar.attr({stroke: 'blue', 'stroke-width': 2, 'arrow-start': 'classic-wide-long'});
+        primerRBar.attr({stroke: 'blue', 'stroke-width': 2, 'arrow-start': 'classic-midium-short'});
         primerRBar.attr({
           cursor: 'pointer'
         });

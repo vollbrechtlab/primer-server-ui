@@ -218,7 +218,6 @@ export class SettingFormValidationService {
         return null;
       }
       this.p3Service.p3Input.PRIMER_PICK_LEFT_PRIMER = control.value;
-      console.log(control.value)
       if(control.value){
         this.settingForm.get('SEQUENCE_PRIMER').setValue(null);
       }
@@ -231,6 +230,9 @@ export class SettingFormValidationService {
         return null;
       }
       this.p3Service.p3Input.PRIMER_PICK_INTERNAL_OLIGO = control.value;
+      if(control.value){
+        this.settingForm.get('SEQUENCE_INTERNAL_OLIGO').setValue(null);
+      }
       return null;
     };
   }
@@ -240,6 +242,9 @@ export class SettingFormValidationService {
         return null;
       }
       this.p3Service.p3Input.PRIMER_PICK_RIGHT_PRIMER = control.value;
+      if(control.value){
+        this.settingForm.get('SEQUENCE_PRIMER_REVCOMP').setValue(null);
+      }
       return null;
     };
   }
