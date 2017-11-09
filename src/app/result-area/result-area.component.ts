@@ -31,7 +31,7 @@ export class ResultAreaComponent implements OnInit {
   ngOnInit() {
     this.chartDrawer = new ChartDrawer('canvasc',500,200);
     
-    this.testSubmit();
+    //this.testSubmit();
 
   }
 
