@@ -23,7 +23,7 @@ export class ResultAreaComponent implements OnInit {
     private p3Sevice: P3Service,
     private primerServerService: PrimerServerService,
     private elRef:ElementRef,
-    private sfvService:SettingFormValidationService
+    public sfvService:SettingFormValidationService
   ) { 
     
   }
