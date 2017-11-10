@@ -1,13 +1,16 @@
 <h3>Additional Parameters</h3>
 
-<p-autoComplete [(ngModel)]="selectedParams" 
-                [suggestions]="filteredParamsMultiple" 
-                (completeMethod)="filterParamMultiple($event)" 
-                [minLength]="1" placeholder="Parameters" 
-                field="name" 
-                [multiple]="true" 
-                styleClass="autocomp_input">
+<div class="ui-fluid">
+<p-autoComplete 
+  [(ngModel)]="selectedParams" 
+  [suggestions]="filteredParamsMultiple" 
+  (completeMethod)="filterParamMultiple($event)" 
+  styleClass="autocomp_input"
+  [minLength]="1" placeholder="Parameters" 
+  field="name" 
+  [multiple]="true">
 </p-autoComplete>
+</div>
 
 <table class="param_table">
   <tr *ngFor="let p of selectedParams">
