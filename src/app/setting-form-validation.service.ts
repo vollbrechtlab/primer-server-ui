@@ -371,9 +371,12 @@ export class SettingFormValidationService {
         return null;
       }
       if( control.value < 0 || 
-          control.value > this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]){
+          control.value > this.settingForm.get('PRIMER_PRODUCT_SIZE_MAX').value){
+        control.value < this.settingForm.get('PRIMER_PRODUCT_SIZE_MAX').setErrors({'invalidMax': true});
+      this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] = control.value;
         return {'invalidMin': true};
       }
+      control.value < this.settingForm.get('PRIMER_PRODUCT_SIZE_MAX').setErrors(null);
       this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] = control.value;
       return null;
     };
@@ -387,9 +390,12 @@ export class SettingFormValidationService {
       if(this.settingForm == null){
         return null;
       }
-      if(control.value < this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0]){
+      if(control.value < this.settingForm.get('PRIMER_PRODUCT_SIZE_MIN').value){
+        control.value < this.settingForm.get('PRIMER_PRODUCT_SIZE_MIN').setErrors({'invalidMin': true});
+        this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = control.value;
         return {'invalidMax': true};
-      }
+      } 
+      control.value < this.settingForm.get('PRIMER_PRODUCT_SIZE_MIN').setErrors(null);
       this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = control.value;
       return null;
     };

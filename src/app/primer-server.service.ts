@@ -9,6 +9,7 @@ export class PrimerServerService {
     private http: Http
   ) {}
 
+  // recursiely remove keys with null
   cleanObj(obj){
     Object.keys(obj).forEach(key => {
       if (obj[key] && typeof obj[key] === 'object') this.cleanObj(obj[key]);
@@ -17,6 +18,7 @@ export class PrimerServerService {
     return obj;
   }
 
+  // add task to the server
   addTask(task){
     task = this.cleanObj(task);
     console.log('task', task);
@@ -24,6 +26,7 @@ export class PrimerServerService {
                     .map((res:Response) => res.json());
   }
 
+  // get result from the server
   getResult(url: string) {
     return this.http.get(url)
                     .map((res:Response) => res.json());
