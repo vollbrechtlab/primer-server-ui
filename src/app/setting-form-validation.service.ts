@@ -319,6 +319,16 @@ export class SettingFormValidationService {
       if(message === null){
         // update the sequence template input
         if(arr.length > 0){
+
+          // check if Product size max is larger than sum of target length
+          let sumTargetLength = 0;
+          for(let i = 0; i < arr.length; i++){
+            sumTargetLength += arr[i][1];
+          }
+          if(sumTargetLength > this.p3Service.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]){
+            console.log("invalid")
+            return {"invalidLength":sumTargetLength};
+          }
           
           try{
             let numInserted = 0;

@@ -147,6 +147,9 @@
           <md-error *ngIf="settingForm.get('SEQUENCE_TARGET').hasError('invalidIntervalList')">
             Invalid targets
           </md-error>  
+          <md-error *ngIf="settingForm.get('SEQUENCE_TARGET').hasError('invalidLength')">
+            The sum of target length ({{settingForm.get('SEQUENCE_TARGET').getError('invalidLength')}}) cannot be larger than the product max
+          </md-error>  
         </md-input-container>
       </td>
     </tr>
