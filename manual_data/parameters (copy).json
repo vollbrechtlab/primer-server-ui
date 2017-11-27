@@ -21,7 +21,7 @@
     "type": "boolean"
   },
   "PRIMER_FIRST_BASE_INDEX": {
-    "default_value": 1,
+    "default_value": 0,
     "description": "This parameter is the index of the first base in the input\nsequence.  For input and output using 1-based indexing (such as\nthat used in GenBank and to which many users are accustomed) set\nthis parameter to 1.  For input and output using 0-based indexing\nset this parameter to 0.  (This parameter also affects the\nindexes in the contents of the files produced when the primer\nfile flag is set.)",
     "form_type": "input_number",
     "setting_type": "additional",
@@ -784,7 +784,7 @@
     "type": "float"
   },
   "PRIMER_PRODUCT_SIZE_RANGE": {
-    "default_value": "150-250 100-300 301-400 401-500 501-600 601-700 701-850 851-1000",
+    "default_value": "100-300",
     "description": "The associated values specify the lengths of the product that the\nuser wants the primers to create, and is a space separated list\nof elements of the form<x>-<y>\nwhere an <x>-<y> pair is a legal range of lengths for the\nproduct.  For example, if one wants PCR products to be between\n100 to 150 bases (inclusive) then one would set this parameter to\n100-150.  If one desires PCR products in either the range from\n100 to 150 bases or in the range from 200 to 250 bases then one\nwould set this parameter to 100-150 200-250.\n\nPrimer3 favors product-size ranges to the left side of the parameter string.\nPrimer3 will return legal primers pairs in the first range\nregardless the value of the objective function for pairs in subsequent ranges.\n\nOnly if there are an insufficient number of primers in the first\nrange will primer3 return primers in a subsequent range.\n\nFor those with primarily a computational background,\nthe PCR product size is the size (in base pairs) \nof the DNA fragment that would be produced by the\nPCR reaction on the given sequence template.  This\nwould, of course, include the primers themselves.",
     "form_type": "input_text",
     "setting_type": "basic",
@@ -805,7 +805,7 @@
     "type": "int"
   },
   "PRIMER_SALT_CORRECTIONS": {
-    "default_value": null,
+    "default_value": 1,
     "description": "Specifies the salt correction formula for the melting temperature\ncalculation.  (New in v. 1.1.0, added by Maido Remm and Triinu\nKoressaar)\n\nA value of 0 directs primer3 to use the the salt correction\nformula in the paper [Schildkraut, C, and Lifson, S (1965)\n\"Dependence of the melting temperature of DNA on salt\nconcentration\", Biopolymers 3:195-208 (not available on-line)].\nThis was the formula used in older versions of primer3.\n\n\nA value of 1 (*RECOMMENDED*) directs primer3 to use the salt correction\nformula in the paper [SantaLucia JR (1998) \"A unified view of polymer,\ndumbbell and oligonucleotide DNA nearest-neighbor thermodynamics\",\nProc Natl Acad Sci 95:1460-65\nhttp://dx.doi.org/10.1073/pnas.95.4.1460]\n\n\nA value of 2 directs primer3 to use the salt correction formula\nin the paper [Owczarzy, R., Moreira, B.G., You, Y., Behlke, M.A., and\nWalder, J.A. (2008). Predicting stability of DNA duplexes in solutions\ncontaining magnesium and monovalent cations. Biochemistry 47, 5336-5353\nhttp://dx.doi.org/10.1021/bi702363u] following recommendations in the paper\n[Ahsen, v.N., Wittwer, C.T., and SchÃ¼tz, E. (2010). Monovalent and divalent\nsalt correction algorithms for Tm prediction-recommendations for Primer3\nusage. Brief Bioinform 12, 514 http://dx.doi.org/10.1093/bib/bbq081]. \n\n\nFor all values of PRIMER_SALT_CORRECTIONS,\nPrimer3 also considers the values of the\ntags PRIMER_SALT_DIVALENT, \nPRIMER_INTERNAL_SALT_DIVALENT,\nPRIMER_DNTP_CONC, and\nPRIMER_INTERNAL_DNTP_CONC.\n",
     "form_type": "input_number",
     "setting_type": "basic",
