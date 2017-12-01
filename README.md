@@ -57,4 +57,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## How this UI works
 
-![ui structure](ui-structure.jpg)
+![block diagram](manual_data/block-diagram.png)
