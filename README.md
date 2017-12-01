@@ -57,4 +57,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## How this UI works
 
-![block diagram](manual_data/block-diagram.png)
+![block diagram](https://github.com/takao42/primer3-web-ui/blob/dev3/manual_data/block-diagram.png)
