@@ -18,21 +18,21 @@ let default_params = {
   PRIMER_TM_FORMULA: null, // not written
 
   /* Advanced Parameters */
-  SEQUENCE_INTERNAL_EXCLUDED_REGION: Array<Array<number>>;
-  SEQUENCE_INCLUDED_REGION: Array<Array<number>>;
-  SEQUENCE_FORCE_LEFT_END: number;
-  SEQUENCE_QUALITY: Array<number>;
-  SEQUENCE_FORCE_LEFT_START: number;  
-  SEQUENCE_START_CODON_POSITION: number;
-  SEQUENCE_FORCE_RIGHT_END: number;
-  SEQUENCE_OVERLAP_JUNCTION_LIST: Array<number>;
-  SEQUENCE_FORCE_RIGHT_START: number;
-  SEQUENCE_ID: string;
-  SEQUENCE_PRIMER_PAIR_OK_REGION_LIST: Array<Array<number>>;
-  PRIMER_DNA_CONC: number;
-  PRIMER_MAX_END_GC: number;
-  PRIMER_PAIR_WT_PRODUCT_SIZE_LT: number;
-  PRIMER_DNTP_CONC: number;
+  SEQUENCE_INTERNAL_EXCLUDED_REGION: null,
+  SEQUENCE_INCLUDED_REGION: null,
+  SEQUENCE_FORCE_LEFT_END: null, // not written
+  SEQUENCE_QUALITY: null,
+  SEQUENCE_FORCE_LEFT_START: null, // not written
+  SEQUENCE_START_CODON_POSITION: null, 
+  SEQUENCE_FORCE_RIGHT_END: null, // not written 
+  SEQUENCE_OVERLAP_JUNCTION_LIST: null, // not written
+  SEQUENCE_FORCE_RIGHT_START: null, // not written
+  SEQUENCE_ID: null,
+  SEQUENCE_PRIMER_PAIR_OK_REGION_LIST: null, // not written
+  PRIMER_DNA_CONC: 50.0,
+  PRIMER_MAX_END_GC: null, // not written
+  PRIMER_PAIR_WT_PRODUCT_SIZE_LT: 0.0,
+  PRIMER_DNTP_CONC: 0.0,
   PRIMER_MAX_END_STABILITY: number;
   PRIMER_PAIR_WT_PRODUCT_TM_GT: number;
   PRIMER_EXPLAIN_FLAG: boolean;
