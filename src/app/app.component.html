@@ -1,15 +1,17 @@
-<nav>
-<span class="title">{{title}} <small>{{version}}</small></span>
-</nav>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>{{title}} <small>{{version}}</small></span>
+  </mat-toolbar-row>
+</mat-toolbar>
 
 <br>
-<!-- Sequence Settings -->
-<app-sequence-settings></app-sequence-settings> 
+<!-- Basic Parameter Settings -->
+<app-basic-params></app-basic-params> 
 
 <hr>
 
 <!-- Additional Prameters -->
-<app-additional-param></app-additional-param>
+<app-additional-params></app-additional-params>
 <hr>
 
 <!-- Specificity Checking -->
@@ -18,4 +20,4 @@
 <hr>
 
 <!-- Result container -->
-<app-result-area></app-result-area>
+<app-result></app-result>

@@ -1,56 +1,38 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ChartsModule } from 'ng2-charts';
-
-import { AngularMaterialModule } from './angular-material/angular-material.module';
-import { PrimengModule } from './primeng/primeng.module';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  
 import { AppComponent } from './app.component';
-import { Primer3Service } from './primer3.service';
-import { P3Service } from './p3.service';
-import { DescriptionDialogService } from './description-dialog/description-dialog.service';
-import { SettingFormValidationService } from './setting-form-validation.service';
-import { PrimerServerService } from './primer-server.service';
 
-import { AdditionalParamComponent } from './additional-param/additional-param.component';
-import { SequenceSettingsComponent } from './sequence-settings/sequence-settings.component';
+import { MaterialModule } from './material.module';
+import { BasicParamsComponent } from './basic-params/basic-params.component';
+import { AdditionalParamsComponent } from './additional-params/additional-params.component';
 import { SpecificityCheckingComponent } from './specificity-checking/specificity-checking.component';
-import { ResultAreaComponent } from './result-area/result-area.component';
-
-import { DescriptionDialogComponent } from './description-dialog/description-dialog.component';
+import { ResultComponent } from './result/result.component';
+import { DescriptionDialogService } from './description-dialog/description-dialog.service';
+import { ParamsValidationService } from './params-validation/params-validation.service';
+import { P3DataService } from './p3-data/p3-data.service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdditionalParamComponent,
-    SequenceSettingsComponent,
+    BasicParamsComponent,
+    AdditionalParamsComponent,
     SpecificityCheckingComponent,
-    ResultAreaComponent,
-    DescriptionDialogComponent
+    ResultComponent
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     FormsModule,
-    HttpModule,
-    AngularMaterialModule,
-    PrimengModule,
     ReactiveFormsModule,
-    ChartsModule
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [
-    Primer3Service,
-    P3Service,
     DescriptionDialogService,
-    SettingFormValidationService,
-    PrimerServerService
-  ],
-  entryComponents: [
-    DescriptionDialogComponent
+    ParamsValidationService,
+    P3DataService
   ],
   bootstrap: [AppComponent]
 })

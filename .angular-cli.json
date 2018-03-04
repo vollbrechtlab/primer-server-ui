@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "primer-server"
+    "name": "primer-server-ui"
   },
   "apps": [
     {
@@ -19,14 +19,9 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css",
-      	"../node_modules/font-awesome/css/font-awesome.min.css",
-      	"../node_modules/primeng/resources/primeng.min.css",
-      	"../node_modules/primeng/resources/themes/omega/theme.css"
+        "styles.css"
       ],
-      "scripts": [  
-        "../node_modules/raphael/raphael.min.js"
-      ],
+      "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

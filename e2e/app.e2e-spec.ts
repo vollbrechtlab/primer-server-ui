@@ -1,10 +1,10 @@
-import { PrimerServerPage } from './app.po';
+import { AppPage } from './app.po';
 
-describe('primer-server App', () => {
-  let page: PrimerServerPage;
+describe('primer-server-ui App', () => {
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new PrimerServerPage();
+    page = new AppPage();
   });
 
   it('should display welcome message', () => {
