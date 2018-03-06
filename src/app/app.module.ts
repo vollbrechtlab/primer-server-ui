@@ -9,6 +9,9 @@ import { BasicParamsComponent } from './basic-params/basic-params.component';
 import { AdditionalParamsComponent } from './additional-params/additional-params.component';
 import { SpecificityCheckingComponent } from './specificity-checking/specificity-checking.component';
 import { ResultComponent } from './result/result.component';
+import { DescriptionDialogComponent } from './description-dialog/description-dialog.component';
+
+
 import { DescriptionDialogService } from './description-dialog/description-dialog.service';
 import { ParamsValidationService } from './params-validation/params-validation.service';
 import { P3DataService } from './p3-data/p3-data.service';
@@ -20,7 +23,8 @@ import { P3DataService } from './p3-data/p3-data.service';
     BasicParamsComponent,
     AdditionalParamsComponent,
     SpecificityCheckingComponent,
-    ResultComponent
+    ResultComponent,
+    DescriptionDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +38,7 @@ import { P3DataService } from './p3-data/p3-data.service';
     ParamsValidationService,
     P3DataService
   ],
+  entryComponents: [DescriptionDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
