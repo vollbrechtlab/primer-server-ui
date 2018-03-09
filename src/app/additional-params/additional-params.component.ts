@@ -26,6 +26,7 @@ export class AdditionalParamsComponent implements OnInit {
   filteredOptions: Observable<string[]>;
 
   selectedParams: any[] = [];
+  selectedParamNames: string[] = [];
 
   paramOption: string;
 
@@ -43,17 +44,29 @@ export class AdditionalParamsComponent implements OnInit {
       );
   }
 
-  // filter parameters
+  /**
+   * filter parameters
+   */
   filter(val: string): string[] {
     return this.options.filter(option =>
       option.toLowerCase().indexOf(val.toLowerCase()) === 0);
   }
 
+  /**
+   * add new parameter to the list
+   */
   add(){
-    console.log(this.paramOption);
-    this.selectedParams.push(this.p3Service.params[this.paramOption]);
-    console.log(this.p3Service.params[this.paramOption])
-    this.paramOption = '';
+    let temp = this.p3Service.params[this.paramOption];
+    if(temp == null){
+      console.log("doesnt exist")
+    } else {
+      if(!this.selectedParamNames.includes(this.paramOption)){
+        this.selectedParams.push(temp);
+        this.selectedParamNames.push(this.paramOption);
+        
+      }
+      this.paramOption = '';
+    }
   }
 
 }

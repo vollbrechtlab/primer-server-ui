@@ -109,7 +109,8 @@ for tag in soup.find_all("h3"):
 			if check_basic_param(param_name):
 				setting_type = "basic"
 
-			params[param_name] = { "description":param_description, 
+			params[param_name] = { "name": param_name,
+								   "description":param_description, 
 								   "type":param_type,
 								   "default_value":param_default_val,
 								   "setting_type":setting_type, 
