@@ -1,10 +1,46 @@
+<h3>Additional Parameters</h3>
+
 <form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+  <mat-form-field class="example-full-width" style="width:100%">
+    <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="paramOption">
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
         {{ option }}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
+  <button mat-raised-button (click)="add()">Add</button>
 </form>
+
+<table class="param_table">
+  <tr *ngFor="let p of selectedParams">
+  
+    <!-- Form type is input text or input number -->
+    <td *ngIf="p.form_type == 'input_text' || p.form_type == 'input_number'">
+      <label for="{{p.name}}">
+        {{p.name}} ({{p.type}})
+        <button mat-icon-button (click)="dDialogService.showDescription(p.name)" class="help-button">
+          <mat-icon>help</mat-icon>
+        </button>
+      </label>
+    </td>
+    <!-- Form type is input text -->
+    <td *ngIf="p.form_type == 'input_text'">
+      <input type="text" pInputText placeholder="{{p.default_value}}" id="{{p.name}}" (ngModelChange)="onInputTextChange($event)"> 
+    </td>
+    <!-- Form type is input number -->
+    <td *ngIf="p.form_type == 'input_number'">
+      <input type="number" pInputText placeholder="{{p.default_value}}" id="{{p.name}}" > 
+    </td>
+
+    <!-- Form type is checkbox -->
+    <td title="{{p.description}}" *ngIf="p.form_type == 'checkbox'">
+      <mat-checkbox align="right">{{p.name}}</mat-checkbox>
+      <button mat-icon-button (click)="dDialogService.showDescription(p.name)" class="help-button">
+        <mat-icon>help</mat-icon>
+      </button>
+    </td>
+    <td *ngIf="p.form_type == 'checkbox'"> </td>
+
+  </tr>
+</table>

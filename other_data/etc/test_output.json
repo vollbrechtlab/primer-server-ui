@@ -1,0 +1,152 @@
+{
+    "PRIMER_PAIR_0": {
+        "COMPL_ANY_TH": 1.1607481938415276,
+        "COMPL_END_TH": 0.0,
+        "PENALLTY": 0.8755801138682386,
+        "PRIMER_LEFT": {
+            "END_STABILITY": 5.73,
+            "GC_PERCENT": 66.66666666666667,
+            "HAIRPIN_TH": 0.0,
+            "LENGTH": 18,
+            "PENALTY": 0.5193019490146185,
+            "SELF_ANY_TH": 0.0,
+            "SELF_END_TH": 0.0,
+            "SEQUENCE": "GATGCCATTGTCCCCCGG",
+            "START": 4,
+            "TM": 60.51930194901462
+        },
+        "PRIMER_RIGHT": {
+            "END_STABILITY": 4.46,
+            "GC_PERCENT": 61.111111111111114,
+            "HAIRPIN_TH": 45.08071630659856,
+            "LENGTH": 18,
+            "PENALTY": 0.3562781648536202,
+            "SELF_ANY_TH": 0.0,
+            "SELF_END_TH": 0.0,
+            "SEQUENCE": "TGCAGGGCATTCTGTCCC",
+            "START": 268,
+            "TM": 59.64372183514638
+        },
+        "PRODUCT_SIZE": 265
+    },
+    "PRIMER_PAIR_1": {
+        "COMPL_ANY_TH": 1.1607481938415276,
+        "COMPL_END_TH": 0.0,
+        "PENALLTY": 0.9536180028265449,
+        "PRIMER_LEFT": {
+            "END_STABILITY": 5.73,
+            "GC_PERCENT": 61.111111111111114,
+            "HAIRPIN_TH": 0.0,
+            "LENGTH": 18,
+            "PENALTY": 0.5973398379729247,
+            "SELF_ANY_TH": 0.0,
+            "SELF_END_TH": 0.0,
+            "SEQUENCE": "AGATGCCATTGTCCCCCG",
+            "START": 3,
+            "TM": 59.402660162027075
+        },
+        "PRIMER_RIGHT": {
+            "END_STABILITY": 4.46,
+            "GC_PERCENT": 61.111111111111114,
+            "HAIRPIN_TH": 45.08071630659856,
+            "LENGTH": 18,
+            "PENALTY": 0.3562781648536202,
+            "SELF_ANY_TH": 0.0,
+            "SELF_END_TH": 0.0,
+            "SEQUENCE": "TGCAGGGCATTCTGTCCC",
+            "START": 268,
+            "TM": 59.64372183514638
+        },
+        "PRODUCT_SIZE": 266
+    },
+    "PRIMER_PAIR_2": {
+        "COMPL_ANY_TH": 1.1607481938415276,
+        "COMPL_END_TH": 0.0,
+        "PENALLTY": 1.4330555680683688,
+        "PRIMER_LEFT": {
+            "END_STABILITY": 5.73,
+            "GC_PERCENT": 57.89473684210526,
+            "HAIRPIN_TH": 0.0,
+            "LENGTH": 19,
+            "PENALTY": 1.0767774032147486,
+            "SELF_ANY_TH": 0.0,
+            "SELF_END_TH": 0.0,
+            "SEQUENCE": "AAGATGCCATTGTCCCCCG",
+            "START": 2,
+            "TM": 60.07677740321475
+        },
+        "PRIMER_RIGHT": {
+            "END_STABILITY": 4.46,
+            "GC_PERCENT": 61.111111111111114,
+            "HAIRPIN_TH": 45.08071630659856,
+            "LENGTH": 18,
+            "PENALTY": 0.3562781648536202,
+            "SELF_ANY_TH": 0.0,
+            "SELF_END_TH": 0.0,
+            "SEQUENCE": "TGCAGGGCATTCTGTCCC",
+            "START": 268,
+            "TM": 59.64372183514638
+        },
+        "PRODUCT_SIZE": 267
+    },
+    "PRIMER_PAIR_3": {
+        "COMPL_ANY_TH": 0.0,
+        "COMPL_END_TH": 0.0,
+        "PENALLTY": 1.5979781591906885,
+        "PRIMER_LEFT": {
+            "END_STABILITY": 4.7,
+            "GC_PERCENT": 70.58823529411765,
+            "HAIRPIN_TH": 0.0,
+            "LENGTH": 17,
+            "PENALTY": 1.2416999943370683,
+            "SELF_ANY_TH": 0.0,
+            "SELF_END_TH": 0.0,
+            "SEQUENCE": "CATTGTCCCCCGGCCTC",
+            "START": 9,
+            "TM": 59.75830000566293
+        },
+        "PRIMER_RIGHT": {
+            "END_STABILITY": 4.46,
+            "GC_PERCENT": 61.111111111111114,
+            "HAIRPIN_TH": 45.08071630659856,
+            "LENGTH": 18,
+            "PENALTY": 0.3562781648536202,
+            "SELF_ANY_TH": 0.0,
+            "SELF_END_TH": 0.0,
+            "SEQUENCE": "TGCAGGGCATTCTGTCCC",
+            "START": 268,
+            "TM": 59.64372183514638
+        },
+        "PRODUCT_SIZE": 260
+    },
+    "PRIMER_PAIR_4": {
+        "COMPL_ANY_TH": 1.1607481938415276,
+        "COMPL_END_TH": 0.0,
+        "PENALLTY": 1.820265142268795,
+        "PRIMER_LEFT": {
+            "END_STABILITY": 5.73,
+            "GC_PERCENT": 66.66666666666667,
+            "HAIRPIN_TH": 0.0,
+            "LENGTH": 18,
+            "PENALTY": 0.5193019490146185,
+            "SELF_ANY_TH": 0.0,
+            "SELF_END_TH": 0.0,
+            "SEQUENCE": "GATGCCATTGTCCCCCGG",
+            "START": 4,
+            "TM": 60.51930194901462
+        },
+        "PRIMER_RIGHT": {
+            "END_STABILITY": 3.51,
+            "GC_PERCENT": 57.89473684210526,
+            "HAIRPIN_TH": 38.12711850747968,
+            "LENGTH": 19,
+            "PENALTY": 1.3009631932541765,
+            "SELF_ANY_TH": 32.229107794160484,
+            "SELF_END_TH": 0.0,
+            "SEQUENCE": "TCCTGCAGGGCATTCTGTC",
+            "START": 271,
+            "TM": 59.69903680674582
+        },
+        "PRODUCT_SIZE": 268
+    }
+}
