@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 
+
 import {P3DataService} from '../p3-data/p3-data.service';
 import { DescriptionDialogService } from '../description-dialog/description-dialog.service';
-
+import { ParamsValidationService } from '../params-validation/params-validation.service';
 
 @Component({
   selector: 'app-additional-params',
@@ -17,11 +18,7 @@ export class AdditionalParamsComponent implements OnInit {
 
   myControl: FormControl = new FormControl();
 
-  options = [
-    'One',
-    'Two',
-    'Three'
-   ];
+  options = [];
 
   filteredOptions: Observable<string[]>;
 
@@ -30,9 +27,12 @@ export class AdditionalParamsComponent implements OnInit {
 
   paramOption: string;
 
+  formGroup:FormGroup;
+
   constructor(
     private p3Service: P3DataService,
-    public dDialogService: DescriptionDialogService
+    public dDialogService: DescriptionDialogService,
+    private pvService: ParamsValidationService
   ){ }
   
   ngOnInit() {
@@ -42,6 +42,8 @@ export class AdditionalParamsComponent implements OnInit {
         startWith(''),
         map(val => this.filter(val))
       );
+
+    this.formGroup = new FormGroup({});
   }
 
   /**
@@ -56,6 +58,8 @@ export class AdditionalParamsComponent implements OnInit {
    * add new parameter to the list
    */
   add(){
+    //this.p3Service.p3Input['SEQUENCE_START_CODON_POSITION'] = 1234;
+    console.log(this.p3Service.p3Input.SEQUENCE_START_CODON_POSITION);
     let temp = this.p3Service.params[this.paramOption];
     if(temp == null){
       console.log("doesnt exist")
@@ -64,9 +68,26 @@ export class AdditionalParamsComponent implements OnInit {
         this.selectedParams.push(temp);
         this.selectedParamNames.push(this.paramOption);
         
+        this.formGroup.addControl(this.paramOption, new FormControl(this.p3Service.p3Input[this.paramOption], this.pvService.simpleValidator(this.paramOption)))
       }
       this.paramOption = '';
     }
+  }
+
+  /**
+   * Remove parameter from the list
+   */
+  remove(name:string){
+    let i = 0;
+    for(i = 0; i < this.selectedParamNames.length; i++){
+      if(this.selectedParamNames[i] == name){
+        break;
+      }
+    }
+    this.selectedParamNames.splice(i, 1);
+    this.selectedParams.splice(i, 1);
+    
+    this.formGroup.removeControl(name);
   }
 
 }

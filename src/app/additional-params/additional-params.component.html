@@ -12,6 +12,7 @@
   <button mat-raised-button (click)="add()">Add</button>
 </form>
 
+<form [formGroup]="formGroup" novalidate>
 <table class="param_table">
   <tr *ngFor="let p of selectedParams">
   
@@ -24,13 +25,15 @@
         </button>
       </label>
     </td>
+
     <!-- Form type is input text -->
     <td *ngIf="p.form_type == 'input_text'">
-      <input type="text" pInputText placeholder="{{p.default_value}}" id="{{p.name}}" (ngModelChange)="onInputTextChange($event)"> 
+      <input matInput formControlName="{{p.name}}" type="text" pInputText placeholder="{{p.default_value}}" id="{{p.name}}"> 
     </td>
+
     <!-- Form type is input number -->
     <td *ngIf="p.form_type == 'input_number'">
-      <input type="number" pInputText placeholder="{{p.default_value}}" id="{{p.name}}" > 
+      <input matInput formControlName="{{p.name}}" type="number" pInputText placeholder="{{p.default_value}}" id="{{p.name}}" > 
     </td>
 
     <!-- Form type is checkbox -->
@@ -42,5 +45,12 @@
     </td>
     <td *ngIf="p.form_type == 'checkbox'"> </td>
 
+    <td>
+      <button mat-icon-button (click)="remove(p.name)" class="help-button">
+        <mat-icon>remove</mat-icon>
+      </button>
+    </td>
+
   </tr>
 </table>
+</form>

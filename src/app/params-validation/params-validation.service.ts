@@ -461,7 +461,7 @@ export class ParamsValidationService {
     };
   }
 
-   thermoParamValidator(): ValidatorFn {
+  thermoParamValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
       if(this.settingForm == null){
         return null;
@@ -471,5 +471,12 @@ export class ParamsValidationService {
     };
   }
 
+
+  simpleValidator(paramName: string): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      this.p3Service.p3Input[paramName] = control.value;
+      return null;
+    };
+  }
 }
 
