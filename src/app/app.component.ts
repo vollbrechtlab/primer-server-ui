@@ -15,6 +15,9 @@ export class AppComponent {
 
   firstPanel = false;
 
+  resultReady = false;
+  resultHTML: any;
+
   constructor(
   	private dataService: DataService,
   	private serverService: ServerService
@@ -29,7 +32,7 @@ export class AppComponent {
   	this.serverService.post(task, 'http://vollbrechtlab-dev.gdcb.iastate.edu:8001').subscribe(data => {
       if(data.status == 'ok'){
         console.log(data);
-        //this.loadResult(data.result_url);
+        this.loadResult(data.result_url);
       } else {
         console.log('error from server');
       }
@@ -38,5 +41,19 @@ export class AppComponent {
 
   reset(){
 
+  }
+
+    // load result from the server
+  loadResult(url: string) {
+    this.serverService.getJson(url).subscribe(data => {
+      console.log(data)
+      if(data.status == 'ok'){
+        this.resultHTML = data.result;
+        this.resultReady = true;
+      } else {
+        console.log('error from server');
+      }
+      
+    });
   }
 }

@@ -43,20 +43,6 @@
     <app-specificity-checking></app-specificity-checking>
   </mat-expansion-panel>
 
-  <!-- Result -->
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Result
-      </mat-panel-title>
-      <mat-panel-description>
-        
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <app-result></app-result>
-  </mat-expansion-panel>
-  
 </mat-accordion>
 
 <table class="settings_table">
@@ -69,3 +55,20 @@
     </td>
   </tr>
 </table>
+
+<mat-accordion *ngIf="resultReady">
+  <!-- Result -->
+  <mat-expansion-panel [expanded]="resultReady">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Result
+      </mat-panel-title>
+      <mat-panel-description>
+        
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div [innerHTML]="resultHTML"></div>
+  </mat-expansion-panel>
+  
+</mat-accordion>
