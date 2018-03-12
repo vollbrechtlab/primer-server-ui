@@ -6,7 +6,7 @@
 
 <mat-accordion>
   <!-- Basic Parameter Settings -->
-  <mat-expansion-panel expanded="true">
+  <mat-expansion-panel [expanded]="firstPanel">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Basic Settings
@@ -58,3 +58,14 @@
   </mat-expansion-panel>
   
 </mat-accordion>
+
+<table class="settings_table">
+  <tr>
+    <td class="submit_button">
+      <button mat-raised-button (click)="submit()">Submit</button>
+    </td>
+    <td class="reset_button">
+      <button mat-raised-button (click)="reset()">Reset</button>  
+    </td>
+  </tr>
+</table>

@@ -1,6 +1,6 @@
-<form [formGroup]="settingForm" class="example-form">
+<form [formGroup]="settingForm" class="basic-form">
   <!-- sequence template input -->
-  <mat-form-field class="example-full-width" style="width:100%">
+  <mat-form-field class="example-full-width">
     <textarea matInput 
               formControlName="SEQUENCE_TEMPLATE_INPUT" 
               id="SEQUENCE_TEMPLATE_INPUT" 
@@ -10,7 +10,7 @@
     </textarea>
 
     <mat-hint align="end">
-      Length: {{p3Service.p3Input.SEQUENCE_TEMPLATE.length}}, GC Content: {{p3Service.gc_content}}%
+      Length: {{dataService.p3Input.SEQUENCE_TEMPLATE.length}}, GC Content: {{dataService.gc_content}}%
     </mat-hint>
 
     <!-- Sequence template error messages -->
@@ -34,12 +34,12 @@
 
     <tr>
       <td>
-        <div style="height:80px">
+        <div class="pick-conditions">
           <mat-checkbox formControlName="PRIMER_PICK_LEFT_PRIMER" align="end">Pick Left Primer</mat-checkbox>
         </div>
       </td>
       <td>
-        <div *ngIf="!settingForm.get('PRIMER_PICK_LEFT_PRIMER').value" style="height:80px">
+        <div *ngIf="!settingForm.get('PRIMER_PICK_LEFT_PRIMER').value" class="pick-conditions">
           <mat-form-field class="pick-condition-input">
             <input matInput type="text" formControlName="SEQUENCE_PRIMER" placeholder="Use this left primer">
             <!-- error message -->
@@ -61,12 +61,12 @@
     <!-- Pick Internal Oligo -->
     <tr>
       <td>
-        <div style="height:80px">
+        <div class="pick-conditions">
           <mat-checkbox formControlName="PRIMER_PICK_INTERNAL_OLIGO" align="end">Pick Internal Oligo</mat-checkbox>
         </div>
       </td>
       <td>
-        <div *ngIf="!settingForm.get('PRIMER_PICK_INTERNAL_OLIGO').value" style="height:80px">
+        <div *ngIf="!settingForm.get('PRIMER_PICK_INTERNAL_OLIGO').value" class="pick-conditions">
           <mat-form-field class="pick-condition-input">
             <input matInput type="text" formControlName="SEQUENCE_INTERNAL_OLIGO" placeholder="Use this internal oligo">
             <!-- error message -->
@@ -88,12 +88,12 @@
     <!-- Pick Right Primer -->
     <tr>
       <td>
-        <div style="height:80px">
+        <div class="pick-conditions">
           <mat-checkbox formControlName="PRIMER_PICK_RIGHT_PRIMER" align="end">Pick Left Primer</mat-checkbox>
         </div>
       </td>
       <td>
-        <div *ngIf="!settingForm.get('PRIMER_PICK_RIGHT_PRIMER').value" style="height:80px">
+        <div *ngIf="!settingForm.get('PRIMER_PICK_RIGHT_PRIMER').value" class="pick-conditions">
           <mat-form-field class="pick-condition-input">
             <input matInput type="text" formControlName="SEQUENCE_PRIMER_REVCOMP" placeholder="Use this right primer">
             <!-- error message -->
@@ -112,6 +112,7 @@
       </td>
     </tr>
 
+    <!-- product size -->
     <tr>
       <td>
         <label for="PRIMER_PRODUCT_SIZE_MIN">Product Size</label>
@@ -120,29 +121,22 @@
         </button>
       </td>
       <td>
-        <table>
-          <tr>
-            <td>
-              <mat-input-container class="example-full-width">
-                <input matInput type="number" id="PRIMER_PRODUCT_SIZE_MIN" formControlName="PRIMER_PRODUCT_SIZE_MIN" placeholder="Min">
-                <mat-error *ngIf="settingForm.get('PRIMER_PRODUCT_SIZE_MIN').hasError('invalidMin')">
-                  Invalid min. 
-                </mat-error>  
-              </mat-input-container>
-            </td>
-            <td>
-              <mat-input-container class="example-full-width">
-                <input matInput type="number" id="PRIMER_PRODUCT_SIZE_MAX" formControlName="PRIMER_PRODUCT_SIZE_MAX" placeholder="Max">
-                <mat-error *ngIf="settingForm.get('PRIMER_PRODUCT_SIZE_MAX').hasError('invalidMax')">
-                  Invalid max. 
-                </mat-error>  
-              </mat-input-container>
-            </td>
-          </tr>
-        </table>
+        <mat-input-container class="product-size">
+          <input matInput type="number" id="PRIMER_PRODUCT_SIZE_MIN" formControlName="PRIMER_PRODUCT_SIZE_MIN" placeholder="Min">
+          <mat-error *ngIf="settingForm.get('PRIMER_PRODUCT_SIZE_MIN').hasError('invalidMin')">
+            Invalid min. 
+          </mat-error>  
+        </mat-input-container>
+        <mat-input-container class="product-size">
+          <input matInput type="number" id="PRIMER_PRODUCT_SIZE_MAX" formControlName="PRIMER_PRODUCT_SIZE_MAX" placeholder="Max">
+          <mat-error *ngIf="settingForm.get('PRIMER_PRODUCT_SIZE_MAX').hasError('invalidMax')">
+            Invalid max. 
+          </mat-error>  
+        </mat-input-container>
       </td>
     </tr>
 
+    <!-- targets -->
     <tr>
       <td>
         <label for="SEQUENCE_TARGET">Targets</label>
@@ -181,6 +175,7 @@
       </td>
     </tr>
 
+    <!-- primer melting temp -->
     <tr>
       <td>
         <label for="PRIMER_MIN_TM">Primer Melting Temp (Tm)</label>
@@ -188,28 +183,20 @@
           <mat-icon>help</mat-icon>
         </button>
       </td>
-      <td colspan="2">
-        <table>
-          <tr>
-            <td>
-              <mat-input-container class="example-full-width">
-                <input matInput type="number" id="PRIMER_MIN_TM" formControlName="PRIMER_MIN_TM" placeholder="Min">
-              </mat-input-container>
-            </td>
-            <td>
-              <mat-input-container class="example-full-width">
-                <input matInput type="number" id="PRIMER_OPT_TM" formControlName="PRIMER_OPT_TM" placeholder="Opt">
-              </mat-input-container>
-            </td>
-            <td>
-              <mat-input-container class="example-full-width">
-                <input matInput type="number" id="PRIMER_MAX_TM" formControlName="PRIMER_MAX_TM" placeholder="Max">
-              </mat-input-container>
-            </td>
-          </tr>
-        </table>
+      <td>
+        <mat-input-container class="primer-melting-temp">
+          <input matInput type="number" id="PRIMER_MIN_TM" formControlName="PRIMER_MIN_TM" placeholder="Min">
+        </mat-input-container>
+        <mat-input-container class="primer-melting-temp">
+          <input matInput type="number" id="PRIMER_OPT_TM" formControlName="PRIMER_OPT_TM" placeholder="Opt">
+        </mat-input-container>
+        <mat-input-container class="primer-melting-temp">
+          <input matInput type="number" id="PRIMER_MAX_TM" formControlName="PRIMER_MAX_TM" placeholder="Max">
+        </mat-input-container>
       </td>
     </tr>
+
+    <!-- Max Tm Difference -->
     <tr>
       <td>
         <label for="PRIMER_PAIR_MAX_DIFF_TM">Max Tm Difference</label>
@@ -232,7 +219,7 @@
       </td>
       <td>
         <mat-select formControlName="PRIMER_SALT_CORRECTIONS" class="salt-corrections-select">
-          <mat-option *ngFor="let option of p3Service.PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS" [value]="option.value">
+          <mat-option *ngFor="let option of dataService.PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS" [value]="option.value">
             {{option.viewValue}}
           </mat-option>
         </mat-select>
@@ -247,7 +234,7 @@
       </td>
       <td>
         <mat-select formControlName="PRIMER_TM_FORMULA" class="tm-formula-select">
-          <mat-option *ngFor="let option of p3Service.PRIMER_TM_FORMULA_INPUT_OPTIONS" [value]="option.value">
+          <mat-option *ngFor="let option of dataService.PRIMER_TM_FORMULA_INPUT_OPTIONS" [value]="option.value">
             {{option.viewValue}}
           </mat-option>
         </mat-select>
@@ -257,4 +244,3 @@
   </table>
 
 </form>
-

@@ -26,12 +26,12 @@ export class SpecificityCheckingComponent implements OnInit {
 
   ngOnInit() {
     this.specForm = this.fb.group({
-      GENOME: [0, this.pvService.simpleValidator('GENOME')],
-      TOTAL_SPECIFICITY_MISMATCH: [2, this.pvService.simpleValidator('TOTAL_SPECIFICITY_MISMATCH')],
-      SEND_SPECIFICITY_MISMATCH: [2, this.pvService.simpleValidator('SEND_SPECIFICITY_MISMATCH')],
-      SEND_MISMATCH_REGION_LENGTH: [5, this.pvService.simpleValidator('SEND_MISMATCH_REGION_LENGTH')],
-      TOTAL_MISMATCH_IGNORE: [6, this.pvService.simpleValidator('TOTAL_MISMATCH_IGNORE')],
-      MAX_TARGET_SIZE: [3000, this.pvService.simpleValidator('MAX_TARGET_SIZE')]
+      SPEC_GENOME: [0, this.pvService.specValidator('SPEC_GENOME')],
+      SPEC_TOTAL_SPECIFICITY_MISMATCH: [2, this.pvService.specValidator('SPEC_TOTAL_SPECIFICITY_MISMATCH')],
+      SPEC_SEND_SPECIFICITY_MISMATCH: [2, this.pvService.specValidator('SPEC_SEND_SPECIFICITY_MISMATCH')],
+      SPEC_SEND_MISMATCH_REGION_LENGTH: [5, this.pvService.specValidator('SPEC_SEND_MISMATCH_REGION_LENGTH')],
+      SPEC_TOTAL_MISMATCH_IGNORE: [6, this.pvService.specValidator('SPEC_TOTAL_MISMATCH_IGNORE')],
+      SPEC_MAX_TARGET_SIZE: [3000, this.pvService.specValidator('SPEC_MAX_TARGET_SIZE')]
     });
   }
 

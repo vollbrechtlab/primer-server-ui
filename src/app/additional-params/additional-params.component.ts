@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
-import {Observable} from 'rxjs/Observable';
-import {startWith} from 'rxjs/operators/startWith';
-import {map} from 'rxjs/operators/map';
+import { Observable } from 'rxjs/Observable';
+import { startWith } from 'rxjs/operators/startWith';
+import { map } from 'rxjs/operators/map';
 
 
-import {P3DataService} from '../p3-data/p3-data.service';
+import { DataService } from '../data-share/data.service';
 import { DescriptionDialogService } from '../description-dialog/description-dialog.service';
 import { ParamsValidationService } from '../params-validation/params-validation.service';
 
@@ -19,7 +19,6 @@ export class AdditionalParamsComponent implements OnInit {
   myControl: FormControl = new FormControl();
 
   options = [];
-
   filteredOptions: Observable<string[]>;
 
   selectedParams: any[] = [];
@@ -30,13 +29,13 @@ export class AdditionalParamsComponent implements OnInit {
   formGroup:FormGroup;
 
   constructor(
-    private p3Service: P3DataService,
+    private dataService: DataService,
     public dDialogService: DescriptionDialogService,
     private pvService: ParamsValidationService
   ){ }
   
   ngOnInit() {
-    this.options = Object.keys(this.p3Service.params);
+    this.options = Object.keys(this.dataService.params);
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
@@ -49,18 +48,32 @@ export class AdditionalParamsComponent implements OnInit {
   /**
    * filter parameters
    */
-  filter(val: string): string[] {
+  simple_filter(val: string): string[] {
     return this.options.filter(option =>
       option.toLowerCase().indexOf(val.toLowerCase()) === 0);
+  }
+
+  /**
+   * filter parameters
+   */
+  filter(val: string): string[] {
+    let filtered : string[] = [];
+    for(let i = 0; i < this.options.length; i++) {
+      let option = this.options[i];
+      if(option.toLowerCase().includes(val.toLowerCase())) {
+        filtered.push(option);
+      }
+    }
+    return filtered;
   }
 
   /**
    * add new parameter to the list
    */
   add(){
-    //this.p3Service.p3Input['SEQUENCE_START_CODON_POSITION'] = 1234;
-    console.log(this.p3Service.p3Input.SEQUENCE_START_CODON_POSITION);
-    let temp = this.p3Service.params[this.paramOption];
+    //this.dataService.p3Input['SEQUENCE_START_CODON_POSITION'] = 1234;
+    console.log(this.dataService.p3Input.SEQUENCE_START_CODON_POSITION);
+    let temp = this.dataService.params[this.paramOption];
     if(temp == null){
       console.log("doesnt exist")
     } else {
@@ -68,7 +81,7 @@ export class AdditionalParamsComponent implements OnInit {
         this.selectedParams.push(temp);
         this.selectedParamNames.push(this.paramOption);
         
-        this.formGroup.addControl(this.paramOption, new FormControl(this.p3Service.p3Input[this.paramOption], this.pvService.simpleValidator(this.paramOption)))
+        this.formGroup.addControl(this.paramOption, new FormControl(this.dataService.p3Input[this.paramOption], this.pvService.simpleValidator(this.paramOption)))
       }
       this.paramOption = '';
     }

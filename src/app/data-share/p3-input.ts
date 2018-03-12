@@ -165,12 +165,4 @@ export class P3Input {
   PRIMER_WT_TM_LT: number;
   PRIMER_LOWERCASE_MASKING: number;
   PRIMER_PAIR_WT_PRODUCT_SIZE_GT: number;
-
-  /* Specificity Checking */
-  GENOME: number;
-  TOTAL_SPECIFICITY_MISMATCH: number;
-  SEND_SPECIFICITY_MISMATCH: number;
-  SEND_MISMATCH_REGION_LENGTH: number;
-  TOTAL_MISMATCH_IGNORE: number;
-  MAX_TARGET_SIZE: number;
 }

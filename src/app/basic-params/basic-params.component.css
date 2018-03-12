@@ -1,3 +1,18 @@
+.basic-form {
+	width: auto;
+}
 .mat-input-container{
-  width:auto;
+	width:auto;
+}
+.example-full-width {
+	width: 100%;
+}
+.pick-conditions {
+	height:80px;
+}
+.product-size {
+	max-width:70px;
+}
+.primer-melting-temp {
+	max-width:60px;
 }

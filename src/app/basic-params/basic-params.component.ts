@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, Valid
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
 
-import { P3DataService } from '../p3-data/p3-data.service';
+import { DataService } from '../data-share/data.service';
 import { ParamsValidationService } from '../params-validation/params-validation.service';
 import { DescriptionDialogService } from '../description-dialog/description-dialog.service';
 
@@ -21,7 +21,7 @@ export class BasicParamsComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    public p3Service: P3DataService,
+    public dataService: DataService,
     private paramsValidationService: ParamsValidationService,
     public dDialogService: DescriptionDialogService
   ) { }

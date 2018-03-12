@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import {P3Params} from './p3-params';
-import {P3Input} from './p3-input';
+import { P3Params } from './p3-params';
+import { P3Input } from './p3-input';
+import { SpecCheckInput } from './spec-check-input';
 
 /** Shares all the variables, some basic functions **/
 @Injectable()
-export class P3DataService {
+export class DataService {
   params = {};
   p3Input: P3Input;
+
+  specCheckInput: SpecCheckInput;
 
   resultUrl: string;
 
@@ -20,10 +23,14 @@ export class P3DataService {
 
   p3Result: any;
 
+
+
   constructor() {
     let p3ParamsObject = new P3Params();
     this.params = p3ParamsObject.data;
     this.p3Input = new P3Input();
+
+    this.specCheckInput = new SpecCheckInput;
 
     this.p3Input.SEQUENCE_TEMPLATE = '';
 

@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  
+import { HttpModule } from '@angular/http';
+
 import { AppComponent } from './app.component';
 
 import { MaterialModule } from './material.module';
@@ -11,11 +13,10 @@ import { SpecificityCheckingComponent } from './specificity-checking/specificity
 import { ResultComponent } from './result/result.component';
 import { DescriptionDialogComponent } from './description-dialog/description-dialog.component';
 
-
 import { DescriptionDialogService } from './description-dialog/description-dialog.service';
 import { ParamsValidationService } from './params-validation/params-validation.service';
-import { P3DataService } from './p3-data/p3-data.service';
-
+import { DataService } from './data-share/data.service';
+import { ServerService } from './server/server.service';
 
 @NgModule({
   declarations: [
@@ -31,12 +32,14 @@ import { P3DataService } from './p3-data/p3-data.service';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    HttpModule
   ],
   providers: [
     DescriptionDialogService,
     ParamsValidationService,
-    P3DataService
+    DataService,
+    ServerService
   ],
   entryComponents: [DescriptionDialogComponent],
   bootstrap: [AppComponent]
