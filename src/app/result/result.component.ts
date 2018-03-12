@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-result',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResultComponent implements OnInit {
 
-  constructor() { }
+  public constructor(private route: ActivatedRoute) {
+    let id = this.route.snapshot.paramMap.get('id');
+    console.log(id)
+  }
 
   ngOnInit() {
   }

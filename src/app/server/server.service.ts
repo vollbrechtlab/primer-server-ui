@@ -26,6 +26,11 @@ export class ServerService {
   }
 
   // get json request
+  getData(url: string) {
+    return this.http.get(url);
+  }
+
+  // get json request
   getJson(url: string) {
     return this.http.get(url)
                     .map((res:Response) => res.json());
