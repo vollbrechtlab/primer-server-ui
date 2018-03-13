@@ -6,11 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  /* General */
-  title = 'Primer Server';
-  version = '2.0.8';  
 
-  constructor(){
-   
-  }
+  constructor() {}
+
 }

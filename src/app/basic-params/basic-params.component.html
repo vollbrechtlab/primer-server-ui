@@ -1,0 +1,246 @@
+<form [formGroup]="settingForm" class="basic-form">
+  <!-- sequence template input -->
+  <mat-form-field class="example-full-width">
+    <textarea matInput 
+              formControlName="SEQUENCE_TEMPLATE_INPUT" 
+              id="SEQUENCE_TEMPLATE_INPUT" 
+              rows="5" 
+              placeholder="Paste sequence template here" 
+              autofocus>            
+    </textarea>
+
+    <mat-hint align="end">
+      Length: {{dataService.p3Input.SEQUENCE_TEMPLATE.length}}, GC Content: {{dataService.gc_content}}%
+    </mat-hint>
+
+    <!-- Sequence template error messages -->
+    <mat-error *ngIf="settingForm.get('SEQUENCE_TEMPLATE_INPUT').hasError('invalidSequence')">
+      Invalid Sequence. 
+      Wrong base code of '{{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidCode}}'
+      at {{settingForm.get('SEQUENCE_TEMPLATE_INPUT').getError('invalidSequence').invalidPos}}
+    </mat-error>
+    <mat-error *ngIf="settingForm.get('SEQUENCE_TEMPLATE_INPUT').hasError('invalidRegions')">
+      Input the correct regions.
+    </mat-error>
+    <mat-error *ngIf="settingForm.get('SEQUENCE_TEMPLATE_INPUT').hasError('tooLongSequence')">
+      The sequence has to be less than 5000 base pairs.
+    </mat-error>
+
+  </mat-form-field>
+  <br>
+
+  <table class="settings_table">
+    <!-- Pick Left Primer -->
+
+    <tr>
+      <td>
+        <div class="pick-conditions">
+          <mat-checkbox formControlName="PRIMER_PICK_LEFT_PRIMER" align="end">Pick Left Primer</mat-checkbox>
+        </div>
+      </td>
+      <td>
+        <div *ngIf="!settingForm.get('PRIMER_PICK_LEFT_PRIMER').value" class="pick-conditions">
+          <mat-form-field class="pick-condition-input">
+            <input matInput type="text" formControlName="SEQUENCE_PRIMER" placeholder="Use this left primer">
+            <!-- error message -->
+            <mat-error *ngIf="settingForm.get('SEQUENCE_PRIMER').hasError('invalidSequence')" style="size: 2px">
+              <span style="font-size: 10px;">
+                Invalid Sequence. 
+                Wrong base code of '{{settingForm.get('SEQUENCE_PRIMER').getError('invalidSequence').invalidCode}}'
+                at {{settingForm.get('SEQUENCE_PRIMER').getError('invalidSequence').invalidPos}}
+              </span>
+            </mat-error>
+          </mat-form-field>
+          <button mat-icon-button (click)="dDialogService.showDescription('SEQUENCE_PRIMER')" class="help-button">
+            <mat-icon>help</mat-icon>
+          </button>
+        </div>
+
+    </tr>
+
+    <!-- Pick Internal Oligo -->
+    <tr>
+      <td>
+        <div class="pick-conditions">
+          <mat-checkbox formControlName="PRIMER_PICK_INTERNAL_OLIGO" align="end">Pick Internal Oligo</mat-checkbox>
+        </div>
+      </td>
+      <td>
+        <div *ngIf="!settingForm.get('PRIMER_PICK_INTERNAL_OLIGO').value" class="pick-conditions">
+          <mat-form-field class="pick-condition-input">
+            <input matInput type="text" formControlName="SEQUENCE_INTERNAL_OLIGO" placeholder="Use this internal oligo">
+            <!-- error message -->
+            <mat-error *ngIf="settingForm.get('SEQUENCE_INTERNAL_OLIGO').hasError('invalidSequence')" style="size: 2px">
+              <span style="font-size: 10px;">
+                Invalid Sequence. 
+                Wrong base code of '{{settingForm.get('SEQUENCE_INTERNAL_OLIGO').getError('invalidSequence').invalidCode}}'
+                at {{settingForm.get('SEQUENCE_INTERNAL_OLIGO').getError('invalidSequence').invalidPos}}
+              </span>
+            </mat-error>
+          </mat-form-field>
+          <button mat-icon-button (click)="dDialogService.showDescription('SEQUENCE_INTERNAL_OLIGO')" class="help-button">
+            <mat-icon>help</mat-icon>
+          </button>
+        </div>
+      </td>
+    </tr>
+
+    <!-- Pick Right Primer -->
+    <tr>
+      <td>
+        <div class="pick-conditions">
+          <mat-checkbox formControlName="PRIMER_PICK_RIGHT_PRIMER" align="end">Pick Left Primer</mat-checkbox>
+        </div>
+      </td>
+      <td>
+        <div *ngIf="!settingForm.get('PRIMER_PICK_RIGHT_PRIMER').value" class="pick-conditions">
+          <mat-form-field class="pick-condition-input">
+            <input matInput type="text" formControlName="SEQUENCE_PRIMER_REVCOMP" placeholder="Use this right primer">
+            <!-- error message -->
+            <mat-error *ngIf="settingForm.get('SEQUENCE_PRIMER_REVCOMP').hasError('invalidSequence')" style="size: 2px">
+              <span style="font-size: 10px;">
+                Invalid Sequence. 
+                Wrong base code of '{{settingForm.get('SEQUENCE_PRIMER_REVCOMP').getError('invalidSequence').invalidCode}}'
+                at {{settingForm.get('SEQUENCE_PRIMER_REVCOMP').getError('invalidSequence').invalidPos}}
+              </span>
+            </mat-error>
+          </mat-form-field>
+          <button mat-icon-button (click)="dDialogService.showDescription('SEQUENCE_PRIMER_REVCOMP')" class="help-button">
+            <mat-icon>help</mat-icon>
+          </button>
+        </div>
+      </td>
+    </tr>
+
+    <!-- product size -->
+    <tr>
+      <td>
+        <label for="PRIMER_PRODUCT_SIZE_MIN">Product Size</label>
+        <button mat-icon-button (click)="dDialogService.showDescription('PRIMER_PRODUCT_SIZE_RANGE')" class="help-button">
+          <mat-icon>help</mat-icon>
+        </button>
+      </td>
+      <td>
+        <mat-input-container class="product-size">
+          <input matInput type="number" id="PRIMER_PRODUCT_SIZE_MIN" formControlName="PRIMER_PRODUCT_SIZE_MIN" placeholder="Min">
+          <mat-error *ngIf="settingForm.get('PRIMER_PRODUCT_SIZE_MIN').hasError('invalidMin')">
+            Invalid min. 
+          </mat-error>  
+        </mat-input-container>
+        <mat-input-container class="product-size">
+          <input matInput type="number" id="PRIMER_PRODUCT_SIZE_MAX" formControlName="PRIMER_PRODUCT_SIZE_MAX" placeholder="Max">
+          <mat-error *ngIf="settingForm.get('PRIMER_PRODUCT_SIZE_MAX').hasError('invalidMax')">
+            Invalid max. 
+          </mat-error>  
+        </mat-input-container>
+      </td>
+    </tr>
+
+    <!-- targets -->
+    <tr>
+      <td>
+        <label for="SEQUENCE_TARGET">Targets</label>
+        <button mat-icon-button (click)="dDialogService.showDescription('SEQUENCE_TARGET')" class="help-button">
+          <mat-icon>help</mat-icon>
+        </button>
+      </td>
+      <td>
+        <mat-input-container class="example-full-width" style="width:100%">
+          <input matInput type="text" id="SEQUENCE_TARGET" formControlName="SEQUENCE_TARGET">
+          <mat-hint>&lt;start&gt;-&lt;length&gt;  e.g. 37-21 60-10 or surround with [] in sequence template</mat-hint>
+          <mat-error *ngIf="settingForm.get('SEQUENCE_TARGET').hasError('invalidIntervalList')">
+            Invalid targets
+          </mat-error>  
+          <mat-error *ngIf="settingForm.get('SEQUENCE_TARGET').hasError('invalidLength')">
+            The sum of target length ({{settingForm.get('SEQUENCE_TARGET').getError('invalidLength')}}) cannot be larger than the product max
+          </mat-error>  
+        </mat-input-container>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="SEQUENCE_EXCLUDED_REGION">Excluded Regions</label>
+        <button mat-icon-button (click)="dDialogService.showDescription('SEQUENCE_EXCLUDED_REGION')" class="help-button">
+          <mat-icon>help</mat-icon>
+        </button>
+      </td>
+      <td>
+        <mat-input-container class="example-full-width" style="width:100%">
+          <input matInput type="text" id="SEQUENCE_EXCLUDED_REGION" formControlName="SEQUENCE_EXCLUDED_REGION">
+          <mat-hint>&lt;start&gt;-&lt;length&gt;  e.g. 37-21 60-10 or surround with () in sequence template</mat-hint>
+          <mat-error *ngIf="settingForm.get('SEQUENCE_EXCLUDED_REGION').hasError('invalidIntervalList')">
+            Invalid targets
+          </mat-error>  
+        </mat-input-container>
+      </td>
+    </tr>
+
+    <!-- primer melting temp -->
+    <tr>
+      <td>
+        <label for="PRIMER_MIN_TM">Primer Melting Temp (Tm)</label>
+        <button mat-icon-button (click)="dDialogService.showDescription('PRIMER_MIN_TM')" class="help-button">
+          <mat-icon>help</mat-icon>
+        </button>
+      </td>
+      <td>
+        <mat-input-container class="primer-melting-temp">
+          <input matInput type="number" id="PRIMER_MIN_TM" formControlName="PRIMER_MIN_TM" placeholder="Min">
+        </mat-input-container>
+        <mat-input-container class="primer-melting-temp">
+          <input matInput type="number" id="PRIMER_OPT_TM" formControlName="PRIMER_OPT_TM" placeholder="Opt">
+        </mat-input-container>
+        <mat-input-container class="primer-melting-temp">
+          <input matInput type="number" id="PRIMER_MAX_TM" formControlName="PRIMER_MAX_TM" placeholder="Max">
+        </mat-input-container>
+      </td>
+    </tr>
+
+    <!-- Max Tm Difference -->
+    <tr>
+      <td>
+        <label for="PRIMER_PAIR_MAX_DIFF_TM">Max Tm Difference</label>
+        <button mat-icon-button (click)="dDialogService.showDescription('PRIMER_PAIR_MAX_DIFF_TM')" class="help-button">
+          <mat-icon>help</mat-icon>
+        </button>
+      </td>
+      <td>
+        <mat-input-container class="max-diff-tm-input">
+          <input matInput type="number" id="PRIMER_PAIR_MAX_DIFF_TM" formControlName="PRIMER_PAIR_MAX_DIFF_TM">
+        </mat-input-container>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="PRIMER_SALT_CORRECTIONS">Salt Correction Formula</label>
+        <button mat-icon-button (click)="dDialogService.showDescription('PRIMER_SALT_CORRECTIONS')" class="help-button">
+          <mat-icon>help</mat-icon>
+        </button>
+      </td>
+      <td>
+        <mat-select formControlName="PRIMER_SALT_CORRECTIONS" class="salt-corrections-select">
+          <mat-option *ngFor="let option of dataService.PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS" [value]="option.value">
+            {{option.viewValue}}
+          </mat-option>
+        </mat-select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="PRIMER_TM_FORMULA">Table of thermodynamic parameters</label>
+        <button mat-icon-button (click)="dDialogService.showDescription('PRIMER_TM_FORMULA')" class="help-button">
+          <mat-icon>help</mat-icon>
+        </button>
+      </td>
+      <td>
+        <mat-select formControlName="PRIMER_TM_FORMULA" class="tm-formula-select">
+          <mat-option *ngFor="let option of dataService.PRIMER_TM_FORMULA_INPUT_OPTIONS" [value]="option.value">
+            {{option.viewValue}}
+          </mat-option>
+        </mat-select>
+      </td>
+    </tr>
+
+  </table>
+
+</form>

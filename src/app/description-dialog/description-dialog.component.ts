@@ -1,4 +1,4 @@
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 import { Component } from '@angular/core';
 
 @Component({
@@ -9,5 +9,5 @@ export class DescriptionDialogComponent {
 
     public description: string;
 
-    constructor(public dialogRef: MdDialogRef<DescriptionDialogComponent>) { }
+    constructor(public dialogRef: MatDialogRef<DescriptionDialogComponent>) { }
 }
