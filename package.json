@@ -23,7 +23,9 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "@types/raphael": "^2.1.30",
     "core-js": "^2.4.1",
+    "raphael": "^2.2.7",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },

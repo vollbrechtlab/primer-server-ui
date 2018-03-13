@@ -29,13 +29,14 @@ export class MainComponent implements OnInit {
   submit(){
     let testP3Input = {"PRIMER_PICK_LEFT_PRIMER": true, "PRIMER_PICK_RIGHT_PRIMER": true, "PRIMER_PICK_INTERNAL_OLIGO": true, "PRIMER_EXPLAIN_FLAG": true, "PRIMER_TASK": "generic", "SEQUENCE_TEMPLATE": "ACAAGATGCCATTGTCCCCCGGCCTCCTGCTGCTGCTGCTCTCCGGGGCCACGGCCACCGCTGCCCTGCCCCTGGAGGGTGGCCCCACCGGCCGAGACAGCGAGCATATGCAGGAAGCGGCAGGAATAAGGAAAAGCAGCCTCCTGACTTTCCTCGCTTGGTGGTTTGAGTGGACCTCCCAGGCCAGTGCCGGGCCCCTCATAGGAGAGGAAGCTCGGGAGGTGGCCAGGCGGCAGGAAGGCGCACCCCCCCAGCAATCCGCGCGCCGGGACAGAATGCCCTGCAGGAACTTCTTCTGGAAGACCTTCTCCTCCTGCAAATAAAACCTCACCCATGAATGCTCACGCAAGTTTAATTACAGACCTGAA", "PRIMER_MAX_NS_ACCEPTED": 1, "PRIMER_PRODUCT_SIZE_RANGE": [75, 100], "PRIMER_MAX_SIZE": 21, "SEQUENCE_EXCLUDED_REGION": [[90, 50]], "SEQUENCE_TARGET": [[100, 50]], "SEQUENCE_ID": "example", "PRIMER_MIN_SIZE": 15, "PRIMER_OPT_SIZE": 18};
   	let task = {};
+    task['format'] = 'better';
     task['input_data'] = testP3Input;//this.dataService.p3Input;
     task['spec_check'] = this.dataService.specCheckInput;
-    console.log(task)
+    console.log('task', task)
   	this.serverService.post(task, 'http://vollbrechtlab-dev.gdcb.iastate.edu:8001').subscribe(data => {
       if(data.status == 'ok'){
-        console.log(data);
-        this.loadHTML('http://localhost:4200/result/MtMbGaoGJAtVgJbl');
+        console.log('returned data', data);
+        this.jumpToResult(data.result_url.substring(54, 70));
       } else {
         console.log('error from server');
       }
@@ -53,6 +54,10 @@ export class MainComponent implements OnInit {
       this.resultHTML = data['_body'];
       this.resultReady = true;
     });
+  }
+
+  jumpToResult(id: string){
+    window.open('result/' + id, '_blank')
   }
 
   // load result from the server
