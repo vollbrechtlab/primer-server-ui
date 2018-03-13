@@ -1,46 +1,18 @@
-# Primer Server UI
+# PrimerServerUi
 
-Primer3 Web UI written in Angular 4 with Angular Material.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.2.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.7.
+## Development server
 
-## How to install dependencies
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-### Install NodeJS
+## Code scaffolding
 
-**On Debian/Ubuntu**
-```shell
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-sudo apt-get install -y nodejs build-essential
-```
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-**On RHEL/CentOS/Fedora**
-```shell
-curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
-sudo yum -y install nodejs gcc-c++ make
-```
+## Build
 
-### Install Angular 4 cli
-
-```shell
-sudo npm install -g @angular/cli
-```
-
-## Local Development server
-
-Run `ng serve --poll=1000` for a dev server. Navigate to `http://<your IP address>:4200/`. The app will automatically reload if you change any of the source files.
-
-## Public Development server
-
-Run `ng serve --host <your IP address> --poll=1000` for a dev server. Navigate to `http://localhost:4200/` The app will automatically reload if you change any of the source files.
-
-## Development Build
-
-Run `ng build --dev --base-href <app's root directory>` to build the project for development. The build artifacts will be stored in the `dist/` directory. Just copy the contents of `dist/` to your web server.
-
-## Production Build
-
-Run `ng build --prod --base-href <app's root directory>` to build the project for production. The build artifacts will be stored in the `dist/` directory. Just copy the contents of `dist/` to your web server.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
 ## Running unit tests
 
@@ -49,7 +21,6 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ## Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
 
 ## Further help
 

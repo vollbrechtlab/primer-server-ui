@@ -1,48 +1,47 @@
-<h3>Specificity Checking</h3>
-<table class="settings_table">
+<table [formGroup]="specForm" class="example-form">
   <tr>
     <td>
-      <label for="GENOME">Genome</label>
+      <label for="GENOME">Genome: </label>
     </td>
     <td colspan="2">
-      <md-select [(ngModel)]="GENOME" name="option" class="genome-select">
-        <md-option *ngFor="let option of GENOME_OPTIONS" [value]="option.value">
+      <mat-select formControlName="SPEC_GENOME" name="option" class="genome-select">
+        <mat-option *ngFor="let option of GENOME_OPTIONS" [value]="option.value">
           {{option.viewValue}}
-        </md-option>
-      </md-select>
+        </mat-option>
+      </mat-select>
     </td>
   </tr>
   <tr>
     <td colspan="3">
       Primer must have at least 
-      <md-input-container class="specificity-checking-input">
-        <input mdInput type="number" [(ngModel)]="TOTAL_SPECIFICITY_MISMATCH" size="1">
-      </md-input-container>
+      <mat-input-container class="specificity-checking-input">
+        <input matInput type="number" formControlName="SPEC_TOTAL_SPECIFICITY_MISMATCH" size="1">
+      </mat-input-container>
       total mismatches to unintended targets. &nbsp;
       Including at least 
-      <md-input-container class="specificity-checking-input">
-        <input mdInput type="number" [(ngModel)]="SEND_SPECIFICITY_MISMATCH" size="1">
-      </md-input-container>
+      <mat-input-container class="specificity-checking-input">
+        <input matInput type="number" formControlName="SPEC_SEND_SPECIFICITY_MISMATCH" size="1">
+      </mat-input-container>
       mismatches within the last 
-      <md-input-container class="specificity-checking-input">
-        <input mdInput type="number" [(ngModel)]="SEND_MISMATCH_REGION_LENGTH" size="1">
-      </md-input-container>
+      <mat-input-container class="specificity-checking-input">
+        <input matInput type="number" formControlName="SPEC_SEND_MISMATCH_REGION_LENGTH" size="1">
+      </mat-input-container>
       bps at the 3' end.
       Ignore targets that have 
-      <md-input-container class="specificity-checking-input">
-        <input mdInput type="number" [(ngModel)]="TOTAL_MISMATCH_IGNORE" size="1">
-      </md-input-container>
+      <mat-input-container class="specificity-checking-input">
+        <input matInput type="number" formControlName="SPEC_TOTAL_MISMATCH_IGNORE" size="1">
+      </mat-input-container>
       or more mismatches to the primer.
     </td>
   </tr>
   <tr>
     <td>
-      <label for="MAX_TARGET_SIZE">Max target size</label>
+      <label for="MAX_TARGET_SIZE">Max target size: </label>
     </td>
     <td colspan="2">
-      <md-input-container class="example-full-width">
-        <input mdInput type="number" [(ngModel)]="MAX_TARGET_SIZE">
-      </md-input-container>
+      <mat-input-container class="example-full-width">
+        <input matInput type="number" formControlName="SPEC_MAX_TARGET_SIZE">
+      </mat-input-container>
     </td>
   </tr>
 </table>
