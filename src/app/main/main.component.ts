@@ -11,7 +11,7 @@ import { ResultComponent } from '../result/result.component';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, AfterViewInit {
 
     /* General */
   title = 'Primer Server';
@@ -30,11 +30,11 @@ export class MainComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    
+    console.log(this.resultComponent)
   }
 
   ngAfterViewInit(){
-    this.resultComponent.test();
+    console.log(this.resultComponent)
   }
 
   submit(){
