@@ -6,11 +6,11 @@ import { ChartDrawer } from './chart-drawer';
 import { ServerService } from '../server/server.service';
 
 @Component({
-  selector: 'app-result',
-  templateUrl: './result.component.html',
-  styleUrls: ['./result.component.css']
+  selector: 'app-result-page',
+  templateUrl: './result-page.component.html',
+  styleUrls: ['./result-page.component.css']
 })
-export class ResultComponent implements OnInit {
+export class ResultPageComponent implements OnInit {
 
   id: string;
 
@@ -29,11 +29,7 @@ export class ResultComponent implements OnInit {
   ngOnInit() {
     this.chartDrawer = new ChartDrawer('canvasc',500,200);
 
-  	//this.loadResult(this.id);
-  }
-
-  test(){
-    console.log('test')
+  	this.loadResult(this.id);
   }
 
   // load result from the server

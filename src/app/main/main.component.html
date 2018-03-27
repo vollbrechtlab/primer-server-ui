@@ -6,7 +6,7 @@
 
 <mat-accordion>
   <!-- Basic Parameter Settings -->
-  <mat-expansion-panel [expanded]="firstPanel">
+  <mat-expansion-panel [expanded]="basicParamsPanel">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Basic Settings
@@ -29,6 +29,8 @@
     <app-additional-params></app-additional-params>
   </mat-expansion-panel>
 
+  {{ specCheckPanel }}
+
   <!-- Specificity Checking -->
   <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -43,22 +45,19 @@
     <app-specificity-checking></app-specificity-checking>
   </mat-expansion-panel>
 
-</mat-accordion>
+  <table class="settings_table">
+    <tr>
+      <td class="submit_button">
+        <button mat-raised-button (click)="submit()">Submit</button>
+      </td>
+      <td class="reset_button">
+        <button mat-raised-button (click)="reset()">Reset</button>  
+      </td>
+    </tr>
+  </table>
 
-<table class="settings_table">
-  <tr>
-    <td class="submit_button">
-      <button mat-raised-button (click)="submit()">Submit</button>
-    </td>
-    <td class="reset_button">
-      <button mat-raised-button (click)="reset()">Reset</button>  
-    </td>
-  </tr>
-</table>
-
-<mat-accordion *ngIf="resultReady">
   <!-- Result -->
-  <mat-expansion-panel [expanded]="resultReady">
+  <mat-expansion-panel [(expanded)]="resultReady">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Result
@@ -68,7 +67,7 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <div [innerHTML]="resultHTML"></div>
+    <app-result *ngIf="resultReady"></app-result>
   </mat-expansion-panel>
   
 </mat-accordion>

@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { BasicParamsComponent } from './basic-params/basic-params.component';
 import { AdditionalParamsComponent } from './additional-params/additional-params.component';
 import { SpecificityCheckingComponent } from './specificity-checking/specificity-checking.component';
+import { ResultPageComponent } from './result-page/result-page.component';
 import { ResultComponent } from './result/result.component';
 import { DescriptionDialogComponent } from './description-dialog/description-dialog.component';
 import { } from './pa'
@@ -23,7 +24,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { MainComponent } from './main/main.component';
 
 const appRoutes: Routes = [
-  { path: 'result/:id', component: ResultComponent },
+  { path: 'result/:id', component: ResultPageComponent },
   { path: 'main', component: MainComponent },
   { path: '',
     redirectTo: '/main',
@@ -38,9 +39,10 @@ const appRoutes: Routes = [
     BasicParamsComponent,
     AdditionalParamsComponent,
     SpecificityCheckingComponent,
-    ResultComponent,
+    ResultPageComponent,
     DescriptionDialogComponent,
     PageNotFoundComponent,
+    ResultComponent,
     MainComponent
   ],
   imports: [
