@@ -204,9 +204,9 @@ export class ChartDrawer{
 
   // draw the primer chart
   drawPrimerChart(){
-    for(let i = 0; i < this.resultData.result.pairs.length; i++)
+    for(let i = 0; i < this.resultData.pairs.length; i++)
     {
-      let pair = this.resultData.result.pairs[i];
+      let pair = this.resultData.pairs[i];
 
       // drawing left primer
       if (pair.PRIMER_LEFT != undefined){

@@ -1,8 +1,13 @@
 <div *ngIf="status">
+  {{ status }}
+  <div *ngIf="status == 'in process'">
+    In process. Please wait.
+    <mat-spinner></mat-spinner>
+  </div>
   <div *ngIf="status == 'ok'">
     The result was successfully calculated.
   </div>
-  <div *ngIf="status != 'ok'">
+  <div *ngIf="status == 'error'">
     Error occured. Please check your input.
   </div>
 </div>
