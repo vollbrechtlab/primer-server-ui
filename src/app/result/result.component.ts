@@ -28,8 +28,6 @@ export class ResultComponent implements OnInit {
 
   ngOnInit() {
     this.chartDrawer = new ChartDrawer('canvasc',500,200);
-
-  	//this.loadResult(this.id);
   }
 
   test(){
