@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 import { ChartDrawer } from './chart-drawer';
-
 import { ServerService } from '../server/server.service';
 
 @Component({
@@ -13,6 +11,7 @@ import { ServerService } from '../server/server.service';
 export class ResultComponent implements OnInit {
 
   id: string;
+  url: string;
 
   taskResult: any;
   chartDrawer: any;
@@ -20,11 +19,8 @@ export class ResultComponent implements OnInit {
 
 
   public constructor(
-  	private route: ActivatedRoute,
   	private serverService: ServerService
-  ) {
-    this.id = this.route.snapshot.paramMap.get('id');
-  }
+  ) {  }
 
   ngOnInit() {
     this.chartDrawer = new ChartDrawer('canvasc',500,200);
@@ -34,8 +30,15 @@ export class ResultComponent implements OnInit {
     console.log('test')
   }
 
+  loadResult(id){
+    this.id = id;
+    this.url = window.location.href.slice(0, -5)+'/result/'+id;
+    this.loadResultHelper(id);
+  }
+
   // load result from the server
-  loadResult(id) {
+  loadResultHelper(id) {
+    
     this.serverService.getResult(id).subscribe(data => {
       console.log('taskResult', data);
       if(data.status == 'in process'){
@@ -43,7 +46,7 @@ export class ResultComponent implements OnInit {
         // reload the result
         let that = this;
         setTimeout(function(){
-          that.loadResult(id);
+          that.loadResultHelper(id);
         }, 1000)
       }
       else if(data.status == 'ok'){

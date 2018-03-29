@@ -6,6 +6,7 @@
   </div>
   <div *ngIf="status == 'ok'">
     The result was successfully calculated.
+    <a href="{{ url }}" target="_blank">Bookmark this link</a>
   </div>
   <div *ngIf="status == 'error'">
     Error occured. Please check your input.
