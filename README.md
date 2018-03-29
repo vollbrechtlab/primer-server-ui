@@ -3,6 +3,7 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.2.
 
 ## Setup
+1. `sudo npm install -g @angular/cli`
 1. Run `npm install`
 2. Go to `src/app/server/server.service.ts`
 3. Change `this.url = 'http://youraddress.com/$version_number/';`
