@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { ChartDrawer } from './chart-drawer';
+
 import { ServerService } from '../server/server.service';
 
 @Component({
-  selector: 'app-result',
-  templateUrl: './result.component.html',
-  styleUrls: ['./result.component.css']
+  selector: 'app-result-page',
+  templateUrl: './result-page.component.html',
+  styleUrls: ['./result-page.component.css']
 })
-export class ResultComponent implements OnInit {
+export class ResultPageComponent implements OnInit {
 
   id: string;
-  url: string;
 
   taskResult: any;
   chartDrawer: any;
@@ -19,26 +20,20 @@ export class ResultComponent implements OnInit {
 
 
   public constructor(
+  	private route: ActivatedRoute,
   	private serverService: ServerService
-  ) {  }
+  ) {
+    this.id = this.route.snapshot.paramMap.get('id');
+  }
 
   ngOnInit() {
     this.chartDrawer = new ChartDrawer('canvasc',500,200);
-  }
 
-  test(){
-    console.log('test')
-  }
-
-  loadResult(id){
-    this.id = id;
-    this.url = window.location.href.slice(0, -5)+'/result/'+id;
-    this.loadResultHelper(id);
+  	this.loadResult(this.id);
   }
 
   // load result from the server
-  loadResultHelper(id) {
-    
+  loadResult(id) {
     this.serverService.getResult(id).subscribe(data => {
       console.log('taskResult', data);
       if(data.status == 'in process'){
@@ -46,7 +41,7 @@ export class ResultComponent implements OnInit {
         // reload the result
         let that = this;
         setTimeout(function(){
-          that.loadResultHelper(id);
+          that.loadResult(id);
         }, 1000)
       }
       else if(data.status == 'ok'){

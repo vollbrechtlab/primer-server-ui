@@ -17,7 +17,8 @@ import {
   MatSlideToggleModule,
   MatCheckboxModule,
   MatSelectModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -37,7 +38,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatCheckboxModule,
     MatSelectModule,
     MatAutocompleteModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatButtonModule,
@@ -53,7 +55,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatCheckboxModule,
     MatSelectModule,
     MatAutocompleteModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MaterialModule {}
