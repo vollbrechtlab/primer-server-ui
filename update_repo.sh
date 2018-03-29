@@ -5,7 +5,7 @@ git commit -m "small change"
 git push origin dev
 
 # copy all dev except .git and venv to /tmp/primer-server-ui-tmp/
-rm -R /tmp/primer-server-ui-tmp
+rm -fR /tmp/primer-server-ui-tmp
 mkdir /tmp/primer-server-ui-tmp
 rsync -aP . /tmp/primer-server-ui-tmp/ --exclude=.git --exclude=node_modules --exclude=update_repo.sh
 
