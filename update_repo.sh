@@ -14,7 +14,7 @@ git checkout master
 mv .git /tmp/primer-server-ui-tmp/
 mv node_modules /tmp/primer-server-ui-tmp/
 rm -fR ./* ./.*
-mv -a /tmp/primer-server-ui-tmp/. ./
+cp -a /tmp/primer-server-ui-tmp/. ./
 git add --all .
 git commit -m "from dev"
 git push origin master
