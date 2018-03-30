@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+import { ScrollToModule } from 'ng2-scroll-to-el';
 
 import { MaterialModule } from './material.module';
 
@@ -55,7 +56,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    HttpModule
+    HttpModule,
+    ScrollToModule.forRoot()
   ],
   providers: [
     DescriptionDialogService,

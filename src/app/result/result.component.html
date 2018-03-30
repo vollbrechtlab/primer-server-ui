@@ -17,7 +17,7 @@
 
 <div *ngIf="taskResult">
 
-  <div *ngFor="let pair of taskResult.result.pairs; let i = index" [attr.data-index]="i">
+  <div *ngFor="let pair of taskResult.result.pairs; let i = index" [attr.data-index]="i" [attr.id]="i">
   <a [attr.name]="i"><br><b>Pair {{i+1}}</b>:<br></a>
   <table class="tg">
     <tr>

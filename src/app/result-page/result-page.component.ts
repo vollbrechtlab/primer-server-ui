@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ViewChild , AfterViewInit} from '@angular/core';
 
-import { ChartDrawer } from './chart-drawer';
-
+import { ResultComponent } from '../result/result.component';
 import { ServerService } from '../server/server.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { ServerService } from '../server/server.service';
   templateUrl: './result-page.component.html',
   styleUrls: ['./result-page.component.css']
 })
-export class ResultPageComponent implements OnInit {
+export class ResultPageComponent implements OnInit, AfterViewInit {
 
   id: string;
 
@@ -18,6 +18,8 @@ export class ResultPageComponent implements OnInit {
   chartDrawer: any;
   status: string;
 
+  @ViewChild(ResultComponent) 
+  private resultComponent: ResultComponent;
 
   public constructor(
   	private route: ActivatedRoute,
@@ -27,41 +29,11 @@ export class ResultPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.chartDrawer = new ChartDrawer('canvasc',500,200);
-
-  	this.loadResult(this.id);
+  	
   }
 
-  // load result from the server
-  loadResult(id) {
-    this.serverService.getResult(id).subscribe(data => {
-      console.log('taskResult', data);
-      if(data.status == 'in process'){
-        this.status = 'in process';
-        // reload the result
-        let that = this;
-        setTimeout(function(){
-          that.loadResult(id);
-        }, 1000)
-      }
-      else if(data.status == 'ok'){
-        this.taskResult = data;
-        this.chartDrawer.setInputData(this.taskResult['task']['primer3_data']);
-        console.log(this.taskResult['result'])
-        this.chartDrawer.setResultData(this.taskResult['result']);
-        this.chartDrawer.draw();
-        this.chartDrawer.primerDiscFunc = function(e){
-          console.log(e)
-        }
-        this.status = 'ok';
-      } else {
-        console.log('error from server');
-        this.status = 'error';
-        this.taskResult = null;
-        this.chartDrawer.clear();
-      }
-      
-    });
+  ngAfterViewInit(){
+    this.resultComponent.loadResult(this.id);
   }
 
 }
