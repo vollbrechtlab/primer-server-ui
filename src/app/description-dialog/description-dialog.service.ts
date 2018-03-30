@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material';
 
+import { p3Params } from '../../environments/p3-params';
+
 import { DataService } from '../data-share/data.service';
 import { DescriptionDialogComponent } from './description-dialog.component';
 
@@ -17,6 +19,6 @@ export class DescriptionDialogService {
   showDescription(paramName: string){
     let dialogRef: MatDialogRef<DescriptionDialogComponent>;
     dialogRef = this.dialog.open(DescriptionDialogComponent);
-    dialogRef.componentInstance.description = this.dataService.params[paramName].description;
+    dialogRef.componentInstance.description = p3Params[paramName].description;
   }
 }

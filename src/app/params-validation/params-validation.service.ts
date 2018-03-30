@@ -26,7 +26,92 @@ export class ParamsValidationService {
 
   status:string = 'ok';
 
-  constructor(private dataService: DataService) { }
+  strListPatt = new RegExp("[0-9]-[0-9]");
+
+  constructor(private dataService: DataService) { 
+
+  }
+
+
+  /**
+   * Convert the string interval list to array of array of ints
+   * @param {string} strList interval list string
+   * @returns {Array.Array.number}
+   */
+  convertStrListToArr(strList: string): Array<Array<number>> {
+    if(strList == null){ // null string list
+      return null;
+    }
+    if(strList == ''){ // empty string list
+      return [];
+    }
+    
+    let arr = [];
+    let splitted = strList.split(" ");
+    for(let i = 0; i < splitted.length; i++){
+      if(splitted[i] != ''){
+        if(this.strListPatt.test(splitted[i])){
+          let interval = splitted[i].split("-");
+          let start:number = parseInt(interval[0]);
+          let length:number = parseInt(interval[1]);
+          arr.push([start, length]);
+        } else {
+          return null;
+        }
+      }
+    }
+    return arr;
+  }
+
+  /**
+   * Convert the array of array of ints to the string interval list
+   * @param {Array} arr Array of array of ints
+   * @returns {string}
+   */
+  convertArrToStrList(arr: Array<Array<number>>): string{
+    if(arr == null){
+      return null;
+    }
+    if(arr.length == 0){
+      return '';
+    }
+    let strList = "";
+    for(let i = 0; i < arr.length; i++){
+      if(arr[i].length == 2){
+        strList += arr[i][0] + "-" + arr[i][1] + " ";
+      } else {
+        return null;
+      }
+    }
+    return strList;
+  }
+
+  /**
+   * Calculate the GC content based on the SEQUENCE_TEMPLATE
+   */
+  calcGcContent() {
+    if(this.dataService.p3Input.SEQUENCE_TEMPLATE.length == 0){
+      this.dataService.length = 0;
+      this.dataService.gc_content = 0;
+      return;
+    }
+    var numGc = 0;
+    for(var i = 0; i < this.dataService.p3Input.SEQUENCE_TEMPLATE.length; i++){
+      if(this.dataService.p3Input.SEQUENCE_TEMPLATE[i].toUpperCase() == 'G' || this.dataService.p3Input.SEQUENCE_TEMPLATE[i].toUpperCase() == 'C'){
+        ++numGc;
+      }
+    }
+    this.dataService.gc_content = Math.round(numGc/this.dataService.p3Input.SEQUENCE_TEMPLATE.length*100);
+  }
+
+  /**
+   * Calculate the product size based on the SEQUENCE_TEMPLATE
+   */
+  calcProdSize() {
+    this.dataService.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] = Math.round(this.dataService.p3Input.SEQUENCE_TEMPLATE.length/3);
+    this.dataService.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = this.dataService.p3Input.SEQUENCE_TEMPLATE.length;
+  }
+
 
   /**
    * Check the nucleotide sequence string.
@@ -188,17 +273,17 @@ export class ParamsValidationService {
       // update the target regions in the form
       let validator = this.settingForm.controls['SEQUENCE_TARGET'].validator; // tempolaralily remove validator
       this.settingForm.controls['SEQUENCE_TARGET'].clearValidators();
-      this.settingForm.patchValue({SEQUENCE_TARGET: this.dataService.convertArrToStrList(targetRegions)});
+      this.settingForm.patchValue({SEQUENCE_TARGET: this.convertArrToStrList(targetRegions)});
       this.settingForm.controls['SEQUENCE_TARGET'].setValidators(validator);// recover the validator
 
       // update the excluded regions in the form
       validator = this.settingForm.controls['SEQUENCE_EXCLUDED_REGION'].validator; // tempolaralily remove validator
       this.settingForm.controls['SEQUENCE_EXCLUDED_REGION'].clearValidators();
-      this.settingForm.patchValue({SEQUENCE_EXCLUDED_REGION: this.dataService.convertArrToStrList(excludedRegions)});
+      this.settingForm.patchValue({SEQUENCE_EXCLUDED_REGION: this.convertArrToStrList(excludedRegions)});
       this.settingForm.controls['SEQUENCE_EXCLUDED_REGION'].setValidators(validator);// recover the validator
       
       // update the gc content
-      this.dataService.calcGcContent();
+      this.calcGcContent();
 
       /*
       // update the product size
@@ -293,7 +378,7 @@ export class ParamsValidationService {
   }
 
   checkIntervalList(intervalList: string){
-    let arr = this.dataService.convertStrListToArr(intervalList);
+    let arr = this.convertStrListToArr(intervalList);
     return this.checkIntervalListArr(arr);
   }
 
@@ -312,7 +397,7 @@ export class ParamsValidationService {
       if(this.settingForm == null){
         return null;
       }
-      let arr = this.dataService.convertStrListToArr(control.value);
+      let arr = this.convertStrListToArr(control.value);
       let message = this.checkIntervalListArr(arr);
       
       // if there is no error in the interval list
@@ -379,6 +464,9 @@ export class ParamsValidationService {
     return (control: AbstractControl): {[key: string]: any} => {
       if(this.settingForm == null){
         return null;
+      }
+      if(this.dataService.p3Input.PRIMER_PRODUCT_SIZE_RANGE == null){
+        this.dataService.p3Input.PRIMER_PRODUCT_SIZE_RANGE = [[]]
       }
       if( control.value < 0 || 
           control.value > this.settingForm.get('PRIMER_PRODUCT_SIZE_MAX').value){

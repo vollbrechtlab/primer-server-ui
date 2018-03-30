@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild , AfterViewInit} from '@angular/core';
 
+import { environment } from '../../environments/environment';
+
 import { DataService } from '../data-share/data.service';
 import { ServerService } from '../server/server.service';
 
@@ -13,9 +15,7 @@ import { ResultComponent } from '../result/result.component';
 })
 export class MainComponent implements OnInit, AfterViewInit {
 
-  /* General */
-  title = 'Primer Server';
-  version = '2.2.3'; 
+  e = environment; // environement variables
 
   basicParamsPanel = true;
 
@@ -30,6 +30,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
+    
   }
 
   ngAfterViewInit(){

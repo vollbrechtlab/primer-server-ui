@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 
+import { environment } from '../../environments/environment';
+
 import { ParamsValidationService } from '../params-validation/params-validation.service';
 
 
@@ -11,10 +13,7 @@ import { ParamsValidationService } from '../params-validation/params-validation.
 })
 export class SpecificityCheckingComponent implements OnInit {
 
-  GENOME_OPTIONS = [
-    {value: 'maize_v3', viewValue: 'Maize B73 AGPv3'},
-    {value: 'maize_v4', viewValue: 'Maize V4'}
-  ];
+  e = environment; // environement variables
 
   specForm: FormGroup;
 
@@ -24,8 +23,9 @@ export class SpecificityCheckingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.e.GENOME_OPTIONS[0]['value'])
     this.specForm = this.fb.group({
-      GENOME: [0, this.pvService.specValidator('GENOME')],
+      GENOME: [this.e.GENOME_OPTIONS[0]['value'], this.pvService.specValidator('GENOME')],
       TOTAL_SPECIFICITY_MISMATCH: [2, this.pvService.specValidator('TOTAL_SPECIFICITY_MISMATCH')],
       SEND_SPECIFICITY_MISMATCH: [2, this.pvService.specValidator('SEND_SPECIFICITY_MISMATCH')],
       SEND_MISMATCH_REGION_LENGTH: [5, this.pvService.specValidator('SEND_MISMATCH_REGION_LENGTH')],

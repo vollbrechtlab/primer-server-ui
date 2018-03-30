@@ -7,7 +7,11 @@
 export const environment = {
   production: false,
 
-    // for basic settings
+  // general
+  title: 'Primer Server',
+  version: '2.3.3',
+
+  // for basic settings
   PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS: [
     {value: 0, viewValue: 'Schildkraut and Lifson 1965'},
     {value: 1, viewValue: 'SantaLucia 1998'},

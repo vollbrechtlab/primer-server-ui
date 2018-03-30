@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
-
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
+
+import { environment } from '../../environments/environment';
 
 import { DataService } from '../data-share/data.service';
 import { ParamsValidationService } from '../params-validation/params-validation.service';
@@ -14,6 +15,8 @@ import { DescriptionDialogService } from '../description-dialog/description-dial
   styleUrls: ['./basic-params.component.css']
 })
 export class BasicParamsComponent implements OnInit {
+
+  e = environment; // environement variables
 
   settingForm: FormGroup;
 
@@ -64,17 +67,5 @@ export class BasicParamsComponent implements OnInit {
     this.settingForm.controls['PRIMER_TM_FORMULA'].markAsTouched();
   }
 
-
-  getFormValidationErrors() {
-    Object.keys(this.settingForm.controls).forEach(key => {
-
-      const controlErrors: ValidationErrors = this.settingForm.get(key).errors;
-      if (controlErrors != null) {
-        Object.keys(controlErrors).forEach(keyError => {
-          //console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
-        });
-      }
-    });
-  }
 }
 
