@@ -1,6 +1,9 @@
-value=`cat src/environments/general.ts`
+#value=`cat src/environments/general.ts`
+#echo "$value"
+value=`grep title: src/environments/general.ts`
 echo "$value"
-#grep title: src/environments/general.ts
+sed 's/title: //' | value
+#grep version: src/environments/general.ts | sed 's/version: //' | sed 's/\,//g' | sed 's/\ //g' | sed 's/'/ /g'
 
 #curPath="$pwd"
 #echo building version $1
