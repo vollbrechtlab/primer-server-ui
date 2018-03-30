@@ -6,7 +6,6 @@
   <div *ngIf="status == 'ok'">
     The result was successfully calculated.<br>
     <a href="{{ url }}" target="_blank">Bookmark this link</a><br>
-    <a [href]="{{ resultApiURL }}" download="taskResult.json">Download raw data (JSON)</a>
   </div>
   <div *ngIf="status == 'error'">
     Error occured. Please check your input.
