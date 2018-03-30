@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 
 import { ChartDrawer } from './chart-drawer';
 import { ServerService } from '../server/server.service';
@@ -11,19 +10,18 @@ import { ServerService } from '../server/server.service';
 })
 export class ResultComponent implements OnInit {
 
-  id: string;
-  url: string;
+  id: string;  // id of the task
+  url: string; // url of the result page
 
-  taskResult: any;
+  taskResult: any; // data that contains result and task data
   chartDrawer: any;
   status: string;
 
-  downloadJsonHref;
+  resultApiURL; // 
 
 
   public constructor(
-  	private serverService: ServerService,
-    private sanitizer: DomSanitizer
+  	private serverService: ServerService
   ) {  }
 
   ngOnInit() {
@@ -37,8 +35,9 @@ export class ResultComponent implements OnInit {
   loadResult(id){
     this.id = id;
     this.url = window.location.href.slice(0, -5)+'/result/'+id;
+    this.resultApiURL = this.serverService.getResultURL(id);
     this.loadResultHelper(id);
-    this.generateDownloadJsonUri()
+    
   }
 
   // load result from the server
@@ -74,11 +73,5 @@ export class ResultComponent implements OnInit {
     });
   }
 
-  generateDownloadJsonUri() {
-    var theJSON = JSON.stringify(this.taskResult);
-    var uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
-    this.downloadJsonHref = uri;
-    console.log(this.downloadJsonHref)
-  }
 
 }

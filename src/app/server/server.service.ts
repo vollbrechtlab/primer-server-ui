@@ -51,4 +51,8 @@ export class ServerService {
     data = this.cleanObj(data);
     return this.post(data, this.url);
   }
+
+  getResultURL(id : string) : string {
+    return this.url + '/' + id;
+  }
 }
