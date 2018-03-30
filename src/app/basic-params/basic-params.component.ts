@@ -17,8 +17,6 @@ export class BasicParamsComponent implements OnInit {
 
   settingForm: FormGroup;
 
-  private fileReader = new FileReader();
-
   constructor(
     private fb: FormBuilder,
     public dataService: DataService,

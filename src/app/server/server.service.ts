@@ -11,7 +11,7 @@ export class ServerService {
   constructor (
     private http: Http
   ) {
-    this.url = 'http://localhost:8001/v1.02/';
+    this.url = 'http://localhost:8001/v1.03/';
   }
 
   // recursiely remove keys with null

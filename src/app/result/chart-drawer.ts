@@ -42,20 +42,19 @@ export class ChartDrawer{
     this.paper.setViewBox(0,0,w,h,true);
     this.paper.setSize('100%', '100%');
 
-    this.seqChartX = 10,
-    console.log(this.seqChartX)
-    this.seqChartY = 10,
-    this.seqChartW = this.w-30,
-    this.seqChartH = 40,
-    this.seqChartB = this.seqChartY+this.seqChartH,
-    this.seqY = this.seqChartY+this.seqChartH*0.25,
-    this.seqH = this.seqChartH/4,
-    this.regionY = this.seqChartY+this.seqChartH*0.50,
-    this.regionH = this.seqH,
-    this.primerChartX = this.seqChartX,
-    this.primerChartY = this.seqChartB+40,
-    this.primerChartW = this.seqChartW,
-    this.primerChartH = this.seqH,
+    this.seqChartX = 10;
+    this.seqChartY = 10;
+    this.seqChartW = this.w-30;
+    this.seqChartH = 40;
+    this.seqChartB = this.seqChartY+this.seqChartH;
+    this.seqY = this.seqChartY+this.seqChartH*0.25;
+    this.seqH = this.seqChartH/4;
+    this.regionY = this.seqChartY+this.seqChartH*0.50;
+    this.regionH = this.seqH;
+    this.primerChartX = this.seqChartX;
+    this.primerChartY = this.seqChartB+40;
+    this.primerChartW = this.seqChartW;
+    this.primerChartH = this.seqH;
     this.primerH = 10;
 
     //this.scrollService = scrollService;
