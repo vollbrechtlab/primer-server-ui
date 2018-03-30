@@ -1,12 +1,12 @@
 <div *ngIf="status">
-  {{ status }}
   <div *ngIf="status == 'in process'">
     In process. Please wait.
     <mat-spinner></mat-spinner>
   </div>
   <div *ngIf="status == 'ok'">
-    The result was successfully calculated.
-    <a href="{{ url }}" target="_blank">Bookmark this link</a>
+    The result was successfully calculated.<br>
+    <a href="{{ url }}" target="_blank">Bookmark this link</a><br>
+    <a [href]="downloadJsonHref" download="taskResult.json">Download raw data (JSON)</a>
   </div>
   <div *ngIf="status == 'error'">
     Error occured. Please check your input.

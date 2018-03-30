@@ -13,9 +13,9 @@ import { ResultComponent } from '../result/result.component';
 })
 export class MainComponent implements OnInit, AfterViewInit {
 
-    /* General */
+  /* General */
   title = 'Primer Server';
-  version = '2.2.2'; 
+  version = '2.2.3'; 
 
   basicParamsPanel = true;
 
@@ -56,7 +56,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   reset(){
-
+    console.log('resetting form')
   }
 
 
