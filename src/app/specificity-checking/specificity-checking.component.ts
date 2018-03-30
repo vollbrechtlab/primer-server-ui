@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 
-import { environment } from '../../environments/environment';
+import { SPEC_CHECK_CONST } from '../../environments/specificity-checking';
 
 import { ParamsValidationService } from '../params-validation/params-validation.service';
 
@@ -13,7 +13,7 @@ import { ParamsValidationService } from '../params-validation/params-validation.
 })
 export class SpecificityCheckingComponent implements OnInit {
 
-  e = environment; // environement variables
+  e = SPEC_CHECK_CONST; // environement variables
 
   specForm: FormGroup;
 
@@ -23,7 +23,6 @@ export class SpecificityCheckingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.e.GENOME_OPTIONS[0]['value'])
     this.specForm = this.fb.group({
       GENOME: [this.e.GENOME_OPTIONS[0]['value'], this.pvService.specValidator('GENOME')],
       TOTAL_SPECIFICITY_MISMATCH: [2, this.pvService.specValidator('TOTAL_SPECIFICITY_MISMATCH')],

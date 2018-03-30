@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, Valid
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
 
-import { environment } from '../../environments/environment';
+import { BASIC_SETTINGS_CONST } from '../../environments/basic-settings';
 
 import { DataService } from '../data-share/data.service';
 import { ParamsValidationService } from '../params-validation/params-validation.service';
@@ -16,7 +16,7 @@ import { DescriptionDialogService } from '../description-dialog/description-dial
 })
 export class BasicParamsComponent implements OnInit {
 
-  e = environment; // environement variables
+  e = BASIC_SETTINGS_CONST ; // environement variables
 
   settingForm: FormGroup;
 

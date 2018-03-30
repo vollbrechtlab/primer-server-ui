@@ -90,16 +90,20 @@ export class AdditionalParamsComponent implements OnInit {
    * Remove parameter from the list
    */
   remove(name:string){
+    // find which param to delete
     let i = 0;
     for(i = 0; i < this.selectedParamNames.length; i++){
       if(this.selectedParamNames[i] == name){
         break;
       }
     }
+    // delete
     this.selectedParamNames.splice(i, 1);
     this.selectedParams.splice(i, 1);
-    
     this.formGroup.removeControl(name);
+
+    // delte from share data as well
+    this.dataService.p3Input[name] = undefined;
   }
 
 }
