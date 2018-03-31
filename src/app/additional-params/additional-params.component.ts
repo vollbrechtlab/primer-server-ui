@@ -70,8 +70,7 @@ export class AdditionalParamsComponent implements OnInit {
    * add new parameter to the list
    */
   add(){
-    //this.dataService.p3Input['SEQUENCE_START_CODON_POSITION'] = 1234;
-    console.log(this.dataService.p3Input.SEQUENCE_START_CODON_POSITION);
+    console.log(this.dataService.main.task.primer3_data.SEQUENCE_START_CODON_POSITION);
     let temp = p3Params[this.paramOption];
     if(temp == null){
       console.log("doesnt exist")
@@ -80,7 +79,7 @@ export class AdditionalParamsComponent implements OnInit {
         this.selectedParams.push(temp);
         this.selectedParamNames.push(this.paramOption);
         
-        this.formGroup.addControl(this.paramOption, new FormControl(this.dataService.p3Input[this.paramOption], this.pvService.simpleValidator(this.paramOption)))
+        this.formGroup.addControl(this.paramOption, new FormControl(this.dataService.main.task.primer3_data[this.paramOption], this.pvService.simpleValidator(this.paramOption)))
       }
       this.paramOption = '';
     }
@@ -102,8 +101,8 @@ export class AdditionalParamsComponent implements OnInit {
     this.selectedParams.splice(i, 1);
     this.formGroup.removeControl(name);
 
-    // delte from share data as well
-    this.dataService.p3Input[name] = undefined;
+    // delete from share data as well
+    this.dataService.main.task.primer3_data[name] = undefined;
   }
 
 }

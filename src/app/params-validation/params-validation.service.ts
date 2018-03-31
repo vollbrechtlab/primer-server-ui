@@ -90,26 +90,26 @@ export class ParamsValidationService {
    * Calculate the GC content based on the SEQUENCE_TEMPLATE
    */
   calcGcContent() {
-    if(this.dataService.p3Input.SEQUENCE_TEMPLATE.length == 0){
-      this.dataService.length = 0;
-      this.dataService.gc_content = 0;
+    if(this.dataService.main.task.primer3_data.SEQUENCE_TEMPLATE.length == 0){
+      this.dataService.main.length = 0;
+      this.dataService.main.gc_content = 0;
       return;
     }
     var numGc = 0;
-    for(var i = 0; i < this.dataService.p3Input.SEQUENCE_TEMPLATE.length; i++){
-      if(this.dataService.p3Input.SEQUENCE_TEMPLATE[i].toUpperCase() == 'G' || this.dataService.p3Input.SEQUENCE_TEMPLATE[i].toUpperCase() == 'C'){
+    for(var i = 0; i < this.dataService.main.task.primer3_data.SEQUENCE_TEMPLATE.length; i++){
+      if(this.dataService.main.task.primer3_data.SEQUENCE_TEMPLATE[i].toUpperCase() == 'G' || this.dataService.main.task.primer3_data.SEQUENCE_TEMPLATE[i].toUpperCase() == 'C'){
         ++numGc;
       }
     }
-    this.dataService.gc_content = Math.round(numGc/this.dataService.p3Input.SEQUENCE_TEMPLATE.length*100);
+    this.dataService.main.gc_content = Math.round(numGc/this.dataService.main.task.primer3_data.SEQUENCE_TEMPLATE.length*100);
   }
 
   /**
    * Calculate the product size based on the SEQUENCE_TEMPLATE
    */
   calcProdSize() {
-    this.dataService.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] = Math.round(this.dataService.p3Input.SEQUENCE_TEMPLATE.length/3);
-    this.dataService.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = this.dataService.p3Input.SEQUENCE_TEMPLATE.length;
+    this.dataService.main.task.primer3_data.PRIMER_PRODUCT_SIZE_RANGE[0][0] = Math.round(this.dataService.main.task.primer3_data.SEQUENCE_TEMPLATE.length/3);
+    this.dataService.main.task.primer3_data.PRIMER_PRODUCT_SIZE_RANGE[0][1] = this.dataService.main.task.primer3_data.SEQUENCE_TEMPLATE.length;
   }
 
 
@@ -179,7 +179,7 @@ export class ParamsValidationService {
       }
       if(control.value == ''){
         // empty
-        this.dataService.p3Input.SEQUENCE_TEMPLATE = '';
+        this.dataService.main.task.primer3_data.SEQUENCE_TEMPLATE = '';
         return null;
       }
       
@@ -197,7 +197,7 @@ export class ParamsValidationService {
       // check if the sequence is ok
       let message = this.checkNucleotideSequence(sequence, this.sequenceTemplateCodes);
       if(message != null){
-        this.dataService.p3Input.SEQUENCE_TEMPLATE = sequence;
+        this.dataService.main.task.primer3_data.SEQUENCE_TEMPLATE = sequence;
         return message;
       }
 
@@ -264,11 +264,11 @@ export class ParamsValidationService {
       }
 
       // share the sequence temmpate
-      this.dataService.p3Input.SEQUENCE_TEMPLATE = sequence.replace(/\[|\]|\(|\)/g, '');
+      this.dataService.main.task.primer3_data.SEQUENCE_TEMPLATE = sequence.replace(/\[|\]|\(|\)/g, '');
 
       // share the regions
-      this.dataService.p3Input.SEQUENCE_TARGET = targetRegions;
-      this.dataService.p3Input.SEQUENCE_EXCLUDED_REGION = excludedRegions;
+      this.dataService.main.task.primer3_data.SEQUENCE_TARGET = targetRegions;
+      this.dataService.main.task.primer3_data.SEQUENCE_EXCLUDED_REGION = excludedRegions;
 
       // update the target regions in the form
       let validator = this.settingForm.controls['SEQUENCE_TARGET'].validator; // tempolaralily remove validator
@@ -288,8 +288,8 @@ export class ParamsValidationService {
       /*
       // update the product size
       this.dataService.calcProdSize();
-      this.settingForm.patchValue({PRIMER_PRODUCT_SIZE_MIN: this.dataService.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0]});
-      this.settingForm.patchValue({PRIMER_PRODUCT_SIZE_MAX: this.dataService.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]});
+      this.settingForm.patchValue({PRIMER_PRODUCT_SIZE_MIN: this.dataService.main.task.primer3_data.PRIMER_PRODUCT_SIZE_RANGE[0][0]});
+      this.settingForm.patchValue({PRIMER_PRODUCT_SIZE_MAX: this.dataService.main.task.primer3_data.PRIMER_PRODUCT_SIZE_RANGE[0][1]});
       */
 
       // returning null means no error
@@ -302,7 +302,7 @@ export class ParamsValidationService {
       if(this.settingForm == null){
         return null;
       }
-      this.dataService.p3Input.PRIMER_PICK_LEFT_PRIMER = control.value;
+      this.dataService.main.task.primer3_data.PRIMER_PICK_LEFT_PRIMER = control.value;
       if(control.value){
         this.settingForm.get('SEQUENCE_PRIMER').setValue(null);
       }
@@ -314,7 +314,7 @@ export class ParamsValidationService {
       if(this.settingForm == null){
         return null;
       }
-      this.dataService.p3Input.PRIMER_PICK_INTERNAL_OLIGO = control.value;
+      this.dataService.main.task.primer3_data.PRIMER_PICK_INTERNAL_OLIGO = control.value;
       if(control.value){
         this.settingForm.get('SEQUENCE_INTERNAL_OLIGO').setValue(null);
       }
@@ -326,7 +326,7 @@ export class ParamsValidationService {
       if(this.settingForm == null){
         return null;
       }
-      this.dataService.p3Input.PRIMER_PICK_RIGHT_PRIMER = control.value;
+      this.dataService.main.task.primer3_data.PRIMER_PICK_RIGHT_PRIMER = control.value;
       if(control.value){
         this.settingForm.get('SEQUENCE_PRIMER_REVCOMP').setValue(null);
       }
@@ -342,7 +342,7 @@ export class ParamsValidationService {
       let message = this.checkNucleotideSequence(control.value, this.normalBaseCodes);
       // no error
       if(message == null){
-        this.dataService.p3Input[name] = control.value;
+        this.dataService.main.task.primer3_data[name] = control.value;
       }
       return message;
     };
@@ -370,7 +370,7 @@ export class ParamsValidationService {
     for(let i = 0; i < arr.length; i++){
       let start:number = arr[i][0];
       let length:number = arr[i][1];
-      if(start < 0 || length < 0 || start + length > this.dataService.p3Input.SEQUENCE_TEMPLATE.length){
+      if(start < 0 || length < 0 || start + length > this.dataService.main.task.primer3_data.SEQUENCE_TEMPLATE.length){
         return {'invalidIntervalList': true};
       }
     }
@@ -410,14 +410,14 @@ export class ParamsValidationService {
           for(let i = 0; i < arr.length; i++){
             sumTargetLength += arr[i][1];
           }
-          if(sumTargetLength > this.dataService.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1]){
+          if(sumTargetLength > this.dataService.main.task.primer3_data.PRIMER_PRODUCT_SIZE_RANGE[0][1]){
             console.log("invalid")
             return {"invalidLength":sumTargetLength};
           }
           
           try{
             let numInserted = 0;
-            let sequence = this.dataService.p3Input.SEQUENCE_TEMPLATE;
+            let sequence = this.dataService.main.task.primer3_data.SEQUENCE_TEMPLATE;
             for(let i = 0; i < arr.length; i++){
               let start = arr[i][0];
               let length = arr[i][1];
@@ -445,9 +445,9 @@ export class ParamsValidationService {
 
         // add it to the shared param
         if(type == 'SEQUENCE_TARGET'){
-          this.dataService.p3Input.SEQUENCE_TARGET = arr;
+          this.dataService.main.task.primer3_data.SEQUENCE_TARGET = arr;
         } else {
-          this.dataService.p3Input.SEQUENCE_EXCLUDED_REGION = arr;
+          this.dataService.main.task.primer3_data.SEQUENCE_EXCLUDED_REGION = arr;
         }
         
         
@@ -465,17 +465,17 @@ export class ParamsValidationService {
       if(this.settingForm == null){
         return null;
       }
-      if(this.dataService.p3Input.PRIMER_PRODUCT_SIZE_RANGE == null){
-        this.dataService.p3Input.PRIMER_PRODUCT_SIZE_RANGE = [[]]
+      if(this.dataService.main.task.primer3_data.PRIMER_PRODUCT_SIZE_RANGE == null){
+        this.dataService.main.task.primer3_data.PRIMER_PRODUCT_SIZE_RANGE = [[]]
       }
       if( control.value < 0 || 
           control.value > this.settingForm.get('PRIMER_PRODUCT_SIZE_MAX').value){
         control.value < this.settingForm.get('PRIMER_PRODUCT_SIZE_MAX').setErrors({'invalidMax': true});
-      this.dataService.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] = control.value;
+      this.dataService.main.task.primer3_data.PRIMER_PRODUCT_SIZE_RANGE[0][0] = control.value;
         return {'invalidMin': true};
       }
       control.value < this.settingForm.get('PRIMER_PRODUCT_SIZE_MAX').setErrors(null);
-      this.dataService.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][0] = control.value;
+      this.dataService.main.task.primer3_data.PRIMER_PRODUCT_SIZE_RANGE[0][0] = control.value;
       return null;
     };
   }
@@ -490,11 +490,11 @@ export class ParamsValidationService {
       }
       if(control.value < this.settingForm.get('PRIMER_PRODUCT_SIZE_MIN').value){
         control.value < this.settingForm.get('PRIMER_PRODUCT_SIZE_MIN').setErrors({'invalidMin': true});
-        this.dataService.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = control.value;
+        this.dataService.main.task.primer3_data.PRIMER_PRODUCT_SIZE_RANGE[0][1] = control.value;
         return {'invalidMax': true};
       } 
       control.value < this.settingForm.get('PRIMER_PRODUCT_SIZE_MIN').setErrors(null);
-      this.dataService.p3Input.PRIMER_PRODUCT_SIZE_RANGE[0][1] = control.value;
+      this.dataService.main.task.primer3_data.PRIMER_PRODUCT_SIZE_RANGE[0][1] = control.value;
       return null;
     };
   }
@@ -504,7 +504,7 @@ export class ParamsValidationService {
       if(this.settingForm == null){
         return null;
       }
-      this.dataService.p3Input.PRIMER_MIN_TM = control.value;      
+      this.dataService.main.task.primer3_data.PRIMER_MIN_TM = control.value;      
       return null;
     };
   }
@@ -514,7 +514,7 @@ export class ParamsValidationService {
       if(this.settingForm == null){
         return null;
       }
-      this.dataService.p3Input.PRIMER_OPT_TM = control.value;     
+      this.dataService.main.task.primer3_data.PRIMER_OPT_TM = control.value;     
       return null;
     };
   }
@@ -524,7 +524,7 @@ export class ParamsValidationService {
       if(this.settingForm == null){
         return null;
       }
-      this.dataService.p3Input.PRIMER_MAX_TM = control.value;     
+      this.dataService.main.task.primer3_data.PRIMER_MAX_TM = control.value;     
       return null;
     };
   }
@@ -534,7 +534,7 @@ export class ParamsValidationService {
       if(this.settingForm == null){
         return null;
       }
-      this.dataService.p3Input.PRIMER_PAIR_MAX_DIFF_TM = control.value;
+      this.dataService.main.task.primer3_data.PRIMER_PAIR_MAX_DIFF_TM = control.value;
       return null;
     };
   }
@@ -544,7 +544,7 @@ export class ParamsValidationService {
       if(this.settingForm == null){
         return null;
       }
-      this.dataService.p3Input.PRIMER_SALT_CORRECTIONS = control.value;
+      this.dataService.main.task.primer3_data.PRIMER_SALT_CORRECTIONS = control.value;
       return null;
     };
   }
@@ -554,7 +554,7 @@ export class ParamsValidationService {
       if(this.settingForm == null){
         return null;
       }
-      this.dataService.p3Input.PRIMER_TM_FORMULA = control.value;
+      this.dataService.main.task.primer3_data.PRIMER_TM_FORMULA = control.value;
       return null;
     };
   }
@@ -562,14 +562,14 @@ export class ParamsValidationService {
 
   simpleValidator(paramName: string): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
-      this.dataService.p3Input[paramName] = control.value;
+      this.dataService.main.task.primer3_data[paramName] = control.value;
       return null;
     };
   }
 
   specValidator(paramName: string): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
-      this.dataService.specCheckInput[paramName] = control.value;
+      this.dataService.main.task.spec_check[paramName] = control.value;
       return null;
     };
   }

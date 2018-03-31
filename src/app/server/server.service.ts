@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+
+import { environment } from '../../environments/environment'
 
 @Injectable()
 export class ServerService {
@@ -11,7 +13,7 @@ export class ServerService {
   constructor (
     private http: Http
   ) {
-    this.url = 'http://localhost:8001/v1.03/';
+    this.url = environment.API_URL;
   }
 
   // recursiely remove keys with null

@@ -3,14 +3,12 @@ import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material';
 
 import { p3Params } from '../../environments/p3-params';
 
-import { DataService } from '../data-share/data.service';
 import { DescriptionDialogComponent } from './description-dialog.component';
 
 @Injectable()
 export class DescriptionDialogService {
 
-  constructor(private dialog: MatDialog,
-              private dataService: DataService) { }
+  constructor(private dialog: MatDialog) { }
 
   /**
    * Show the description dialog
