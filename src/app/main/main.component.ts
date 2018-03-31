@@ -44,7 +44,6 @@ export class MainComponent implements OnInit, AfterViewInit {
     platformLocation: PlatformLocation
   ) {
     this.baseHref = (platformLocation as any).location.baseHref;
-    console.log(this.baseHref)
   }
 
   ngOnInit() {
@@ -63,7 +62,7 @@ export class MainComponent implements OnInit, AfterViewInit {
         this.resultReady = true;
         this.basicParamsPanel = false;
       } else {
-        console.log('error from server');
+        console.error('error from server');
       }
     });
   }

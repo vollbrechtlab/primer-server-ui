@@ -11,6 +11,7 @@ rsync -aP . /tmp/primer-server-ui-tmp/ --exclude=.git --exclude=node_modules --e
 
 # copy back all files in /tmp/primer-server-ui-tmp/ to master
 git checkout master
+git pull
 mv .git /tmp/primer-server-ui-tmp/
 mv node_modules /tmp/primer-server-ui-tmp/
 rm -fR ./* ./.*

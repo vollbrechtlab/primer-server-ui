@@ -64,15 +64,14 @@ export class AdditionalParamsComponent implements OnInit {
     }
     return filtered;
   }
-
+  
   /**
    * add new parameter to the list
    */
   add(){
-    console.log(this.dataService.main.task.primer3_data.SEQUENCE_START_CODON_POSITION);
     let temp = p3Params[this.paramOption];
     if(temp == null){
-      console.log("doesnt exist")
+      console.error("option doesnt exist")
     } else {
       if(!this.selectedParamNames.includes(this.paramOption)){
         this.selectedParams.push(temp);
