@@ -6,6 +6,9 @@ import { GENERAL } from '../../environments/general';
 import { DataService } from '../data-share/data.service';
 import { ServerService } from '../server/server.service';
 
+import { BasicParamsComponent } from '../basic-params/basic-params.component';
+import { AdditionalParamsComponent } from '../additional-params/additional-params.component';
+import { SpecificityCheckingComponent } from '../specificity-checking/specificity-checking.component';
 import { ResultComponent } from '../result/result.component';
 
 @Component({
@@ -21,8 +24,17 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   resultReady = false;
 
+  @ViewChild(BasicParamsComponent) 
+  private basicParamsComponent: BasicParamsComponent;
+
+  @ViewChild(AdditionalParamsComponent)
+  private additionalParamsComponent: AdditionalParamsComponent;
+
+  @ViewChild(SpecificityCheckingComponent)
+  private specificityCheckingComponent: SpecificityCheckingComponent;
+
   @ViewChild(ResultComponent) 
-  private resultComponent: ResultComponent
+  private resultComponent: ResultComponent;
 
   constructor(
   	private dataService: DataService,
@@ -52,6 +64,9 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   reset(){
     console.log('resetting form')
+    this.basicParamsComponent.reset()
+    this.additionalParamsComponent.reset()
+    this.specificityCheckingComponent.reset()
   }
 
 

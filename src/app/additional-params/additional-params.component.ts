@@ -57,9 +57,8 @@ export class AdditionalParamsComponent implements OnInit {
    */
   filter(val: string): string[] {
     let filtered : string[] = [];
-    for(let i = 0; i < p3Options.length; i++) {
-      let option = p3Options[i];
-      if(option.toLowerCase().includes(val.toLowerCase())) {
+    for(let option of p3Options) {
+      if(option != null && val != null && option.toLowerCase().includes(val.toLowerCase())) {
         filtered.push(option);
       }
     }
@@ -103,6 +102,18 @@ export class AdditionalParamsComponent implements OnInit {
 
     // delete from share data as well
     this.dataService.main.task.primer3_data[name] = undefined;
+  }
+
+  reset(){
+    for(let name of this.selectedParamNames){
+      this.dataService.main.task.primer3_data[name] = undefined;
+    }
+
+    this.selectedParams = [];
+    this.selectedParamNames = [];
+    this.paramOption = null;
+
+    this.formGroup = new FormGroup({});
   }
 
 }
