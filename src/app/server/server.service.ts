@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+
+import { environment } from '../../environments/environment'
 
 @Injectable()
 export class ServerService {
@@ -11,7 +13,7 @@ export class ServerService {
   constructor (
     private http: Http
   ) {
-    this.url = 'http://localhost:8001/v1.02/';
+    this.url = environment.API_URL;
   }
 
   // recursiely remove keys with null
@@ -50,5 +52,9 @@ export class ServerService {
   submitTask(data) : Observable<any>{
     data = this.cleanObj(data);
     return this.post(data, this.url);
+  }
+
+  getResultURL(id : string) : string {
+    return this.url + '/' + id;
   }
 }

@@ -1,11 +1,11 @@
 {
   "name": "primer-server-ui",
-  "version": "0.0.0",
+  "version": "2.2.3",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --prod",
+    "start": "ng serve --poll=100",
+    "build": "ng build --prod --env=prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

@@ -10,7 +10,7 @@
     </textarea>
 
     <mat-hint align="end">
-      Length: {{dataService.p3Input.SEQUENCE_TEMPLATE.length}}, GC Content: {{dataService.gc_content}}%
+      Length: {{dataService.main.task.primer3_data.SEQUENCE_TEMPLATE.length}}, GC Content: {{dataService.main.gc_content}}%
     </mat-hint>
 
     <!-- Sequence template error messages -->
@@ -219,7 +219,7 @@
       </td>
       <td>
         <mat-select formControlName="PRIMER_SALT_CORRECTIONS" class="salt-corrections-select">
-          <mat-option *ngFor="let option of dataService.PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS" [value]="option.value">
+          <mat-option *ngFor="let option of e.PRIMER_SALT_CORRECTIONS_INPUT_OPTIONS" [value]="option.value">
             {{option.viewValue}}
           </mat-option>
         </mat-select>
@@ -234,7 +234,7 @@
       </td>
       <td>
         <mat-select formControlName="PRIMER_TM_FORMULA" class="tm-formula-select">
-          <mat-option *ngFor="let option of dataService.PRIMER_TM_FORMULA_INPUT_OPTIONS" [value]="option.value">
+          <mat-option *ngFor="let option of e.PRIMER_TM_FORMULA_INPUT_OPTIONS" [value]="option.value">
             {{option.viewValue}}
           </mat-option>
         </mat-select>

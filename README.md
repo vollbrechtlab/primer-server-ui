@@ -2,16 +2,31 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.2.
 
+## Environment
+We are developing and testing all code on Ubuntu 16.04 and RedHat 7 x64
+
+## Pre-setup
+1. Install node and npm 
+```
+# On Ubuntu
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# On RedHat
+curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
+sudo yum -y install nodejs
+```
+2. Install angular-cli
+`sudo npm install -g @angular/cli`
+
 ## Setup
-1. `sudo npm install -g @angular/cli`
 1. Run `npm install`
-2. Go to `src/app/server/server.service.ts`
-3. Change `this.url = 'http://youraddress.com/$version_number/';`
+2. Go to `src/environments/environment.prod.ts` and change API_URL to `http://your-api-address.com/v$api_version_number/`
 
 ## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Build
-1. Install apache2 and make `primer-server` folder in `/var/www/html`
-2. Run `./deploy.sh $version_num`
-For example, `./deploy.sh 2.2.2`
+## Deployment
+1. Install a web server such as nginx or apache2
+2. Allow .htaccess in the web server setting
+3. Run `sudo node deploy.js` (this script assumes html is put in `/var/www/html/`)

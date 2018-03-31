@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 
+import { SPEC_CHECK_CONST } from '../../environments/specificity-checking';
+
 import { ParamsValidationService } from '../params-validation/params-validation.service';
 
 
@@ -11,11 +13,7 @@ import { ParamsValidationService } from '../params-validation/params-validation.
 })
 export class SpecificityCheckingComponent implements OnInit {
 
-  GENOME_OPTIONS = [
-    {value: 0, viewValue: 'Maize B73 AGPv3'},
-    {value: 1, viewValue: 'baka'}
-  ];
-
+  e = SPEC_CHECK_CONST; // environement variables
 
   specForm: FormGroup;
 
@@ -26,12 +24,12 @@ export class SpecificityCheckingComponent implements OnInit {
 
   ngOnInit() {
     this.specForm = this.fb.group({
-      SPEC_GENOME: [0, this.pvService.specValidator('SPEC_GENOME')],
-      SPEC_TOTAL_SPECIFICITY_MISMATCH: [2, this.pvService.specValidator('SPEC_TOTAL_SPECIFICITY_MISMATCH')],
-      SPEC_SEND_SPECIFICITY_MISMATCH: [2, this.pvService.specValidator('SPEC_SEND_SPECIFICITY_MISMATCH')],
-      SPEC_SEND_MISMATCH_REGION_LENGTH: [5, this.pvService.specValidator('SPEC_SEND_MISMATCH_REGION_LENGTH')],
-      SPEC_TOTAL_MISMATCH_IGNORE: [6, this.pvService.specValidator('SPEC_TOTAL_MISMATCH_IGNORE')],
-      SPEC_MAX_TARGET_SIZE: [3000, this.pvService.specValidator('SPEC_MAX_TARGET_SIZE')]
+      GENOME: [this.e.GENOME_OPTIONS[0]['value'], this.pvService.specValidator('GENOME')],
+      TOTAL_SPECIFICITY_MISMATCH: [2, this.pvService.specValidator('TOTAL_SPECIFICITY_MISMATCH')],
+      SEND_SPECIFICITY_MISMATCH: [2, this.pvService.specValidator('SEND_SPECIFICITY_MISMATCH')],
+      SEND_MISMATCH_REGION_LENGTH: [5, this.pvService.specValidator('SEND_MISMATCH_REGION_LENGTH')],
+      TOTAL_MISMATCH_IGNORE: [6, this.pvService.specValidator('TOTAL_MISMATCH_IGNORE')],
+      MAX_TARGET_SIZE: [3000, this.pvService.specValidator('MAX_TARGET_SIZE')]
     });
   }
 

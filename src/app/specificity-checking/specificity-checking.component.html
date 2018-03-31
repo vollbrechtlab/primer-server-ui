@@ -4,8 +4,8 @@
       <label for="GENOME">Genome: </label>
     </td>
     <td colspan="2">
-      <mat-select formControlName="SPEC_GENOME" name="option" class="genome-select">
-        <mat-option *ngFor="let option of GENOME_OPTIONS" [value]="option.value">
+      <mat-select formControlName="GENOME" name="option" class="genome-select">
+        <mat-option *ngFor="let option of e.GENOME_OPTIONS" [value]="option.value">
           {{option.viewValue}}
         </mat-option>
       </mat-select>
@@ -15,21 +15,21 @@
     <td colspan="3">
       Primer must have at least 
       <mat-input-container class="specificity-checking-input">
-        <input matInput type="number" formControlName="SPEC_TOTAL_SPECIFICITY_MISMATCH" size="1">
+        <input matInput type="number" formControlName="TOTAL_SPECIFICITY_MISMATCH" size="1">
       </mat-input-container>
       total mismatches to unintended targets. &nbsp;
       Including at least 
       <mat-input-container class="specificity-checking-input">
-        <input matInput type="number" formControlName="SPEC_SEND_SPECIFICITY_MISMATCH" size="1">
+        <input matInput type="number" formControlName="SEND_SPECIFICITY_MISMATCH" size="1">
       </mat-input-container>
       mismatches within the last 
       <mat-input-container class="specificity-checking-input">
-        <input matInput type="number" formControlName="SPEC_SEND_MISMATCH_REGION_LENGTH" size="1">
+        <input matInput type="number" formControlName="SEND_MISMATCH_REGION_LENGTH" size="1">
       </mat-input-container>
       bps at the 3' end.
       Ignore targets that have 
       <mat-input-container class="specificity-checking-input">
-        <input matInput type="number" formControlName="SPEC_TOTAL_MISMATCH_IGNORE" size="1">
+        <input matInput type="number" formControlName="TOTAL_MISMATCH_IGNORE" size="1">
       </mat-input-container>
       or more mismatches to the primer.
     </td>
@@ -40,7 +40,7 @@
     </td>
     <td colspan="2">
       <mat-input-container class="example-full-width">
-        <input matInput type="number" formControlName="SPEC_MAX_TARGET_SIZE">
+        <input matInput type="number" formControlName="MAX_TARGET_SIZE">
       </mat-input-container>
     </td>
   </tr>

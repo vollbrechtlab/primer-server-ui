@@ -30,7 +30,9 @@ export class ChartDrawer{
   numTicks:number;
   seqChartTickSize:number;
 
-  primerDiscFunc;
+  primerBars:any;
+
+  //scrollService: any;
 
 
   constructor(elem, w, h){
@@ -40,20 +42,22 @@ export class ChartDrawer{
     this.paper.setViewBox(0,0,w,h,true);
     this.paper.setSize('100%', '100%');
 
-    this.seqChartX = 10,
-    this.seqChartY = 10,
-    this.seqChartW = this.w-30,
-    this.seqChartH = 40,
-    this.seqChartB = this.seqChartY+this.seqChartH,
-    this.seqY = this.seqChartY+this.seqChartH*0.25,
-    this.seqH = this.seqChartH/4,
-    this.regionY = this.seqChartY+this.seqChartH*0.50,
-    this.regionH = this.seqH,
-    this.primerChartX = this.seqChartX,
-    this.primerChartY = this.seqChartB+40,
-    this.primerChartW = this.seqChartW,
-    this.primerChartH = this.seqH,
+    this.seqChartX = 10;
+    this.seqChartY = 10;
+    this.seqChartW = this.w-30;
+    this.seqChartH = 40;
+    this.seqChartB = this.seqChartY+this.seqChartH;
+    this.seqY = this.seqChartY+this.seqChartH*0.25;
+    this.seqH = this.seqChartH/4;
+    this.regionY = this.seqChartY+this.seqChartH*0.50;
+    this.regionH = this.seqH;
+    this.primerChartX = this.seqChartX;
+    this.primerChartY = this.seqChartB+40;
+    this.primerChartW = this.seqChartW;
+    this.primerChartH = this.seqH;
     this.primerH = 10;
+
+    //this.scrollService = scrollService;
   }
 
   setInputData(data){
@@ -198,7 +202,8 @@ export class ChartDrawer{
   // go to the primer discription
   goToPrimerDisc(i){
     //console.log(i);
-    window.location.href = "#"+i[2];
+    //this.scrollService.scrollTo("#"+i[2]);
+    //console.log(window.location.href)
   }
 
 
@@ -226,15 +231,14 @@ export class ChartDrawer{
         var that = this;
         primerLBar.mousedown(function(e){
           that.goToPrimerDisc(e.target.id);
-          this.primerDiscFunc;
         });
       }
 
 
       // drawing right primer
       if (pair.PRIMER_RIGHT != undefined){
-        var start = pair.PRIMER_RIGHT.START/this.max*this.primerChartW+this.primerChartX;
         var length = pair.PRIMER_RIGHT.LENGTH/this.max*this.primerChartW;
+        var start = pair.PRIMER_RIGHT.START/this.max*this.primerChartW+this.primerChartX-length;
         let primerRBar = this.paper.path("M"+start+","+(this.primerChartY+i*20)+"L"+(start+length)+","+(this.primerChartY+i*20));
         primerRBar.attr({stroke: 'blue', 'stroke-width': 2, 'arrow-start': 'classic-midium-short'});
         primerRBar.attr({

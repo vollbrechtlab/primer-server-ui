@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>{{title}} <small>{{version}}</small></span>
+    <span>{{e.title}} <small>{{e.version}}</small></span>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -28,8 +28,6 @@
     </mat-expansion-panel-header>
     <app-additional-params></app-additional-params>
   </mat-expansion-panel>
-
-  {{ specCheckPanel }}
 
   <!-- Specificity Checking -->
   <mat-expansion-panel>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
+//import { ScrollToService } from 'ng2-scroll-to-el';
 
 import { ChartDrawer } from './chart-drawer';
 import { ServerService } from '../server/server.service';
@@ -10,12 +12,14 @@ import { ServerService } from '../server/server.service';
 })
 export class ResultComponent implements OnInit {
 
-  id: string;
-  url: string;
+  id: string;  // id of the task
+  url: string; // url of the result page
 
-  taskResult: any;
+  taskResult: any; // data that contains result and task data
   chartDrawer: any;
   status: string;
+
+  resultApiURL; // 
 
 
   public constructor(
@@ -32,8 +36,12 @@ export class ResultComponent implements OnInit {
 
   loadResult(id){
     this.id = id;
-    this.url = window.location.href.slice(0, -5)+'/result/'+id;
+    //this.url = window.location.href.slice(0, -5)+'/result/'+id;
+    let tmp = window.location.href.split("/");
+    this.url = tmp[0]+"//"+tmp[2]+'/result/'+id;
+    this.resultApiURL = this.serverService.getResultURL(id);
     this.loadResultHelper(id);
+    
   }
 
   // load result from the server
@@ -68,5 +76,6 @@ export class ResultComponent implements OnInit {
       
     });
   }
+
 
 }
