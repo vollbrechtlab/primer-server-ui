@@ -28,6 +28,10 @@ export class BasicParamsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.reset();
+  }
+
+  reset() {
     this.settingForm = this.fb.group({
       SEQUENCE_TEMPLATE_INPUT: ['', this.paramsValidationService.sequenceTemplateValidator()],
       PRIMER_PICK_LEFT_PRIMER: [true, this.paramsValidationService.pickLeftPrimerValidator()],
