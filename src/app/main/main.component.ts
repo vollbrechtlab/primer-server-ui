@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild , AfterViewInit} from '@angular/core';
+import { PlatformLocation } from '@angular/common';
 
 import { GENERAL } from '../../environments/general';
 
@@ -19,6 +20,7 @@ import { ResultComponent } from '../result/result.component';
 export class MainComponent implements OnInit, AfterViewInit {
 
   e = GENERAL; // environement variables
+  baseHref;
 
   basicParamsPanel = true;
 
@@ -38,8 +40,12 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   constructor(
   	private dataService: DataService,
-  	private serverService: ServerService
-  ) {}
+  	private serverService: ServerService,
+    platformLocation: PlatformLocation
+  ) {
+    this.baseHref = (platformLocation as any).location.baseHref;
+    console.log(this.baseHref)
+  }
 
   ngOnInit() {
     
