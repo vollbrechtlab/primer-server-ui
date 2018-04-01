@@ -8,5 +8,5 @@ export const environment = {
   production: false,
 
   // put the correct API version
-  API_URL: 'http://localhost:8001/v1.0.3/'
+  API_URL: 'http://localhost:8001/v1.0.4/'
 };

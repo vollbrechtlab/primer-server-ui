@@ -47,7 +47,6 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    
   }
 
   ngAfterViewInit(){
@@ -58,6 +57,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   	this.serverService.submitTask(this.dataService.main.task).subscribe(resData => {
       console.log('returned data', resData);
       if(resData.status == 'ok'){
+        this.resultComponent.url = window.location.href.slice(0, -5)+'/result/'+resData['taskId'];
         this.resultComponent.loadResult(resData['taskId']);
         this.resultReady = true;
         this.basicParamsPanel = false;

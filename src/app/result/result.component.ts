@@ -36,12 +36,8 @@ export class ResultComponent implements OnInit {
 
   loadResult(id){
     this.id = id;
-    //this.url = window.location.href.slice(0, -5)+'/result/'+id;
-    let tmp = window.location.href.split("/");
-    this.url = tmp[0]+"//"+tmp[2]+'/result/'+id;
     this.resultApiURL = this.serverService.getResultURL(id);
     this.loadResultHelper(id);
-    
   }
 
   // load result from the server
