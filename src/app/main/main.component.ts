@@ -26,11 +26,6 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   resultReady = false;
 
-  importFile: any;
-  importContents: any;
-
-  testVal: any = 'afa';
-
   @ViewChild(BasicParamsComponent) 
   private basicParamsComponent: BasicParamsComponent;
 

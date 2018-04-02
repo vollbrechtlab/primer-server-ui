@@ -1253,7 +1253,7 @@ export const p3Params = {
     "description": "The sequence of a left primer to check and around which to design\nright primers and optional internal oligos.  Must be a substring\nof SEQUENCE_TEMPLATE.",
     "form_type": "input_text",
     "name": "SEQUENCE_PRIMER",
-    "setting_type": "additional",
+    "setting_type": "basic",
     "type": "nucleotide sequence"
   },
   "SEQUENCE_PRIMER_PAIR_OK_REGION_LIST": {
