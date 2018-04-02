@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild , AfterViewInit} from '@angular/core';
-import { PlatformLocation } from '@angular/common';
+import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 
 import { GENERAL } from '../../environments/general';
 
@@ -41,13 +41,40 @@ export class MainComponent implements OnInit, AfterViewInit {
   constructor(
   	private dataService: DataService,
   	private serverService: ServerService,
-    platformLocation: PlatformLocation
+    private sanitizer: DomSanitizer
   ) {
-    this.baseHref = (platformLocation as any).location.baseHref;
+    this.baseHref = window.location.href;
   }
 
   ngOnInit() {
-    
+    // add some logic to file-input
+    var this2 = this;
+    document.getElementById('import-button')
+      .addEventListener("click", function(){
+        document.getElementById('file-input').click();
+      });
+    document.getElementById('file-input')
+      .addEventListener('change', function(e){
+          var file = e.target.files[0];
+          if (!file) {
+            return;
+          }
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            var contents = e.target.result;
+            var task = JSON.parse(contents);
+
+            // actually import task here
+            if(!task['primer3_data'] || !task['spec_check']){
+              console.error('wrong task file')
+              return;
+            }
+            this2.dataService.main.task = task;
+            this2.updateSettings(task);
+          };
+          reader.readAsText(file);
+          
+      }, false);
   }
 
   ngAfterViewInit(){
@@ -58,6 +85,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   	this.serverService.submitTask(this.dataService.main.task).subscribe(resData => {
       console.log('returned data', resData);
       if(resData.status == 'ok'){
+        this.resultComponent.url = window.location.href.slice(0, -5)+'/result/'+resData['taskId'];
         this.resultComponent.loadResult(resData['taskId']);
         this.resultReady = true;
         this.basicParamsPanel = false;
@@ -67,11 +95,20 @@ export class MainComponent implements OnInit, AfterViewInit {
     });
   }
 
-  reset(){
-    console.log('resetting form')
-    this.basicParamsComponent.reset()
-    this.additionalParamsComponent.reset()
-    this.specificityCheckingComponent.reset()
+  resetSettings(){
+    console.log('reseting settings');
+    this.dataService.resetMain();
+    this.basicParamsComponent.reset();
+    this.additionalParamsComponent.reset();
+    this.specificityCheckingComponent.reset();
+  }
+
+  updateSettings(task){
+    console.log('updating task', task);
+    this.dataService.main.task = task;
+    this.basicParamsComponent.reset();
+    this.additionalParamsComponent.reset();
+    this.specificityCheckingComponent.reset();
   }
 
 
@@ -79,4 +116,16 @@ export class MainComponent implements OnInit, AfterViewInit {
     window.open('result/' + id, '_blank')
   }
 
+  exportSettings(){
+    console.log('exporting settings')
+    var theJSON = JSON.stringify(this.dataService.main.task);
+    var element = document.createElement('a');
+    element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
+    element.setAttribute('download', "primer-server-task.json");
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click(); // simulate click
+    document.body.removeChild(element);
+  }
 }

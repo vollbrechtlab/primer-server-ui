@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, Valid
 import { SPEC_CHECK_CONST } from '../../environments/specificity-checking';
 
 import { ParamsValidationService } from '../params-validation/params-validation.service';
+import { DataService } from '../data-share/data.service';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class SpecificityCheckingComponent implements OnInit {
 
   constructor(
     private pvService : ParamsValidationService,
-    private fb : FormBuilder
+    private fb : FormBuilder,
+    private dataService : DataService 
   ) { }
 
   ngOnInit() {
@@ -28,12 +30,12 @@ export class SpecificityCheckingComponent implements OnInit {
 
   reset(){
     this.specForm = this.fb.group({
-      GENOME: [this.e.GENOME_OPTIONS[0]['value'], this.pvService.specValidator('GENOME')],
-      TOTAL_SPECIFICITY_MISMATCH: [2, this.pvService.specValidator('TOTAL_SPECIFICITY_MISMATCH')],
-      SEND_SPECIFICITY_MISMATCH: [2, this.pvService.specValidator('SEND_SPECIFICITY_MISMATCH')],
-      SEND_MISMATCH_REGION_LENGTH: [5, this.pvService.specValidator('SEND_MISMATCH_REGION_LENGTH')],
-      TOTAL_MISMATCH_IGNORE: [6, this.pvService.specValidator('TOTAL_MISMATCH_IGNORE')],
-      MAX_TARGET_SIZE: [3000, this.pvService.specValidator('MAX_TARGET_SIZE')]
+      GENOME: [this.dataService.main.task.spec_check.GENOME, this.pvService.specValidator('GENOME')],
+      TOTAL_SPECIFICITY_MISMATCH: [this.dataService.main.task.spec_check.TOTAL_SPECIFICITY_MISMATCH, this.pvService.specValidator('TOTAL_SPECIFICITY_MISMATCH')],
+      SEND_SPECIFICITY_MISMATCH: [this.dataService.main.task.spec_check.SEND_SPECIFICITY_MISMATCH, this.pvService.specValidator('SEND_SPECIFICITY_MISMATCH')],
+      SEND_MISMATCH_REGION_LENGTH: [this.dataService.main.task.spec_check.SEND_MISMATCH_REGION_LENGTH, this.pvService.specValidator('SEND_MISMATCH_REGION_LENGTH')],
+      TOTAL_MISMATCH_IGNORE: [this.dataService.main.task.spec_check.TOTAL_MISMATCH_IGNORE, this.pvService.specValidator('TOTAL_MISMATCH_IGNORE')],
+      MAX_TARGET_SIZE: [this.dataService.main.task.spec_check.MAX_TARGET_SIZE, this.pvService.specValidator('MAX_TARGET_SIZE')]
     });
   }
 

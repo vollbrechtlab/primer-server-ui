@@ -33,6 +33,7 @@ export class ResultPageComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
+    this.resultComponent.url = window.location.href.slice();
     this.resultComponent.loadResult(this.id);
   }
 
