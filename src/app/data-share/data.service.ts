@@ -17,4 +17,24 @@ export class DataService {
     length: 0
   };
 
+  constructor(){
+    // set default values for basic settings
+    this.main.task.primer3_data.SEQUENCE_TEMPLATE = '';
+    this.main.task.primer3_data.PRIMER_PICK_LEFT_PRIMER = true;
+    this.main.task.primer3_data.SEQUENCE_PRIMER = null;
+    this.main.task.primer3_data.PRIMER_PICK_INTERNAL_OLIGO = false;
+    this.main.task.primer3_data.SEQUENCE_INTERNAL_OLIGO = null;
+    this.main.task.primer3_data.PRIMER_PICK_RIGHT_PRIMER = true;
+    this.main.task.primer3_data.SEQUENCE_PRIMER_REVCOMP = null;
+    this.main.task.primer3_data.PRIMER_PRODUCT_SIZE_RANGE = [[100, 300]];
+    this.main.task.primer3_data.SEQUENCE_TARGET = null;
+    this.main.task.primer3_data.SEQUENCE_EXCLUDED_REGION = null;
+    this.main.task.primer3_data.PRIMER_MIN_TM = 57;
+    this.main.task.primer3_data.PRIMER_OPT_TM = 60;
+    this.main.task.primer3_data.PRIMER_MAX_TM = 63;
+    this.main.task.primer3_data.PRIMER_PAIR_MAX_DIFF_TM = 3;
+    this.main.task.primer3_data.PRIMER_SALT_CORRECTIONS = 1;
+    this.main.task.primer3_data.PRIMER_TM_FORMULA = 1;
+  }
+
 }

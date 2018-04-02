@@ -77,11 +77,11 @@ export class MainComponent implements OnInit, AfterViewInit {
     });
   }
 
-  reset(){
-    console.log('resetting form')
-    this.basicParamsComponent.reset()
-    this.additionalParamsComponent.reset()
-    this.specificityCheckingComponent.reset()
+  resetSettings(){
+    console.log('resetting settings')
+    this.basicParamsComponent.reset();
+    this.additionalParamsComponent.reset();
+    this.specificityCheckingComponent.reset();
   }
 
 
@@ -116,7 +116,9 @@ export class MainComponent implements OnInit, AfterViewInit {
       console.log('imported task', task);
       if(!task['primer3_data'] || !task['spec_check']){
         console.error('wrong task file')
+        return;
       }
+
     };
     reader.readAsText(file);
   }
