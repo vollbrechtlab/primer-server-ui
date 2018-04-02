@@ -7,17 +7,6 @@ git push origin dev
 # copy all dev except .git and venv to /tmp/primer-server-ui-tmp/
 rm -fR /tmp/primer-server-ui-tmp
 mkdir /tmp/primer-server-ui-tmp
-rsync -aP . /tmp/primer-server-ui-tmp/ --exclude=.git --exclude=node_modules --exclude=update_repo.sh --exclude=deploy_repo.js
-# copy back all files in /tmp/primer-server-ui-tmp/ to master
-git checkout master
-git pull
-mv .git /tmp/primer-server-ui-tmp/
-mv node_modules /tmp/primer-server-ui-tmp/
-rm -fR ./* ./.*
-cp -a /tmp/primer-server-ui-tmp/. ./
-git add --all .
-git commit -m "$1"
-git push origin master
+cp ./{.angular-cli.json .editorconfig .gitignore README.md deploy.js karma.conf.js package-lock.json package.json protractor.conf.js tsconfig.json tslint.json} /tmp/primer-server-ui-tmp/
 
-# come back to dev
-git checkout dev
+
