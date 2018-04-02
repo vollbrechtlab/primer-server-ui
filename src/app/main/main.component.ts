@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild , AfterViewInit} from '@angular/core';
-import { PlatformLocation } from '@angular/common';
+import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 
 import { GENERAL } from '../../environments/general';
 
@@ -26,6 +26,9 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   resultReady = false;
 
+  importFile: any;
+  importContents: any;
+
   @ViewChild(BasicParamsComponent) 
   private basicParamsComponent: BasicParamsComponent;
 
@@ -41,12 +44,19 @@ export class MainComponent implements OnInit, AfterViewInit {
   constructor(
   	private dataService: DataService,
   	private serverService: ServerService,
-    platformLocation: PlatformLocation
+    private sanitizer: DomSanitizer
   ) {
-    this.baseHref = (platformLocation as any).location.baseHref;
+    this.baseHref = window.location.href;
   }
 
   ngOnInit() {
+    // add some logic to file-input
+    var fileInputElem = document.getElementById('file-input')
+      .addEventListener('change', this.importSettings, false);
+    document.getElementById('import-button')
+      .addEventListener("click", function(){
+        document.getElementById('file-input').click();
+      });
   }
 
   ngAfterViewInit(){
@@ -77,6 +87,38 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   jumpToResult(id: string){
     window.open('result/' + id, '_blank')
+  }
+
+  exportSettings(){
+    console.log('exporting settings')
+    var theJSON = JSON.stringify(this.dataService.main.task);
+    var element = document.createElement('a');
+    element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
+    element.setAttribute('download', "primer-server-task.json");
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click(); // simulate click
+    document.body.removeChild(element);
+  }
+
+  importSettings(e){
+    console.log('importing settings')
+    
+    var file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      // actually import settings here
+      let task = JSON.parse(reader.result);
+      console.log('imported task', task);
+      if(!task['primer3_data'] || !task['spec_check']){
+        console.error('wrong task file')
+      }
+    };
+    reader.readAsText(file);
   }
 
 }

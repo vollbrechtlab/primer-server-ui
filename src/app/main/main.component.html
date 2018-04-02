@@ -45,13 +45,20 @@
     <app-specificity-checking></app-specificity-checking>
   </mat-expansion-panel>
 
-  <table class="settings_table">
+  <table class="button-table">
     <tr>
-      <td class="submit_button">
+      <td class="my-button">
         <button mat-raised-button (click)="submit()">Submit</button>
       </td>
-      <td class="reset_button">
+      <td class="my-button">
         <button mat-raised-button (click)="reset()">Reset</button>  
+      </td>
+      <td class="my-button">
+        <button mat-raised-button (click)="exportSettings()">Export Settings</button>  
+      </td>
+      <td class="my-button">
+        <input type="file" id="file-input" style="display: none" />
+        <button mat-raised-button id="import-button">Import Settings</button>  
       </td>
     </tr>
   </table>
