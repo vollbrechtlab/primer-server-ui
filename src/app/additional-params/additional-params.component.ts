@@ -104,15 +104,37 @@ export class AdditionalParamsComponent implements OnInit {
   }
 
   reset(){
+    // delete all selected params first
     for(let name of this.selectedParamNames){
       this.dataService.main.task.primer3_data[name] = undefined;
     }
-
     this.selectedParams = [];
     this.selectedParamNames = [];
     this.paramOption = null;
-
     this.formGroup = new FormGroup({});
+  }
+
+  /**
+   * Update list based on current main task
+   */
+  update(){
+    // delete all selected params first
+    this.selectedParams = [];
+    this.selectedParamNames = [];
+    this.paramOption = null;
+    this.formGroup = new FormGroup({});
+
+    // then add new params from data service
+    for(let name of Object.keys(this.dataService.main.task.primer3_data)){
+      console.log(name)
+      if(name != null && p3Params[name]['setting_type'] == 'additional'){
+        this.selectedParams.push(this.dataService.main.task.primer3_data[name]);
+        this.selectedParamNames.push(name);
+        this.formGroup.addControl(name, new FormControl(this.dataService.main.task.primer3_data[name], this.pvService.simpleValidator(name)));
+      } else {
+        console.log('no')
+      }
+    }
   }
 
 }

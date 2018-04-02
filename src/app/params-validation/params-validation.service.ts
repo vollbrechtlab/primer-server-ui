@@ -70,7 +70,7 @@ export class ParamsValidationService {
    */
   convertArrToStrList(arr: Array<Array<number>>): string{
     if(arr == null){
-      return null;
+      return '';
     }
     if(arr.length == 0){
       return '';

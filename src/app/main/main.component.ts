@@ -29,6 +29,8 @@ export class MainComponent implements OnInit, AfterViewInit {
   importFile: any;
   importContents: any;
 
+  testVal: any = 'afa';
+
   @ViewChild(BasicParamsComponent) 
   private basicParamsComponent: BasicParamsComponent;
 
@@ -51,12 +53,33 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     // add some logic to file-input
-    var fileInputElem = document.getElementById('file-input')
-      .addEventListener('change', this.importSettings, false);
+    var this2 = this;
     document.getElementById('import-button')
       .addEventListener("click", function(){
         document.getElementById('file-input').click();
       });
+    document.getElementById('file-input')
+      .addEventListener('change', function(e){
+          var file = e.target.files[0];
+          if (!file) {
+            return;
+          }
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            var contents = e.target.result;
+            var task = JSON.parse(contents);
+
+            // actually import task here
+            if(!task['primer3_data'] || !task['spec_check']){
+              console.error('wrong task file')
+              return;
+            }
+            this2.dataService.main.task = task;
+            this2.updateSettings(task);
+          };
+          reader.readAsText(file);
+          
+      }, false);
   }
 
   ngAfterViewInit(){
@@ -78,7 +101,16 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   resetSettings(){
-    console.log('resetting settings')
+    console.log('reseting settings');
+    this.dataService.resetMain();
+    this.basicParamsComponent.reset();
+    this.additionalParamsComponent.reset();
+    this.specificityCheckingComponent.reset();
+  }
+
+  updateSettings(task){
+    console.log('updating task', task);
+    this.dataService.main.task = task;
     this.basicParamsComponent.reset();
     this.additionalParamsComponent.reset();
     this.specificityCheckingComponent.reset();
@@ -101,26 +133,4 @@ export class MainComponent implements OnInit, AfterViewInit {
     element.click(); // simulate click
     document.body.removeChild(element);
   }
-
-  importSettings(e){
-    console.log('importing settings')
-    
-    var file = e.target.files[0];
-    if (!file) {
-      return;
-    }
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      // actually import settings here
-      let task = JSON.parse(reader.result);
-      console.log('imported task', task);
-      if(!task['primer3_data'] || !task['spec_check']){
-        console.error('wrong task file')
-        return;
-      }
-
-    };
-    reader.readAsText(file);
-  }
-
 }
