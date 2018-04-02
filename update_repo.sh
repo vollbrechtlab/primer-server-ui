@@ -19,10 +19,10 @@ git checkout master
 git pull
 
 # remove nessasary files
-rm {.angular-cli.json,.editorconfig,.gitignore,README.md,deploy.js,karma.conf.js,package-lock.json,package.json,protractor.conf.js,tsconfig.json,tslint.json} /tmp/primer-server-ui-tmp/
-rm -R src /tmp/primer-server-ui-tmp/
-rm -R e2e /tmp/primer-server-ui-tmp/
-rm -R other_data /tmp/primer-server-ui-tmp/
+rm .angular-cli.json .editorconfig .gitignore README.md deploy.js karma.conf.js package-lock.json package.json protractor.conf.js tsconfig.json tslint.json
+rm -R src
+rm -R e2e
+rm -R other_data
 
 # copy back all files in /tmp/primer-server-ui-tmp/ to master and push
 cp -a /tmp/primer-server-ui-tmp/. ./
