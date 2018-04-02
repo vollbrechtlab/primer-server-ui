@@ -3,8 +3,16 @@
     In process. Please wait.
     <mat-spinner></mat-spinner>
   </div>
-  <div *ngIf="status == 'ok'">
+  <div *ngIf="status == 'all ok'">
     The result was successfully calculated.<br>
+    <a href="{{ url }}" target="_blank">Bookmark this link</a><br>
+  </div>
+  <div *ngIf="status == 'primer3 ok'">
+    The result was successfully calculated. Displaying result from primer3 since specificity checking is disabled.<br>
+    <a href="{{ url }}" target="_blank">Bookmark this link</a><br>
+  </div>
+  <div *ngIf="status == 'primer3 ok speck check error'">
+    The result was successfully calculated. Displaying result from primer3 since no match was found for this genome. <br>
     <a href="{{ url }}" target="_blank">Bookmark this link</a><br>
   </div>
   <div *ngIf="status == 'error'">
@@ -15,9 +23,9 @@
 <br><br>
 <div id="canvasc"></div>
 
-<div *ngIf="taskResult">
+<div *ngIf="result">
 
-  <div *ngFor="let pair of taskResult.result.pairs; let i = index" [attr.data-index]="i" [attr.id]="i">
+  <div *ngFor="let pair of result.pairs; let i = index" [attr.data-index]="i" [attr.id]="i">
   <a [attr.name]="i"><br><b>Pair {{i+1}}</b>:<br></a>
   <table class="tg">
     <tr>

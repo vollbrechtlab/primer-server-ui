@@ -21,7 +21,7 @@ export class SpecificityCheckingComponent implements OnInit {
   constructor(
     private pvService : ParamsValidationService,
     private fb : FormBuilder,
-    private dataService : DataService 
+    public dataService : DataService 
   ) { }
 
   ngOnInit() {
@@ -35,7 +35,8 @@ export class SpecificityCheckingComponent implements OnInit {
       SEND_SPECIFICITY_MISMATCH: [this.dataService.main.task.spec_check.SEND_SPECIFICITY_MISMATCH, this.pvService.specValidator('SEND_SPECIFICITY_MISMATCH')],
       SEND_MISMATCH_REGION_LENGTH: [this.dataService.main.task.spec_check.SEND_MISMATCH_REGION_LENGTH, this.pvService.specValidator('SEND_MISMATCH_REGION_LENGTH')],
       TOTAL_MISMATCH_IGNORE: [this.dataService.main.task.spec_check.TOTAL_MISMATCH_IGNORE, this.pvService.specValidator('TOTAL_MISMATCH_IGNORE')],
-      MAX_TARGET_SIZE: [this.dataService.main.task.spec_check.MAX_TARGET_SIZE, this.pvService.specValidator('MAX_TARGET_SIZE')]
+      MAX_TARGET_SIZE: [this.dataService.main.task.spec_check.MAX_TARGET_SIZE, this.pvService.specValidator('MAX_TARGET_SIZE')],
+      RUN_SPEC_CHECK: [this.dataService.main.task.spec_check.RUN_SPEC_CHECK, this.pvService.specValidator('RUN_SPEC_CHECK')]
     });
   }
 

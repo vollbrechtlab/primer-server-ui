@@ -51,6 +51,7 @@ export class DataService {
     this.main.task.spec_check.SEND_MISMATCH_REGION_LENGTH = 5;
     this.main.task.spec_check.TOTAL_MISMATCH_IGNORE = 6;
     this.main.task.spec_check.MAX_TARGET_SIZE = 3000;
+    this.main.task.spec_check.RUN_SPEC_CHECK = 1;
   }
 
 }
