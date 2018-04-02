@@ -127,7 +127,6 @@ export class AdditionalParamsComponent implements OnInit {
     // then add new params from data service
     for(let name of Object.keys(this.dataService.main.task.primer3_data)){
       if(name != null && p3Params[name]['setting_type'] == 'additional'){
-        console.log(name)
         this.selectedParamNames.push(name);
         this.selectedParams.push(p3Params[name]);
         this.formGroup.addControl(name, new FormControl(this.dataService.main.task.primer3_data[name], this.pvService.simpleValidator(name)));
