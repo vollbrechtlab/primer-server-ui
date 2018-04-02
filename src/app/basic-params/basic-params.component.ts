@@ -32,6 +32,14 @@ export class BasicParamsComponent implements OnInit {
   }
 
   reset() {
+    let max, min;
+    if(this.dataService.main.task.primer3_data.PRIMER_PRODUCT_SIZE_RANGE.length < 1){
+      min = 100;
+      max = 300;
+    } else {
+      min = this.dataService.main.task.primer3_data.PRIMER_PRODUCT_SIZE_RANGE[0][0];
+      max = this.dataService.main.task.primer3_data.PRIMER_PRODUCT_SIZE_RANGE[0][1];
+    }
     this.settingForm = this.fb.group({
       SEQUENCE_TEMPLATE_INPUT: [this.dataService.main.task.primer3_data.SEQUENCE_TEMPLATE, this.paramsValidationService.sequenceTemplateValidator()],
       PRIMER_PICK_LEFT_PRIMER: [this.dataService.main.task.primer3_data.PRIMER_PICK_LEFT_PRIMER, this.paramsValidationService.pickLeftPrimerValidator()],
@@ -40,10 +48,10 @@ export class BasicParamsComponent implements OnInit {
       SEQUENCE_INTERNAL_OLIGO: [this.dataService.main.task.primer3_data.SEQUENCE_INTERNAL_OLIGO, this.paramsValidationService.nucleotideSequenceValidator("SEQUENCE_INTERNAL_OLIGO")],
       PRIMER_PICK_RIGHT_PRIMER: [this.dataService.main.task.primer3_data.PRIMER_PICK_RIGHT_PRIMER, this.paramsValidationService.pickRightPrimerValidator()],
       SEQUENCE_PRIMER_REVCOMP: [this.dataService.main.task.primer3_data.SEQUENCE_PRIMER_REVCOMP, this.paramsValidationService.nucleotideSequenceValidator("SEQUENCE_PRIMER_REVCOMP")],
-      PRIMER_PRODUCT_SIZE_MIN: [this.dataService.main.task.primer3_data.PRIMER_PRODUCT_SIZE_RANGE[0][0], this.paramsValidationService.productSizeMinValidator()],
-      PRIMER_PRODUCT_SIZE_MAX: [this.dataService.main.task.primer3_data.PRIMER_PRODUCT_SIZE_RANGE[0][1], this.paramsValidationService.productSizeMaxValidator()],
-      SEQUENCE_TARGET: [this.dataService.main.task.primer3_data.SEQUENCE_TARGET, this.paramsValidationService.sequenceRegionValidator('SEQUENCE_TARGET')],
-      SEQUENCE_EXCLUDED_REGION: [this.dataService.main.task.primer3_data.SEQUENCE_EXCLUDED_REGION , this.paramsValidationService.sequenceRegionValidator('SEQUENCE_EXCLUDED_REGION')],
+      PRIMER_PRODUCT_SIZE_MIN: [min, this.paramsValidationService.productSizeMinValidator()],
+      PRIMER_PRODUCT_SIZE_MAX: [max, this.paramsValidationService.productSizeMaxValidator()],
+      SEQUENCE_TARGET: [this.paramsValidationService.convertArrToStrList(this.dataService.main.task.primer3_data.SEQUENCE_TARGET), this.paramsValidationService.sequenceRegionValidator('SEQUENCE_TARGET')],
+      SEQUENCE_EXCLUDED_REGION: [this.paramsValidationService.convertArrToStrList(this.dataService.main.task.primer3_data.SEQUENCE_EXCLUDED_REGION), this.paramsValidationService.sequenceRegionValidator('SEQUENCE_EXCLUDED_REGION')],
       PRIMER_MIN_TM: [this.dataService.main.task.primer3_data.PRIMER_MIN_TM, this.paramsValidationService.tmMinValidator()],
       PRIMER_OPT_TM: [this.dataService.main.task.primer3_data.PRIMER_OPT_TM, this.paramsValidationService.tmOptValidator()],
       PRIMER_MAX_TM: [this.dataService.main.task.primer3_data.PRIMER_MAX_TM, this.paramsValidationService.tmMaxValidator()],
