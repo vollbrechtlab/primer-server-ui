@@ -3,8 +3,6 @@ import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
-import { environment } from '../../environments/environment'
-
 @Injectable()
 export class ServerService {
 
@@ -13,7 +11,9 @@ export class ServerService {
   constructor (
     private http: Http
   ) {
-    this.url = environment.API_URL;
+    this.getJson('assets/config.json').subscribe(data => {
+      this.url = data['API_URL'];
+    })
   }
 
   // recursiely remove keys with null

@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { P3Input } from './p3-input';
 import { SpecCheckInput } from './spec-check-input';
 
-import { SPEC_CHECK_CONST } from '../../environments/specificity-checking';
-
 /** Shares all the variables, some basic functions **/
 @Injectable()
 export class DataService {
@@ -45,12 +43,13 @@ export class DataService {
     this.main.task.primer3_data.PRIMER_TM_FORMULA = 1;
 
     // set default values for spec check
-    this.main.task.spec_check.GENOME = SPEC_CHECK_CONST.GENOME_OPTIONS[0]['value'];
+    this.main.task.spec_check.GENOME = null;
     this.main.task.spec_check.TOTAL_SPECIFICITY_MISMATCH = 2;
     this.main.task.spec_check.SEND_SPECIFICITY_MISMATCH = 2;
     this.main.task.spec_check.SEND_MISMATCH_REGION_LENGTH = 5;
     this.main.task.spec_check.TOTAL_MISMATCH_IGNORE = 6;
     this.main.task.spec_check.MAX_TARGET_SIZE = 3000;
+    this.main.task.spec_check.RUN_SPEC_CHECK = 1;
   }
 
 }

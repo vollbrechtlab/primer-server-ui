@@ -13,7 +13,7 @@
 <form [formGroup]="formGroup" novalidate>
 <table class="param_table">
   <tr *ngFor="let p of selectedParams">
-  
+
     <!-- Form type is input text or input number -->
     <td *ngIf="p.form_type == 'input_text' || p.form_type == 'input_number'">
       <label for="{{p.name}}">
@@ -26,12 +26,12 @@
 
     <!-- Form type is input text -->
     <td *ngIf="p.form_type == 'input_text'">
-      <input matInput formControlName="{{p.name}}" type="text" pInputText placeholder="{{p.default_value}}" id="{{p.name}}"> 
+      <input matInput formControlName="{{p.name}}" type="text" pInputText placeholder="{{p.default_value}}" id="{{p.name}}">
     </td>
 
     <!-- Form type is input number -->
     <td *ngIf="p.form_type == 'input_number'">
-      <input matInput formControlName="{{p.name}}" type="number" pInputText placeholder="{{p.default_value}}" id="{{p.name}}" > 
+      <input matInput formControlName="{{p.name}}" type="number" pInputText placeholder="{{p.default_value}}" id="{{p.name}}" >
     </td>
 
     <!-- Form type is checkbox -->
@@ -44,8 +44,8 @@
     <td *ngIf="p.form_type == 'checkbox'"> </td>
 
     <td>
-      <button mat-icon-button (click)="remove(p.name)" class="help-button">
-        <mat-icon>remove</mat-icon>
+      <button mat-icon-button (click)="remove(p.name)" class="help-button" title="Remove Additional Parameter">
+        <mat-icon>remove_circle</mat-icon>
       </button>
     </td>
 

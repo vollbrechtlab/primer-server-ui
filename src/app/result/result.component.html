@@ -3,8 +3,16 @@
     In process. Please wait.
     <mat-spinner></mat-spinner>
   </div>
-  <div *ngIf="status == 'ok'">
+  <div *ngIf="status == 'all ok'">
     The result was successfully calculated.<br>
+    <a href="{{ url }}" target="_blank">Bookmark this link</a><br>
+  </div>
+  <div *ngIf="status == 'primer3 ok'">
+    The result was successfully calculated. Displaying result from primer3 since specificity checking is disabled.<br>
+    <a href="{{ url }}" target="_blank">Bookmark this link</a><br>
+  </div>
+  <div *ngIf="status == 'primer3 ok speck check error'">
+    The result was successfully calculated. Displaying result from primer3 since no match was found for this genome. <br>
     <a href="{{ url }}" target="_blank">Bookmark this link</a><br>
   </div>
   <div *ngIf="status == 'error'">
@@ -13,79 +21,40 @@
 </div>
 
 <br><br>
-<div id="canvasc"></div>
+<div id="canvasc" style="max-width: 900px;"></div>
 
-<div *ngIf="taskResult">
+<div *ngIf="result" style="max-width: 700px;">
+  <div *ngFor="let i of [0,1,2,3,4]">
+    <mat-table #table [dataSource]="commonInfoTables[i]">
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> <font size="5"><b>Primer Pair {{ i+1 }}</b></font> </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <font color="{{element.color}}">{{element.name}}</font> </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="value">
+        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <font color="{{element.color}}">{{element.value}}</font> </mat-cell>
+      </ng-container>
 
-  <div *ngFor="let pair of taskResult.result.pairs; let i = index" [attr.data-index]="i" [attr.id]="i">
-  <a [attr.name]="i"><br><b>Pair {{i+1}}</b>:<br></a>
-  <table class="tg">
-    <tr>
-      <th *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">Product Size</th>
-      <th *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">Any th</th>
-      <th *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">End th</th>
-    </tr>
-    <tr>
-      <td *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">{{pair.PRODUCT_SIZE.toFixed(2)}}</td>
-      <td *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">{{pair.COMPL_ANY_TH.toFixed(2)}}</td>
-      <td *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">{{pair.COMPL_END_TH.toFixed(2)}}</td>
-    </tr>
-  </table>
-  <table class="tg">
-    <tr>
-      <th class="tg-yw4l"></th>
-      <th *ngIf="pair.PRIMER_LEFT" class="tg-yw4l"><font color="red">Left Primer</font></th>
-      <th *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l"><font color="blue">Right Primer</font></th>
-      <th *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l"><font color="green">Internal Oligo</font></th>
-    </tr>
-    <tr>
-      <td class="tg-yw4l">Sequence</td>
-      <td *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">{{pair.PRIMER_LEFT.SEQUENCE}}</td>
-      <td *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">{{pair.PRIMER_RIGHT.SEQUENCE}}</td>
-      <td *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">{{pair.PRIMER_INTERNAL.SEQUENCE}}</td>
-    </tr>
-    <tr>
-      <td class="tg-yw4l">Start</td>
-      <td *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">{{pair.PRIMER_LEFT.START}}</td>
-      <td *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">{{pair.PRIMER_RIGHT.START}}</td>
-      <td *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">{{pair.PRIMER_INTERNAL.START}}</td>
-    </tr>
-    <tr>
-      <td class="tg-yw4l">Length</td>
-      <td *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">{{pair.PRIMER_LEFT.LENGTH}}</td>
-      <td *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">{{pair.PRIMER_RIGHT.LENGTH}}</td>
-      <td *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">{{pair.PRIMER_INTERNAL.LENGTH}}</td>
-    </tr>
-    <tr>
-      <td class="tg-yw4l">Tm</td>
-      <td *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">{{pair.PRIMER_LEFT.TM.toFixed(2)}}</td>
-      <td *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">{{pair.PRIMER_RIGHT.TM.toFixed(2)}}</td>
-      <td *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">{{pair.PRIMER_INTERNAL.TM.toFixed(2)}}</td>
-    </tr>
-    <tr>
-      <td class="tg-yw4l">GC</td>
-      <td *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">{{pair.PRIMER_LEFT.GC_PERCENT.toFixed(2)}}</td>
-      <td *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">{{pair.PRIMER_RIGHT.GC_PERCENT.toFixed(2)}}</td>
-      <td *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">{{pair.PRIMER_INTERNAL.GC_PERCENT.toFixed(2)}}</td>
-    </tr>
-    <tr>
-      <td class="tg-yw4l">Any th</td>
-      <td *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">{{pair.PRIMER_LEFT.SELF_ANY_TH.toFixed(2)}}</td>
-      <td *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">{{pair.PRIMER_RIGHT.SELF_ANY_TH.toFixed(2)}}</td>
-      <td *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">{{pair.PRIMER_INTERNAL.SELF_ANY_TH.toFixed(2)}}</td>
-    </tr>
-    <tr>
-      <td class="tg-yw4l">End th</td>
-      <td *ngIf="pair.PRIMER_LEFT" class="tg-yw4l">{{pair.PRIMER_LEFT.SELF_END_TH.toFixed(2)}}</td>
-      <td *ngIf="pair.PRIMER_RIGHT" class="tg-yw4l">{{pair.PRIMER_RIGHT.SELF_END_TH.toFixed(2)}}</td>
-      <td *ngIf="pair.PRIMER_INTERNAL" class="tg-yw4l">{{pair.PRIMER_INTERNAL.SELF_END_TH.toFixed(2)}}</td>
-    </tr>
-  </table>
+      <mat-header-row *matHeaderRowDef="commonInfoColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: commonInfoColumns;"></mat-row>
+    </mat-table>
+
+    <mat-table #table [dataSource]="resultTables[i]">
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="lPrimer">
+        <mat-header-cell *matHeaderCellDef> <font color="red">Left Primer</font> </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.lPrimer}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="rPrimer">
+        <mat-header-cell *matHeaderCellDef> <font color="blue">Right Primer</font> </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.rPrimer}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div><br>
 </div>
-
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-.tg .tg-yw4l{vertical-align:top}
-</style>

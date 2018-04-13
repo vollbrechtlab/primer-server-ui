@@ -1,11 +1,14 @@
 <table [formGroup]="specForm" class="example-form">
   <tr>
+    <td><mat-slide-toggle formControlName="RUN_SPEC_CHECK">Use Specificity Checking</mat-slide-toggle>
+  </tr>
+  <tr>
     <td>
       <label for="GENOME">Genome: </label>
     </td>
     <td colspan="2">
       <mat-select formControlName="GENOME" name="option" class="genome-select">
-        <mat-option *ngFor="let option of e.GENOME_OPTIONS" [value]="option.value">
+        <mat-option *ngFor="let option of GENOME_OPTIONS" [value]="option.value">
           {{option.viewValue}}
         </mat-option>
       </mat-select>

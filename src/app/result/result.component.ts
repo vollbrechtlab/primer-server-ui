@@ -18,6 +18,13 @@ export class ResultComponent implements OnInit {
   taskResult: any; // data that contains result and task data
   chartDrawer: any;
   status: string;
+  result: any;
+
+  resultTables: any;
+  displayedColumns = ['name', 'lPrimer', 'rPrimer'];
+
+  commonInfoTables: any;
+  commonInfoColumns = ['name', 'value'];
 
   resultApiURL; // 
 
@@ -53,16 +60,45 @@ export class ResultComponent implements OnInit {
           that.loadResultHelper(id);
         }, 1000)
       }
-      else if(data.status == 'ok'){
+      else if(data.status.includes('ok')){
         this.taskResult = data;
         this.chartDrawer.setInputData(this.taskResult['task']['primer3_data']);
-        console.log(this.taskResult['result'])
-        this.chartDrawer.setResultData(this.taskResult['result']);
+        if(data.status.includes('primer3 ok')){
+          this.result = this.taskResult['result'];
+        } else {
+          this.result = this.taskResult['specCheck_result'];
+        }
+        console.log('result', this.result);
+        this.chartDrawer.setResultData(this.result);
         this.chartDrawer.draw();
         this.chartDrawer.primerDiscFunc = function(e){
           console.log(e)
         }
-        this.status = 'ok';
+        this.status = data.status;
+
+        this.resultTables = [];
+        this.commonInfoTables = [];
+        for(let pair of this.result.pairs){
+          this.resultTables.push([]);
+          for(let name in pair.PRIMER_LEFT){
+            this.resultTables[this.resultTables.length-1].push({name: name, lPrimer: pair.PRIMER_LEFT[name], rPrimer:pair.PRIMER_RIGHT[name]});
+          }
+          if (pair.targets == undefined){
+            this.commonInfoTables.push([
+              {name:'Any TH', value: pair.COMPL_ANY_TH},
+              {name:'End TH', value: pair.COMPL_END_TH}
+            ]);
+          } else {
+            this.commonInfoTables.push([
+              {name:'Any TH', value: pair.COMPL_ANY_TH},
+              {name:'End TH', value: pair.COMPL_END_TH},
+              {name:'Targets', value: pair.targets, color:'blue'},
+              {name:'Off Targets', value: pair.off_targets, color:'red'},
+            ]);
+          }
+        }
+        console.log('resultTable', this.resultTables);
+
       } else {
         console.log('error from server');
         this.status = 'error';

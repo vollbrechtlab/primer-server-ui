@@ -6,4 +6,5 @@ export class SpecCheckInput {
   SEND_MISMATCH_REGION_LENGTH: number;
   TOTAL_MISMATCH_IGNORE: number;
   MAX_TARGET_SIZE: number;
+  RUN_SPEC_CHECK: number;
 }

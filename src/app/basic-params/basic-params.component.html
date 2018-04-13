@@ -38,7 +38,7 @@
           <mat-checkbox formControlName="PRIMER_PICK_LEFT_PRIMER" align="end">Pick Left Primer</mat-checkbox>
         </div>
       </td>
-      <td>
+      <td width="100%">
         <div *ngIf="!settingForm.get('PRIMER_PICK_LEFT_PRIMER').value" class="pick-conditions">
           <mat-form-field class="pick-condition-input">
             <input matInput type="text" formControlName="SEQUENCE_PRIMER" placeholder="Use this left primer">
@@ -89,7 +89,7 @@
     <tr>
       <td>
         <div class="pick-conditions">
-          <mat-checkbox formControlName="PRIMER_PICK_RIGHT_PRIMER" align="end">Pick Left Primer</mat-checkbox>
+          <mat-checkbox formControlName="PRIMER_PICK_RIGHT_PRIMER" align="end">Pick Right Primer</mat-checkbox>
         </div>
       </td>
       <td>

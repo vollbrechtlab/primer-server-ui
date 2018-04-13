@@ -55,13 +55,13 @@ export class MainComponent implements OnInit, AfterViewInit {
       });
     document.getElementById('file-input')
       .addEventListener('change', function(e){
-          var file = e.target.files[0];
+          var file = (<HTMLInputElement>e.target).files[0];
           if (!file) {
             return;
           }
           var reader = new FileReader();
           reader.onload = function(e) {
-            var contents = e.target.result;
+            var contents = this.result;
             var task = JSON.parse(contents);
 
             // actually import task here
