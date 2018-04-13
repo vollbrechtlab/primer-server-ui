@@ -8,7 +8,7 @@
     </td>
     <td colspan="2">
       <mat-select formControlName="GENOME" name="option" class="genome-select">
-        <mat-option *ngFor="let option of e.GENOME_OPTIONS" [value]="option.value">
+        <mat-option *ngFor="let option of GENOME_OPTIONS" [value]="option.value">
           {{option.viewValue}}
         </mat-option>
       </mat-select>

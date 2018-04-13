@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 
-import { SPEC_CHECK_CONST } from '../../environments/specificity-checking';
-
 import { ParamsValidationService } from '../params-validation/params-validation.service';
 import { DataService } from '../data-share/data.service';
-
+import { ServerService } from '../server/server.service';
 
 @Component({
   selector: 'app-specificity-checking',
@@ -14,17 +12,22 @@ import { DataService } from '../data-share/data.service';
 })
 export class SpecificityCheckingComponent implements OnInit {
 
-  e = SPEC_CHECK_CONST; // environement variables
+  GENOME_OPTIONS;
 
   specForm: FormGroup;
 
   constructor(
     private pvService : ParamsValidationService,
     private fb : FormBuilder,
-    public dataService : DataService 
+    public dataService : DataService,
+    private serverService : ServerService
   ) { }
 
   ngOnInit() {
+    this.serverService.getJson('assets/config.json').subscribe(data => {
+      this.GENOME_OPTIONS = data['GENOME_OPTIONS'];
+      this.specForm.controls['GENOME'].setValue(this.GENOME_OPTIONS[0].value);
+    });
     this.reset();
   }
 
