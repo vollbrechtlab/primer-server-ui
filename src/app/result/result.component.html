@@ -6,6 +6,7 @@
   <div *ngIf="status == 'all ok'">
     The result was successfully calculated.<br>
     <a href="{{ url }}" target="_blank">Bookmark this link</a><br>
+    <a href="{{ csvUrl }}" target="_blank">Download csv</a><br>
   </div>
   <div *ngIf="status == 'primer3 ok'">
     The result was successfully calculated. Displaying result from primer3 since specificity checking is disabled.<br>

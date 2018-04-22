@@ -7,13 +7,15 @@ import { Observable } from 'rxjs/Observable';
 export class ServerService {
 
   url: string;
+  version: string;
+  supportedGenomes: any;
 
   constructor (
     private http: Http
   ) {
-    this.getJson('assets/config.json').subscribe(data => {
+    this.getConfig().subscribe(data => {
       this.url = data['API_URL'];
-    })
+    });
   }
 
   // recursiely remove keys with null
@@ -43,6 +45,22 @@ export class ServerService {
                     .map((res:Response) => res.json());
   }
 
+  getConfig() : Observable<any>{
+    return this.getJson('assets/config.json');
+  }
+
+  setConfig() : Observable<any>{
+    return new Observable(observer => {
+      this.http.get('assets/config.json')
+          .map((res: Response) => res.json())
+          .subscribe(res => {
+            this.url = res['API_URL'];
+            observer.next(res);
+            observer.complete();
+          });
+    });
+  }
+
   // load result from the server
   getResult(id:string) : Observable<any> {
     return this.getJson(this.url+'result/'+id);
@@ -56,5 +74,17 @@ export class ServerService {
 
   getResultURL(id : string) : string {
     return this.url + '/' + id;
+  }
+
+  getResultCSVURL(id : string) : string {
+    return this.url + 'resultCSV/' + id;
+  }
+
+  getVersion() : Observable<any>{
+    return this.getJson(this.url+'version');
+  }
+
+  getSupportedGenomes() : Observable<any>{
+    return this.getJson(this.url+'genomes');
   }
 }
