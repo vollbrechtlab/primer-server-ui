@@ -42,7 +42,7 @@ export class SpecificityCheckingComponent implements OnInit {
       SEND_MISMATCH_REGION_LENGTH: [this.dataService.main.task.spec_check_data.SEND_MISMATCH_REGION_LENGTH, this.pvService.specValidator('SEND_MISMATCH_REGION_LENGTH')],
       TOTAL_MISMATCH_IGNORE: [this.dataService.main.task.spec_check_data.TOTAL_MISMATCH_IGNORE, this.pvService.specValidator('TOTAL_MISMATCH_IGNORE')],
       MAX_TARGET_SIZE: [this.dataService.main.task.spec_check_data.MAX_TARGET_SIZE, this.pvService.specValidator('MAX_TARGET_SIZE')],
-      RUN_SPEC_CHECK: [this.dataService.main.task.spec_check_data.RUN_SPEC_CHECK, this.pvService.specValidator('RUN_spec_check_data')]
+      RUN_SPEC_CHECK: [this.dataService.main.task.spec_check_data.RUN_SPEC_CHECK, this.pvService.specValidator('RUN_SPEC_CHECK')]
     });
   }
 

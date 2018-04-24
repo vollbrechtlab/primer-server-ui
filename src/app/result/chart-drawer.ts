@@ -175,6 +175,18 @@ export class ChartDrawer{
     var seqBar = this.paper.rect(this.seqChartX, this.seqChartY+this.seqChartH*0.25, seqLenPix, this.seqH);
 
     seqBar.attr({fill: 'grey', stroke: '#ddd', 'stroke-width': 1});
+    seqBar.attr({text:'aaaa'});
+    let seqBarText = this.paper.text(this.seqChartX+50, this.seqChartY, 'Sequence Template')
+    seqBarText.hide()
+
+    let that = this;
+    seqBar.hover(function(){
+      console.log('hover')
+      seqBarText.show()
+    },function(){
+      console.log('bbbb')
+      seqBarText.hide()
+    })
 
     this.drawSeqRegions();
   }
