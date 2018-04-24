@@ -9,7 +9,7 @@ rm -fR /tmp/primer-server-ui-tmp
 mkdir /tmp/primer-server-ui-tmp
 
 # copy all nessesary files to /tmp/primer-server-ui-tmp/
-cp {.angular-cli.json,.editorconfig,.gitignore,README.md,deploy.js,karma.conf.js,package-lock.json,package.json,protractor.conf.js,tsconfig.json,tslint.json} /tmp/primer-server-ui-tmp/
+cp {.angular-cli.json,.editorconfig,.gitignore,README.md,deploy.sh,build.sh,karma.conf.js,package-lock.json,package.json,protractor.conf.js,tsconfig.json,tslint.json} /tmp/primer-server-ui-tmp/
 cp -R src /tmp/primer-server-ui-tmp/
 cp -R e2e /tmp/primer-server-ui-tmp/
 cp -R other_data /tmp/primer-server-ui-tmp/
@@ -19,7 +19,7 @@ git checkout master
 git pull
 
 # remove nessasary files
-rm .angular-cli.json .editorconfig .gitignore README.md deploy.js karma.conf.js package-lock.json package.json protractor.conf.js tsconfig.json tslint.json
+rm .angular-cli.json .editorconfig .gitignore README.md deploy.sh build.sh karma.conf.js package-lock.json package.json protractor.conf.js tsconfig.json tslint.json
 rm -R src
 rm -R e2e
 rm -R other_data
