@@ -65,7 +65,7 @@ export class MainComponent implements OnInit, AfterViewInit {
             var task = JSON.parse(contents);
 
             // actually import task here
-            if(!task['primer3_data'] || !task['spec_check']){
+            if(!task['primer3_data'] || !task['spec_check_data']){
               console.error('wrong task file')
               return;
             }

@@ -6,7 +6,7 @@ import { SpecCheckInput } from './spec-check-input';
 @Injectable()
 export class DataService {
 
-  main : {task: {primer3_data:P3Input, spec_check:SpecCheckInput, format:string}, gc_content:number, length:number};
+  main : {task: {primer3_data:P3Input, spec_check_data:SpecCheckInput, format:string}, gc_content:number, length:number};
 
   constructor(){
     this.resetMain();
@@ -16,7 +16,7 @@ export class DataService {
     this.main = {
       task: {
         primer3_data: new P3Input(),
-        spec_check: new SpecCheckInput,
+        spec_check_data: new SpecCheckInput,
         format: 'better'
       },
       // for sequence template in basic settings
@@ -43,13 +43,13 @@ export class DataService {
     this.main.task.primer3_data.PRIMER_TM_FORMULA = 1;
 
     // set default values for spec check
-    this.main.task.spec_check.GENOME = null;
-    this.main.task.spec_check.TOTAL_SPECIFICITY_MISMATCH = 2;
-    this.main.task.spec_check.SEND_SPECIFICITY_MISMATCH = 2;
-    this.main.task.spec_check.SEND_MISMATCH_REGION_LENGTH = 5;
-    this.main.task.spec_check.TOTAL_MISMATCH_IGNORE = 6;
-    this.main.task.spec_check.MAX_TARGET_SIZE = 3000;
-    this.main.task.spec_check.RUN_SPEC_CHECK = 1;
+    this.main.task.spec_check_data.GENOME = null;
+    this.main.task.spec_check_data.TOTAL_SPECIFICITY_MISMATCH = 2;
+    this.main.task.spec_check_data.SEND_SPECIFICITY_MISMATCH = 2;
+    this.main.task.spec_check_data.SEND_MISMATCH_REGION_LENGTH = 5;
+    this.main.task.spec_check_data.TOTAL_MISMATCH_IGNORE = 6;
+    this.main.task.spec_check_data.MAX_TARGET_SIZE = 3000;
+    this.main.task.spec_check_data.RUN_SPEC_CHECK = 1;
   }
 
 }

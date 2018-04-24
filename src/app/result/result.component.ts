@@ -14,7 +14,7 @@ export class ResultComponent implements OnInit {
 
   id: string;  // id of the task
   url: string; // url of the result page
-
+  csvUrl: string;
   taskResult: any; // data that contains result and task data
   chartDrawer: any;
   status: string;
@@ -26,9 +26,6 @@ export class ResultComponent implements OnInit {
   commonInfoTables: any;
   commonInfoColumns = ['name', 'value'];
 
-  resultApiURL; // 
-
-
   public constructor(
   	private serverService: ServerService
   ) {  }
@@ -37,14 +34,14 @@ export class ResultComponent implements OnInit {
     this.chartDrawer = new ChartDrawer('canvasc',500,200);
   }
 
-  test(){
-    console.log('test')
-  }
-
   loadResult(id){
     this.id = id;
-    this.resultApiURL = this.serverService.getResultURL(id);
-    this.loadResultHelper(id);
+    this.serverService.setConfig().subscribe(data => {
+          this.csvUrl = this.serverService.getResultCSVURL(id);
+
+      this.loadResultHelper(id);
+    })
+    
   }
 
   // load result from the server
@@ -63,12 +60,7 @@ export class ResultComponent implements OnInit {
       else if(data.status.includes('ok')){
         this.taskResult = data;
         this.chartDrawer.setInputData(this.taskResult['task']['primer3_data']);
-        if(data.status.includes('primer3 ok')){
-          this.result = this.taskResult['result'];
-        } else {
-          this.result = this.taskResult['specCheck_result'];
-        }
-        console.log('result', this.result);
+        this.result = this.taskResult['result'];
         this.chartDrawer.setResultData(this.result);
         this.chartDrawer.draw();
         this.chartDrawer.primerDiscFunc = function(e){

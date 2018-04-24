@@ -569,7 +569,7 @@ export class ParamsValidationService {
 
   specValidator(paramName: string): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
-      this.dataService.main.task.spec_check[paramName] = control.value;
+      this.dataService.main.task.spec_check_data[paramName] = control.value;
       return null;
     };
   }
