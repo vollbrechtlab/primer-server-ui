@@ -27,6 +27,7 @@ sudo yum -y install nodejs
 Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Deployment
-1. Install a web server such as nginx or apache2
+1. Install a web server such as apache2
 2. Allow .htaccess in the web server setting
-3. Run `sudo node deploy.js` (this script assumes html is put in `/var/www/html/`)
+3. Run `build.sh` 
+4. Run `deploy.sh` (this script assumes html is put in `/var/www/html/`)
